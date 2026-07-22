@@ -1,0 +1,117 @@
+---
+// Blog post card — used in the blog grid and the related-posts row.
+// Media is a styled placeholder until real thumbnails are supplied.
+import Heading from "@/components/Heading.astro";
+
+interface Props {
+  id: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  readTime: string;
+}
+const { id, category, title, excerpt, readTime } = Astro.props;
+---
+
+<a class="post-card" href={`/blog/${id}`} data-cat={category} data-cursor="view">
+  <div class="pc-media" aria-hidden="true">
+    <span class="pc-star">✦</span>
+    <span class="pc-media-tag">{category}</span>
+  </div>
+  <div class="pc-body">
+    <span class="pc-tag">{category}</span>
+    <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.18">
+      {title}
+    </Heading>
+    <p class="pc-excerpt">{excerpt}</p>
+    <div class="pc-foot">
+      <span>{readTime}</span>
+      <span class="pc-read">Read <span aria-hidden="true">→</span></span>
+    </div>
+  </div>
+</a>
+
+<style lang="scss">
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition:
+      border-color var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+
+    &:hover {
+      border-color: rgba(166, 204, 0, 0.6);
+      box-shadow: var(--shadow-md), 0 0 0 1px rgba(166, 204, 0, 0.2);
+      transform: translateY(-4px);
+    }
+  }
+
+  .pc-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 120% at 0% 0%, var(--paper-sunken), var(--stone-100)),
+      var(--paper-sunken);
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .post-card:hover .pc-media {
+    transform: scale(1.04);
+  }
+  .pc-star {
+    font-size: 1.6rem;
+    color: var(--lime-deep);
+    opacity: 0.5;
+  }
+  .pc-media-tag {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    font: 700 0.62rem/1 var(--mono-family);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+
+  .pc-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 22px 22px 24px;
+  }
+  .pc-tag {
+    margin-bottom: 12px;
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lime-deep);
+  }
+  .pc-excerpt {
+    flex: 1;
+    margin: 0 0 18px;
+    font: 400 0.92rem/1.55 var(--font-body);
+    color: var(--fg2);
+  }
+  .pc-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font: 700 0.7rem/1 var(--mono-family);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+  .pc-read {
+    color: var(--fg1);
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+export interface Props extends HTMLAttributes<"a"> {
+  href: string;
+  variant?:
+    | "primary"
+    | "primary-light"
+    | "secondary"
+    | "outline"
+    | "outline-light"
+    | "outline-dark"
+    | "light"
+    | "nav-link"
+    | "inline";
+  classes?: string;
+}
+
+const { href, variant = "primary", classes, ...rest } = Astro.props;
+---
+
+<a href={href} class:list={["btn", variant, classes]} {...rest}>
+  <slot />
+</a>
+
+<style lang="scss" is:global>
+  .btn {
+    /* lime fill, ink outline, lime halo — the primary signal CTA */
+    &.primary {
+      color: var(--ink-900);
+      background: var(--lime);
+      border-color: var(--ink-900);
+      box-shadow: var(--glow-soft);
+      font-weight: 700;
+
+      &:hover,
+      &:focus-visible {
+        background: var(--lime-bright);
+      }
+
+      &:active {
+        background: var(--lime-deep);
+        transform: scale(0.97);
+      }
+    }
+
+    &.primary-light {
+      color: var(--ink-900);
+      background: var(--lime-bright);
+      border-color: var(--ink-900);
+      font-weight: 700;
+
+      &:hover,
+      &:focus-visible {
+        background: var(--lime);
+      }
+    }
+
+    /* quiet outline on the light ground */
+    &.secondary,
+    &.outline-dark {
+      color: var(--fg1);
+      background: transparent;
+      border-color: var(--border-strong);
+
+      &:hover,
+      &:focus-visible {
+        border-color: var(--ink-900);
+      }
+    }
+
+    &.outline {
+      color: var(--ink-900);
+      background: transparent;
+      border-color: var(--ink-900);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--ink-900);
+        background: var(--lime);
+        border-color: var(--ink-900);
+      }
+    }
+
+    /* on dark grounds: paper outline that fills paper on hover */
+    &.light,
+    &.outline-light {
+      color: var(--paper);
+      background: transparent;
+      border-color: var(--stone-300);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--ink-900);
+        background: var(--paper);
+        border-color: var(--paper);
+      }
+    }
+
+    /* footer / inline nav text link with a lime underbar */
+    &.nav-link {
+      position: relative;
+      width: fit-content;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      color: var(--fg1);
+      background: transparent;
+      font-weight: 600;
+      transition: color 0.3s;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        height: 2px;
+        width: 100%;
+        background: var(--lime-deep);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover::after,
+      &.active::after {
+        transform: scaleX(1);
+      }
+    }
+
+    /* inline text link with a marching mono arrow */
+    &.inline {
+      position: relative;
+      width: fit-content;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--fg1);
+      font-weight: 600;
+      text-transform: none;
+
+      &::after {
+        content: "→";
+        font-family: var(--mono-family);
+        transition: transform 0.25s var(--ease-out);
+      }
+
+      &:hover::after,
+      &:focus-visible::after {
+        transform: translateX(3px);
+      }
+    }
+  }
+</style>

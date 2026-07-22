@@ -1,0 +1,148 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+import HeroBackdrop from "@/components/HeroBackdrop.astro";
+---
+
+<section id="hero">
+  <HeroBackdrop />
+
+  <div class="hero-in container container-md">
+    <span class="eyebrow hero-badge"><span class="dot"></span>Now accepting new clients</span>
+
+    <div class="lines hero-h1">
+      <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
+        <span class="line"><span class="line-inner">Your neighbors are already</span></span>
+        <span class="line"
+          ><span class="line-inner"
+            ><span class="hl">searching<span class="hl-bar"></span></span> for what you offer.</span
+          ></span
+        >
+        <span class="line"><span class="line-inner">Let's make sure they find you.</span></span>
+      </Heading>
+    </div>
+
+    <p class="lead">
+      I build custom websites for local businesses that look incredible, rank on Google, and turn
+      visitors into real customers.
+    </p>
+
+    <div class="cta-row">
+      <Links variant="primary" href="#contact">
+        Let's talk about your business <span class="arr" aria-hidden="true">→</span>
+      </Links>
+      <Links variant="secondary" href="#services">See how it works</Links>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <span class="scroll-cue">Scroll <span class="cue-line" aria-hidden="true"><i></i></span></span>
+    <span class="hero-meta mono-sm"
+      >No templates. No page builders.<br />Every line written by hand.</span
+    >
+  </div>
+</section>
+
+<style lang="scss">
+  #hero {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero-in {
+    position: relative;
+    z-index: 3;
+    /* horizontal: at least a comfortable phone gutter, tracking the site margin
+       on wider screens (the scoped shorthand would otherwise zero out
+       .container-md's side padding). */
+    padding: var(--_spacing---section-space--xl) max(var(--site--margin), 1.25rem);
+    text-align: center;
+  }
+
+  .hero-badge {
+    margin-bottom: var(--_spacing---section-space--small);
+  }
+
+  .hero-h1 {
+    margin-inline: auto;
+  }
+
+  #hero .lead {
+    max-width: 54ch;
+    margin: var(--_spacing---section-space--small) auto 0;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--_spacing---space--6);
+    margin-top: var(--_spacing---section-space--main);
+  }
+
+  #hero :global(.btn.secondary) {
+    background: var(--surface);
+  }
+
+  .hero-foot {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 clamp(20px, 4vw, 48px) var(--_spacing---space--8);
+  }
+
+  .scroll-cue {
+    display: flex;
+    align-items: center;
+    gap: var(--_spacing---space--5);
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+
+  .cue-line {
+    position: relative;
+    width: 54px;
+    height: 1.5px;
+    overflow: hidden;
+    background: var(--stone-200);
+
+    i {
+      position: absolute;
+      inset: 0;
+      background: var(--ink-900);
+      transform: translateX(-100%);
+      animation: cue 2.2s var(--ease-out) infinite;
+    }
+  }
+  @keyframes cue {
+    0% {
+      transform: translateX(-100%);
+    }
+    55% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .hero-meta {
+    text-align: right;
+  }
+
+  @media (max-width: 700px) {
+    .hero-meta {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+// Mono "// label" used above article section headings.
+interface Props {
+  tone?: "tangerine" | "lime";
+}
+const { tone = "tangerine" } = Astro.props;
+---
+
+<p class:list={["post-kicker", tone]}><slot /></p>
+
+<style>
+  .post-kicker {
+    margin: 0 0 2px;
+    font: 700 0.72rem/1.4 var(--mono-family);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tangerine-deep);
+  }
+  .post-kicker.lime {
+    color: var(--lime-deep);
+  }
+  .post-kicker::before {
+    content: "// ";
+  }
+</style>

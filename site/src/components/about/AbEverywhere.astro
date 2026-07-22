@@ -1,0 +1,163 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+const places = [
+  { index: "01", place: "Monroe, NC", role: "Home base" },
+  { index: "02", place: "Greater Charlotte area", role: "Local community" },
+  { index: "03", place: "Nashville, TN", role: "Clients" },
+  { index: "04", place: "New Jersey", role: "Clients" },
+  { index: "→", place: "Your town", role: "Wherever you are", lime: true },
+];
+---
+
+<section id="everywhere" class="sec-pad">
+  <div class="container container-md">
+    <div class="ev-panel" data-reveal>
+      <span class="glow glow-a" aria-hidden="true"></span>
+      <span class="glow glow-b" aria-hidden="true"></span>
+      <div class="ev-grid">
+        <div class="ev-left">
+          <span class="eyebrow"><span class="num">// 05</span> Open for business everywhere</span>
+          <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
+            Local roots. Open for business everywhere.
+          </Heading>
+          <p>
+            Here is something worth saying clearly. While my heart is in Monroe and most of my
+            outreach is focused on my local community here in the greater Charlotte area, I work with
+            businesses anywhere.
+          </p>
+          <p>
+            I have clients right outside Nashville, Tennessee, and others up in New Jersey. Where you
+            are located does not matter one bit. Whether you are down the street from me or across the
+            country, I can build you the same fast, custom, high-performing website and give you the
+            same direct, personal support.
+          </p>
+          <p class="ev-close">
+            Local is where my roots are. But
+            <span class="hl">great work travels.<span class="hl-bar"></span></span>
+          </p>
+        </div>
+
+        <div class="ev-right">
+          <span class="mono-sm">// Where the work goes</span>
+          <ul class="place-list">
+            {
+              places.map(p => (
+                <li class={p.lime ? "lime" : undefined}>
+                  <span class="pl-index">{p.index}</span>
+                  <span class="pl-place">{p.place}</span>
+                  <span class="pl-role">{p.role}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .ev-panel {
+    position: relative;
+    overflow: hidden;
+    padding: var(--_spacing---section-space--main);
+    color: var(--paper);
+    background: var(--ink-900);
+    border-radius: var(--radius-xl);
+  }
+
+  .glow {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .glow-a {
+    inset: -10% -8% auto auto;
+    width: 560px;
+    height: 420px;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.18), transparent 62%);
+  }
+
+  .glow-b {
+    inset: auto auto -10% -8%;
+    width: 480px;
+    height: 380px;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.1), transparent 65%);
+  }
+
+  .ev-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--_spacing---section-space--main);
+  }
+
+  .ev-left p {
+    max-width: 54ch;
+    margin-bottom: var(--_spacing---space--6);
+    font-size: var(--_typography---font-size--text-main);
+    line-height: 1.6;
+    font-family: var(--font-body);
+    color: var(--stone-200);
+  }
+
+  .ev-left .ev-close {
+    font-weight: 600;
+    color: var(--paper);
+  }
+
+  .place-list {
+    margin-top: var(--_spacing---space--6);
+    list-style: none;
+
+    li {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: var(--_spacing---space--6);
+      align-items: baseline;
+      padding: var(--_spacing---space--6) 0;
+      border-top: 1px solid var(--ink-600);
+    }
+
+    li.lime .pl-index,
+    li.lime .pl-place {
+      color: var(--lime);
+    }
+  }
+
+  .pl-index {
+    font-weight: 700;
+    font-size: var(--_typography---font-size--mono-sm);
+    line-height: 1;
+    font-family: var(--mono-family);
+    color: var(--stone-400);
+  }
+
+  .pl-place {
+    font-weight: 700;
+    font-size: var(--_typography---font-size--text-large);
+    line-height: 1.2;
+    font-family: var(--font-display);
+    letter-spacing: var(--track-tight);
+    color: var(--paper);
+  }
+
+  .pl-role {
+    font-weight: 400;
+    font-size: var(--_typography---font-size--text-small);
+    line-height: 1;
+    font-family: var(--mono-family);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone-400);
+  }
+
+  @media (max-width: 900px) {
+    .ev-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

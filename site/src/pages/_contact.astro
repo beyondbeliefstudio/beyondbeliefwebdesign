@@ -1,0 +1,366 @@
+---
+// COMPONENTS
+import Layout from "@/layouts/Layout.astro";
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+import ContactForm from "@/components/ContactForm.astro";
+import HeroBackdrop from "@/components/HeroBackdrop.astro";
+
+// DATA
+import { baseData } from "@/data/siteData";
+
+const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
+---
+
+<Layout
+  pageTitle="Contact Beyond Belief Web Design | Monroe, NC Web Designer"
+  description="Talk to Chris directly about your business, no sales team, no chatbot. Call or text (980) 290-7034, or send the details over. Usually a same-day response."
+  hideCTA
+>
+  <!-- ===================== HERO (type-led) ===================== -->
+  <section id="hero" class="short-hero">
+    <HeroBackdrop />
+    <div class="hero-in">
+      <span class="eyebrow hero-badge"><span class="dot"></span>Let's talk · Monroe, NC</span>
+      <div class="lines contact-h1">
+        <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
+          <span class="line"><span class="line-inner">Let's talk about</span></span>
+          <span class="line"
+            ><span class="line-inner"><span class="hl">your business.<span class="hl-bar"></span></span></span></span
+          >
+        </Heading>
+      </div>
+      <p class="lead">
+        Whether you are ready to get started or just have a few questions, reach out. You will talk to
+        me directly, not a sales team or a chatbot. I am a real person and I actually respond.
+      </p>
+      <div class="cta-row">
+        <Links variant="primary" href={telHref}>
+          Call or text me <span class="arr" aria-hidden="true">→</span>
+        </Links>
+        <Links variant="secondary" href="#form">Fill out the form</Links>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TWO WAYS TO REACH ME ===================== -->
+  <section id="reach" class="sec-pad">
+    <div class="container container-md">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow"><span class="num">// 01</span> Two ways to reach me</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
+          Reach me whichever way works for you.
+        </Heading>
+      </div>
+
+      <div class="reach-grid">
+        <div class="call-card" data-reveal>
+          <span class="glow" aria-hidden="true"></span>
+          <div class="cc-in">
+            <span class="cc-tag">// The fastest way</span>
+            <Heading tag="h3" size="m" fontFamily="primary" marginBottom="s" weight="fw700">
+              Just text or call me
+            </Heading>
+            <p class="cc-body">
+              No forms, no waiting. Shoot me a text or give me a call and we will go from here.
+            </p>
+            <a class="cc-phone" href={telHref}>{baseData.phone}</a>
+            <ul class="cc-meta">
+              <li>
+                <span class="ck">Email</span>
+                <a href={`mailto:${baseData.email}`} class="cv">{baseData.email}</a>
+              </li>
+              <li><span class="ck">Response time</span><span class="cv">Usually same day</span></li>
+              <li><span class="ck">Based in</span><span class="cv">Monroe, North Carolina</span></li>
+              <li class="full">
+                <span class="ck">Serving</span>
+                <span class="cv"
+                  >Monroe, Waxhaw, Matthews &amp; Charlotte, plus businesses anywhere in the country.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-card" id="form" data-reveal>
+          <span class="eyebrow fc-eyebrow">// Or fill out the form</span>
+          <p class="fc-sub">
+            Prefer to send the details over? Fill this out and I will get back to you, usually same day.
+          </p>
+          <ContactForm
+            name="contact-page"
+            includePhone={true}
+            submitText="Send it over"
+            messageLabel="What does your business do? And what are you hoping a new website can help with?"
+            messagePlaceholder="A sentence or two is plenty, I'll follow up with the rest."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FREE HOMEPAGE OFFER (dark) ===================== -->
+  <section id="free" class="sec-pad sec-dark">
+    <span class="fglow fglow-a" aria-hidden="true"></span>
+    <span class="fglow fglow-b" aria-hidden="true"></span>
+    <div class="container container-md">
+      <div class="free-grid">
+        <div class="free-left" data-reveal>
+          <span class="eyebrow"><span class="dot"></span>Zero risk · zero obligation</span>
+          <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
+            Still on the fence? Let me build you
+            <span class="hl">something first.<span class="hl-bar"></span></span>
+          </Heading>
+        </div>
+        <div class="free-right" data-reveal>
+          <p>
+            If you are curious but not quite ready to commit, I will design a free homepage concept for
+            your business, completely free and with zero obligation. You get to see exactly what your
+            new site could look like before you decide anything.
+          </p>
+          <div class="free-chips">
+            <span class="fchip"><span class="dot"></span>No risk</span>
+            <span class="fchip"><span class="dot"></span>No pressure</span>
+            <span class="fchip"><span class="dot"></span>Yours to see first</span>
+          </div>
+          <p class="free-cue">Just mention it when you reach out and we will get started.</p>
+          <div class="btn-wrapper btn-wrapper--left">
+            <Links variant="primary" href="#form">
+              Claim a free homepage <span class="arr" aria-hidden="true">→</span>
+            </Links>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLOSING ===================== -->
+  <section id="closing" class="sec-pad">
+    <div class="container container-md">
+      <div class="closing-in" data-reveal>
+        <span class="kick">✦ Looking forward to hearing from you</span>
+        <p class="closing-statement">
+          Let's make your business
+          <span class="hl">impossible to miss<span class="hl-bar"></span></span> online.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style lang="scss">
+  /* ===================== HERO ===================== */
+  .short-hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-in {
+    position: relative;
+    z-index: 3;
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: clamp(150px, 22vh, 230px) clamp(20px, 4vw, 48px) clamp(56px, 8vw, 110px);
+  }
+  .hero-badge {
+    margin-bottom: 28px;
+  }
+  #hero .lead {
+    max-width: 56ch;
+    margin: 26px 0 0;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 40px;
+  }
+  #hero :global(.btn.secondary) {
+    background: var(--surface);
+  }
+
+  /* ===================== TWO WAYS TO REACH ME ===================== */
+  .reach-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 22px;
+    align-items: start;
+  }
+  .call-card {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(28px, 3vw, 40px);
+    color: var(--paper);
+    background: var(--ink-900);
+    border-radius: var(--radius-xl);
+  }
+  .call-card .glow {
+    position: absolute;
+    inset: auto auto -20% -10%;
+    width: 420px;
+    height: 320px;
+    pointer-events: none;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.2), transparent 64%);
+  }
+  .cc-in {
+    position: relative;
+    z-index: 2;
+  }
+  .cc-tag {
+    display: block;
+    margin-bottom: 16px;
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--lime);
+  }
+  .cc-body {
+    max-width: 38ch;
+    font: 400 0.98rem/1.55 var(--font-body);
+    color: var(--stone-200);
+  }
+  .cc-phone {
+    display: inline-block;
+    margin: 18px 0 22px;
+    font: 700 clamp(1.8rem, 3.4vw, 2.6rem)/1 var(--mono-family);
+    color: var(--lime);
+    text-decoration: none;
+  }
+  .cc-meta {
+    list-style: none;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 13px 0;
+      border-top: 1px solid var(--ink-600);
+    }
+    li.full {
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ck {
+      flex: none;
+      font: 700 0.66rem/1.4 var(--mono-family);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone-400);
+    }
+    .cv {
+      font: 400 0.92rem/1.5 var(--font-body);
+      text-align: right;
+      color: var(--paper);
+      text-decoration: none;
+    }
+    li.full .cv {
+      text-align: left;
+    }
+    a.cv:hover {
+      color: var(--lime);
+    }
+  }
+  .fc-sub {
+    margin: -8px 0 22px;
+    font: 400 0.95rem/1.55 var(--font-body);
+    color: var(--fg2);
+  }
+  @media (max-width: 900px) {
+    .reach-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ===================== FREE HOMEPAGE OFFER ===================== */
+  #free {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--ink-600);
+    border-bottom: 1px solid var(--ink-600);
+  }
+  .fglow {
+    position: absolute;
+    pointer-events: none;
+  }
+  .fglow-a {
+    inset: -12% auto auto 78%;
+    width: 520px;
+    height: 400px;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.16), transparent 62%);
+  }
+  .fglow-b {
+    inset: auto 80% -14% auto;
+    width: 440px;
+    height: 360px;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.1), transparent 65%);
+  }
+  .free-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.02fr 0.98fr;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+  .free-right p {
+    max-width: 50ch;
+    font: 400 1.0625rem/1.6 var(--font-body);
+    color: var(--stone-200);
+  }
+  .free-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 22px 0;
+  }
+  .fchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 15px;
+    font: 600 0.85rem/1 var(--font-body);
+    color: var(--paper);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--ink-600);
+    border-radius: var(--radius-pill);
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--lime);
+    }
+  }
+  .free-cue {
+    margin-bottom: 20px;
+    font: 400 0.92rem/1.55 var(--font-body);
+    color: var(--stone-300);
+  }
+  @media (max-width: 900px) {
+    .free-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ===================== CLOSING ===================== */
+  .closing-in {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .kick {
+    display: block;
+    margin-bottom: 26px;
+    font: 700 0.72rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--lime-deep);
+  }
+  .closing-statement {
+    max-width: 18ch;
+    margin: 0 auto;
+    font: 800 clamp(2.2rem, 5vw, 4.2rem)/1.04 var(--font-display);
+    letter-spacing: var(--track-display);
+    text-wrap: balance;
+  }
+</style>

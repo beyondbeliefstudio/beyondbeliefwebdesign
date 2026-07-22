@@ -1,0 +1,467 @@
+---
+// COMPONENTS
+import Logo from "@/components/Logo.astro";
+import Links from "@/components/Links.astro";
+
+// DATA
+import { navData } from "@/data/navData";
+import { baseData } from "@/data/siteData";
+
+// STATE — current page (its overlay link self-links to #top)
+const pathname = (Astro.url.pathname.replace(/\/$/, "") || "/").toLowerCase();
+const isCurrent = (href: string) => (href.replace(/\/$/, "") || "/").toLowerCase() === pathname;
+const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
+---
+
+<!--=============== FLOATING GLASS HEADER ===============-->
+<header id="header" class="bb-header">
+  <div class="bar">
+    <Logo />
+    <div class="head-right">
+      <Links variant="primary" href="/#contact" classes="btn-cta">
+        Get started <span class="arr" aria-hidden="true">→</span>
+      </Links>
+      <button
+        id="menu-btn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="menu-overlay"
+      >
+        <span class="mb-lines" aria-hidden="true"><i></i><i></i></span>
+        <span class="mb-label">MENU</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!--=============== OVERLAY MENU (primary navigation) ===============-->
+<div id="menu-overlay" aria-hidden="true">
+  <nav class="mo-nav" aria-label="Primary">
+    {
+      navData.map((item, i) => {
+        const current = isCurrent(item.href);
+        return (
+          <a
+            class="mo-link"
+            href={current ? "#top" : item.href}
+            aria-current={current ? "page" : undefined}
+          >
+            <span class="mo-num">{String(i + 1).padStart(2, "0")}</span>
+            <span class="mo-word"><span class="mo-inner">{item.title}</span></span>
+            <span class="mo-arr" aria-hidden="true">→</span>
+            <span class="mo-marq" aria-hidden="true">
+              <span class="mo-marq-track">
+                {Array.from({ length: 16 }).map(() => (
+                  <span class="mo-marq-seg">
+                    <em>{item.title}</em>
+                    <i>✦</i>
+                  </span>
+                ))}
+              </span>
+            </span>
+          </a>
+        );
+      })
+    }
+  </nav>
+
+  <div class="mo-foot">
+    <div class="mf-contact">
+      <span class="mf-label">Get in touch</span>
+      <a href={telHref}>{baseData.phone}</a>
+      <a href={`mailto:${baseData.email}`}>{baseData.email}</a>
+    </div>
+  </div>
+</div>
+
+<style lang="scss" is:global>
+  /* ---------- floating glass bar ---------- */
+  #header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 700;
+    padding: 14px clamp(14px, 3vw, 28px);
+    will-change: transform;
+  }
+
+  #header .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 9px 9px 9px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(18px) saturate(1.5);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 14px 38px -16px rgba(20, 30, 15, 0.26),
+      0 2px 8px -4px rgba(20, 30, 15, 0.12);
+    transition:
+      background var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
+  }
+
+  #header.scrolled .bar {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 18px 44px -18px rgba(20, 30, 15, 0.3),
+      0 3px 10px -5px rgba(20, 30, 15, 0.16);
+  }
+
+  html.menu-open #header .bar {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .head-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #header .btn-cta {
+    padding: 13px 22px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 620px) {
+    #header .btn-cta {
+      display: none;
+    }
+  }
+
+  /* menu button */
+  #menu-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    padding: 14px 21px;
+    color: var(--fg1);
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    font: 700 11.5px/1 var(--mono-family);
+    letter-spacing: 0.16em;
+    transition:
+      border-color var(--dur) var(--ease-out),
+      background var(--dur) var(--ease-out),
+      color var(--dur) var(--ease-out);
+  }
+
+  #menu-btn:hover {
+    border-color: var(--ink-900);
+  }
+
+  #menu-btn .mb-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 18px;
+  }
+
+  #menu-btn .mb-lines i {
+    display: block;
+    height: 1.8px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  /* menu-open: bar goes transparent, controls flip to paper/lime, hamburger → ✕ */
+  html.menu-open #menu-btn {
+    color: var(--paper);
+    background: transparent;
+    border-color: var(--ink-500);
+  }
+  html.menu-open #menu-btn:hover {
+    border-color: var(--lime);
+  }
+  html.menu-open #menu-btn .mb-lines i:first-child {
+    transform: translateY(3.4px) rotate(45deg);
+  }
+  html.menu-open #menu-btn .mb-lines i:last-child {
+    transform: translateY(-3.4px) rotate(-45deg);
+  }
+  html.menu-open #header .lockup {
+    color: var(--paper);
+  }
+  html.menu-open #header .btn-cta {
+    visibility: hidden;
+  }
+
+  /* ---------- overlay menu ---------- */
+  #menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 600;
+    display: flex;
+    flex-direction: column;
+    padding: 96px clamp(24px, 6vw, 84px) 32px;
+    color: var(--paper);
+    background: var(--ink-900);
+    overflow: hidden auto;
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+    transition:
+      clip-path 0.72s var(--ease-out),
+      visibility 0s linear 0.72s;
+  }
+
+  html.menu-open #menu-overlay {
+    clip-path: inset(0 0 0% 0);
+    visibility: visible;
+    transition: clip-path 0.72s var(--ease-out);
+  }
+
+  #menu-overlay .mo-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(640px 460px at 14% 112%, rgba(204, 255, 0, 0.2), transparent 62%);
+  }
+
+  .mo-nav {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1180px;
+    margin: auto;
+  }
+
+  /* the global `a:not(.btn)` underline must not reach the overlay nav/footer links */
+  #menu-overlay a {
+    text-decoration: none;
+  }
+
+  .mo-link {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: clamp(16px, 2.5vw, 28px);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--ink-600);
+    text-decoration: none;
+  }
+
+  .mo-link .mo-num {
+    font: 700 0.72rem/1 var(--mono-family);
+    letter-spacing: 0.18em;
+    color: var(--stone-400);
+    transition: color 0.3s var(--ease-out);
+  }
+
+  .mo-link .mo-word {
+    display: block;
+    overflow: hidden;
+  }
+
+  .mo-link .mo-inner {
+    display: block;
+    padding: 0.04em 0;
+    font: 800 clamp(2.2rem, 5.6vw, 4.4rem)/1.16 var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--paper);
+    transform: translateY(112%);
+    transition:
+      transform 0.46s var(--ease-out),
+      opacity 0.34s var(--ease-out),
+      color 0.34s var(--ease-out);
+  }
+
+  .mo-link .mo-arr {
+    margin-left: auto;
+    font: 700 clamp(1.2rem, 2vw, 1.6rem)/1 var(--mono-family);
+    color: var(--lime);
+    opacity: 0;
+    transform: translateX(-14px);
+    transition:
+      opacity 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .mo-link:hover .mo-inner,
+  .mo-link:focus-visible .mo-inner {
+    color: var(--lime);
+  }
+  /* hover: the number + arrow fade out — the rolling marquee takes over */
+  .mo-link:hover .mo-num,
+  .mo-link:hover .mo-arr,
+  .mo-link:focus-visible .mo-num,
+  .mo-link:focus-visible .mo-arr {
+    opacity: 0;
+  }
+
+  /* ---------- menu-link hover marquee (rolling repeated word) ---------- */
+  .mo-link .mo-marq {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    /* the track underneath is already scrolling, so revealing is a plain fade.
+       This (no delay) governs the fade-OUT on hover-off. */
+    transition: opacity 0.24s var(--ease-out);
+  }
+  .mo-link:hover .mo-marq,
+  .mo-link:focus-visible .mo-marq {
+    opacity: 1;
+    /* head-start delay so the static word clears first, then the marquee
+       settles in just behind it — never on top of a word still fading */
+    transition: opacity 0.24s var(--ease-out) 0.13s;
+  }
+  .mo-marq-track {
+    display: flex;
+    white-space: nowrap;
+    width: max-content;
+    will-change: transform;
+    transform: translateZ(0);
+    animation: moMarq 16s linear infinite;
+    /* paused while the menu is closed (no cost); runs continuously the whole
+       time the menu is open, so a hover only fades it in — never restarts it */
+    animation-play-state: paused;
+  }
+  html.menu-open .mo-marq-track {
+    animation-play-state: running;
+  }
+  .mo-marq-seg {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding-right: 0.5em;
+    font: 800 clamp(2rem, 4.8vw, 3.9rem)/1 var(--font-display);
+    letter-spacing: -0.03em;
+  }
+  .mo-marq-seg em {
+    font-style: normal;
+    color: var(--lime);
+  }
+  .mo-marq-seg i {
+    font-style: normal;
+    font-size: 0.36em;
+    color: var(--tangerine);
+  }
+  @keyframes moMarq {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* hovering crossfades the static word out (a gentle upward drift) as the
+     already-running marquee fades in over the same window — one smooth motion */
+  html.menu-open .mo-link:hover .mo-inner,
+  html.menu-open .mo-link:focus-visible .mo-inner {
+    transform: translateY(-30%);
+    opacity: 0;
+    /* word fades out quickly and leads; the marquee (delayed 0.13s) follows */
+    transition:
+      transform 0.32s var(--ease-out),
+      opacity 0.17s var(--ease-out),
+      color 0.17s var(--ease-out);
+    transition-delay: 0s;
+  }
+
+  html.menu-open .mo-inner {
+    transform: translateY(0);
+  }
+  html.menu-open .mo-link:nth-child(1) .mo-inner { transition-delay: 0.09s; }
+  html.menu-open .mo-link:nth-child(2) .mo-inner { transition-delay: 0.13s; }
+  html.menu-open .mo-link:nth-child(3) .mo-inner { transition-delay: 0.17s; }
+  html.menu-open .mo-link:nth-child(4) .mo-inner { transition-delay: 0.21s; }
+  html.menu-open .mo-link:nth-child(5) .mo-inner { transition-delay: 0.25s; }
+  html.menu-open .mo-link:nth-child(6) .mo-inner { transition-delay: 0.29s; }
+
+  .mo-foot {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 18px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1180px;
+    margin: 28px auto 0;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.5s var(--ease-out) 0.45s,
+      transform 0.5s var(--ease-out) 0.45s;
+  }
+
+  html.menu-open .mo-foot {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mo-foot .mf-label {
+    display: block;
+    margin-bottom: 6px;
+    font: 700 0.66rem/1.8 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--stone-400);
+  }
+
+  .mo-foot a {
+    display: block;
+    font: 600 1rem/1.5 var(--font-body);
+    color: var(--paper);
+    text-decoration: none;
+    transition: color var(--dur);
+  }
+  .mo-foot a:hover {
+    color: var(--lime);
+  }
+
+  @media (max-height: 760px) {
+    #menu-overlay { padding-top: 84px; }
+    .mo-link .mo-inner { font-size: clamp(1.7rem, 4.4vh, 3rem); }
+  }
+
+  /* reduced motion / no-JS: overlay opens instantly, words sit in final state */
+  html[data-motion="off"] #menu-overlay,
+  html[data-motion="off"] .mo-inner,
+  html[data-motion="off"] .mo-foot {
+    transition: none;
+  }
+  html[data-motion="off"] .mo-inner {
+    transform: translateY(0);
+  }
+  /* no marquee under reduced motion / no-JS — fall back to the static word + arrow */
+  html[data-motion="off"] .mo-marq {
+    display: none;
+  }
+  html[data-motion="off"] .mo-link:hover .mo-inner {
+    transform: none;
+  }
+  html[data-motion="off"] .mo-link:hover .mo-num {
+    opacity: 1;
+  }
+  html[data-motion="off"] .mo-link:hover .mo-arr {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  html[data-motion="off"] .mo-foot {
+    opacity: 1;
+    transform: none;
+  }
+</style>

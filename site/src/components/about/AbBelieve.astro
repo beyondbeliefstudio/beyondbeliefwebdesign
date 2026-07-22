@@ -1,0 +1,72 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Icon from "@/components/Icon.astro";
+
+const beliefs = [
+  {
+    icon: "search-rank",
+    title: "It has to be found.",
+    body: "If your site does not show up when people search for what you do, it does not matter how nice it looks. Getting you found is step one.",
+  },
+  {
+    icon: "shield",
+    title: "It has to build trust.",
+    body: "Once someone lands on your site, it has seconds to make them feel confident enough to call, text, or fill out a form. That trust is what turns a visitor into a real lead.",
+  },
+  {
+    icon: "grow",
+    title: "It has to grow with you.",
+    body: "I am not here to crank out a quick website, hand it off, and disappear. I want to build a real relationship with you, understand what you are trying to accomplish, and grow your site into a living, breathing part of your business that keeps working and keeps ranking over time.",
+  },
+];
+---
+
+<section id="believe" class="sec-pad band">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"><span class="num">// 04</span> What I believe</span>
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        A website is not a box to check.
+      </Heading>
+      <p class="lead">
+        Too many people treat it like one. Start a business, get a website, done. But just having a
+        website does not mean anyone will see it, trust it, or turn into a customer because of it.
+      </p>
+      <p class="lead">A website has to actually work for you. To me, that means three things.</p>
+    </div>
+
+    <div class="cards" data-reveal-stagger>
+      {
+        beliefs.map(b => (
+          <div class="card">
+            <span class="icon-box"><Icon name={b.icon} /></span>
+            <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.12">
+              {b.title}
+            </Heading>
+            <p>{b.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="believe-close" data-reveal>
+      That last part is the difference. Your website is never really finished, and
+      <span class="hl">I am here for the long haul.<span class="hl-bar"></span></span>
+    </p>
+  </div>
+</section>
+
+<style lang="scss">
+  .believe-close {
+    max-width: 24ch;
+    margin: var(--_spacing---section-space--large) auto 0;
+    font-weight: 700;
+    font-size: var(--_typography---font-size--h3);
+    line-height: 1.2;
+    font-family: var(--font-display);
+    letter-spacing: var(--track-tight);
+    text-align: center;
+    text-wrap: balance;
+  }
+</style>

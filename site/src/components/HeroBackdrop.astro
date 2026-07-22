@@ -1,0 +1,90 @@
+---
+// Layered decorative backdrop shared by every hero. Three stacked layers,
+// back → front:
+//   1. .field-wrap  — drifting Three.js watercolor "field" wash (canvas), with a
+//                     radial-gradient ground as the WebGL-unavailable fallback.
+//   2. .hero-map    — the radial-masked topo/street map; idle-drifts on its own
+//                     and is zoom/rise parallaxed on scroll by initHeroParallax().
+//   3. .field-fade  — settles the bottom of the hero into the paper ground.
+// All are aria-hidden. The film grain (#grain) is a separate global layer in
+// Layout.astro and covers the whole viewport, so it is not repeated here.
+//
+// `field` (default true) renders the WebGL canvas. Pass `field={false}` to keep
+// just the map + fade (and the gradient ground) on pages where the GPU wash
+// isn't wanted.
+interface Props {
+  field?: boolean;
+  map?: boolean;
+}
+const { field = true, map = true } = Astro.props;
+---
+
+<div class="field-wrap" aria-hidden="true">
+  {field && <canvas id="field-canvas"></canvas>}
+</div>
+{map && <div class="hero-map" aria-hidden="true"></div>}
+<div class="field-fade" aria-hidden="true"></div>
+
+<style lang="scss">
+  .field-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    // Fallback ground shown if WebGL is unavailable; the opaque canvas paints
+    // over it when the field renders.
+    background:
+      radial-gradient(60% 50% at 20% 18%, rgba(204, 255, 0, 0.1), transparent 60%),
+      radial-gradient(55% 45% at 82% 28%, rgba(183, 189, 175, 0.18), transparent 62%),
+      radial-gradient(70% 60% at 50% 102%, rgba(166, 204, 0, 0.08), transparent 60%),
+      var(--paper);
+  }
+
+  #field-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero-map {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.3;
+    background: url("/images/hero-map2.png") center 42% / cover no-repeat;
+    filter: contrast(1.04) saturate(0.92);
+    -webkit-mask-image: radial-gradient(ellipse 88% 76% at 50% 42%, #000 24%, transparent 84%);
+    mask-image: radial-gradient(ellipse 88% 76% at 50% 42%, #000 24%, transparent 84%);
+    will-change: transform; // GSAP parallax writes transform; CSS drift writes background-position
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-map {
+      animation: heroMapDrift 42s ease-in-out infinite alternate;
+    }
+  }
+  @keyframes heroMapDrift {
+    from {
+      background-position: 47% 39%;
+    }
+    to {
+      background-position: 53% 46%;
+    }
+  }
+
+  .field-fade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(245, 246, 239, 0.5),
+      rgba(245, 246, 239, 0) 30%,
+      rgba(245, 246, 239, 0) 62%,
+      var(--paper) 96%
+    );
+  }
+</style>

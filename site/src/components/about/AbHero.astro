@@ -1,0 +1,214 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+
+// HELPERS
+import { Image } from "astro:assets";
+
+// IMAGES
+import chrisComputer from "@/assets/chris-computer.png";
+
+const collage = [chrisComputer, chrisComputer, chrisComputer, chrisComputer];
+---
+
+<section id="hero">
+  <div class="collage" aria-hidden="true">
+    {
+      [0, 1, 2, 3].map(col => (
+        <div class={`collage-col col-${col % 2 === 0 ? "up" : "down"}`}>
+          {[...collage, ...collage].map((_img, i) => (
+            <div class="collage-tile">
+              <Image src={collage[(i + col) % collage.length]} alt="" widths={[300, 600]} />
+            </div>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+  <div class="collage-scrim" aria-hidden="true"></div>
+
+  <div class="hero-in container container-md">
+    <span class="eyebrow hero-badge"><span class="dot"></span>The person behind the pixels · Monroe, NC</span>
+    <div class="lines about-h1">
+      <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
+        <span class="line"
+          ><span class="line-inner">Hi, I'm <span class="hl">Chris.<span class="hl-bar"></span></span></span></span
+        >
+        <span class="line"><span class="line-inner">I build websites</span></span>
+        <span class="line"><span class="line-inner">for local businesses.</span></span>
+      </Heading>
+    </div>
+    <p class="lead">
+      And when I say I build them, I mean I build them. Every design, every line of code, every
+      update down the road. It is all me. When you reach out to Beyond Belief Web Design, you are
+      reaching out to one person, and that is the whole point.
+    </p>
+    <div class="cta-row">
+      <Links variant="primary" href="/contact">
+        Get started today <span class="arr" aria-hidden="true">→</span>
+      </Links>
+      <Links variant="secondary" href="/web-design">See how I work</Links>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  #hero {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  .collage {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--_spacing---space--6);
+    padding: var(--_spacing---space--6);
+  }
+
+  .collage-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---space--6);
+    will-change: transform;
+  }
+
+  .collage-tile {
+    flex: none;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    aspect-ratio: 4 / 5;
+
+    :global(img) {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.62) contrast(1.03);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .col-up {
+      animation: aboutUp 140s linear infinite;
+    }
+    .col-down {
+      animation: aboutDown 120s linear infinite;
+    }
+  }
+
+  @keyframes aboutUp {
+    from { transform: translateY(0%); }
+    to { transform: translateY(-50%); }
+  }
+
+  @keyframes aboutDown {
+    from { transform: translateY(-50%); }
+    to { transform: translateY(0%); }
+  }
+
+  .collage-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(80% 70% at 50% 50%, rgba(245, 246, 239, 0.92), rgba(245, 246, 239, 0.62) 55%, transparent 100%),
+      linear-gradient(to bottom, var(--paper), rgba(245, 246, 239, 0.2) 30%, rgba(245, 246, 239, 0.2) 70%, var(--paper));
+  }
+
+  .hero-in {
+    position: relative;
+    z-index: 3;
+    padding-top: var(--_spacing---section-space--xl);
+    padding-bottom: var(--_spacing---section-space--xl);
+    text-align: center;
+  }
+
+  .hero-badge {
+    margin-bottom: var(--_spacing---space--8);
+  }
+
+  #hero .lead {
+    max-width: 58ch;
+    margin: var(--_spacing---space--8) auto 0;
+    text-wrap: balance;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--_spacing---space--6);
+    margin-top: var(--_spacing---section-space--small);
+  }
+
+  #hero :global(.btn.secondary) {
+    background: var(--surface);
+  }
+
+  @media (max-width: 860px) {
+    .collage {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 540px) {
+    .collage {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+
+  const cols = document.querySelectorAll<HTMLElement>(".collage-col");
+  if (cols.length && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+    cols.forEach(c => (c.style.animation = "none"));
+
+    type ColData = { el: HTMLElement; dir: number; y: number; halfH: number };
+    const data: ColData[] = [...cols].map(col => ({
+      el: col,
+      dir: col.classList.contains("col-up") ? -1 : 1,
+      y: 0,
+      halfH: 0,
+    }));
+
+    requestAnimationFrame(() => {
+      data.forEach(d => {
+        d.halfH = d.el.scrollHeight / 2;
+        if (d.dir === 1) d.y = -d.halfH;
+        gsap.set(d.el, { y: d.y });
+      });
+
+      let scrollVy = 0;
+      let lastScrollY = window.scrollY;
+      const BASE = 0.2;
+
+      gsap.ticker.add(() => {
+        const sy = window.scrollY;
+        const rawDelta = sy - lastScrollY;
+        lastScrollY = sy;
+
+        scrollVy += (rawDelta - scrollVy) * 0.1;
+
+        data.forEach(d => {
+          const speed = BASE + Math.abs(scrollVy) * 0.28;
+          d.y += speed * d.dir;
+
+          if (d.dir === -1 && d.y <= -d.halfH) d.y += d.halfH;
+          if (d.dir === 1 && d.y >= 0) d.y -= d.halfH;
+
+          gsap.set(d.el, { y: d.y });
+        });
+      });
+    });
+  }
+</script>

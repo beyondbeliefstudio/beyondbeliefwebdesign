@@ -1,0 +1,31 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import InternalHero from "@/components/InternalHero.astro";
+import Links from "@/components/Links.astro";
+import { baseData } from "@/data/siteData";
+
+const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
+---
+
+<Layout
+  pageTitle="Message Sent | Beyond Belief Web Design"
+  description="Thanks for reaching out. I'll be in touch shortly, usually the same day."
+  hideCTA
+>
+  <InternalHero
+    title="Message sent."
+    eyebrow="Thank you"
+    lead="Thanks for reaching out. I've got your message and I'll get back to you, usually the same day. If you need me sooner, just text or call and we'll go from there."
+  />
+
+  <section class="sec-pad" aria-label="Confirmation">
+    <div class="container container-md">
+      <div class="btn-wrapper btn-wrapper--left">
+        <Links variant="primary" href="/">
+          Back to home <span class="arr" aria-hidden="true">→</span>
+        </Links>
+        <Links variant="secondary" href={telHref}>Text me at {baseData.phone}</Links>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,100 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+---
+
+<section id="process" class="sec-pad">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"><span class="num">// 03</span> How it works</span>
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
+        Getting started is easier than you think.
+      </Heading>
+    </div>
+
+    <div class="steps" data-reveal-stagger>
+      <div class="step">
+        <div class="rule"></div>
+        <span class="big-num">01</span>
+        <Heading tag="h3" size="m" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.08">
+          We talk about your business
+        </Heading>
+        <p>
+          A quick conversation about what you do, who your customers are, and what you need your website
+          to accomplish.
+        </p>
+      </div>
+      <div class="step">
+        <div class="rule"></div>
+        <span class="big-num">02</span>
+        <Heading tag="h3" size="m" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.08">
+          I build your site
+        </Heading>
+        <p>
+          I design and build everything from scratch. You'll see it before it goes live and we dial it
+          in until it feels right.
+        </p>
+      </div>
+      <div class="step">
+        <div class="rule"></div>
+        <span class="big-num">03</span>
+        <Heading tag="h3" size="m" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.08">
+          You start getting found
+        </Heading>
+        <p>
+          Once it's live it's working for you around the clock. I handle everything on the back end so
+          you never have to think about it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--_spacing---space--7);
+  }
+  .step {
+    padding: var(--_spacing---space--8);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .step .rule {
+    position: relative;
+    height: 1.5px;
+    margin-bottom: var(--_spacing---space--8);
+    background: var(--border-strong);
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -2.5px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--lime-deep);
+    }
+  }
+  .step .big-num {
+    display: block;
+    margin-bottom: var(--_spacing---space--7);
+    font: 800 clamp(3.4rem, 5.4vw, 5rem)/1 var(--font-display);
+    letter-spacing: -0.04em;
+    color: var(--lime);
+    -webkit-text-stroke: 1.5px var(--ink-900);
+  }
+  .step p {
+    max-width: 320px;
+    font: 400 0.9375rem/1.55 var(--font-body);
+    color: var(--fg2);
+  }
+  @media (max-width: 900px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

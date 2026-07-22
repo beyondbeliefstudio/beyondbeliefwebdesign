@@ -1,0 +1,131 @@
+---
+// Home-only loading screen: a paper full-screen overlay (brand + mark, a big
+// counter, a lime progress bar) that counts up and then slides away to reveal
+// the page. Driven by initPreloader() in app.js.
+//
+// Visibility is CSS-gated so there's no flash and no stuck overlay:
+//   • hidden by default; shown only once `html.js` is set (pre-paint, in BaseHead)
+//   • never shown under reduced motion (`html[data-motion="off"]`)
+//   • a CSS backstop animation hides it after 7s if the JS never runs
+// Rendered first in <body> (see Layout's `preloader` prop) so it paints before
+// the rest of the page.
+
+// ASSETS
+// Inlined raw (not via astro-icon) on purpose: the preloader removes itself
+// from the DOM when done — if it held the astro-icon sprite <symbol>, the
+// header/footer logos referencing it would vanish with it.
+import logoSvg from "@/icons/bb-logo.svg?raw";
+---
+
+<div id="preloader" aria-hidden="true">
+  <div class="pre-top">
+    <span class="pre-brand">Beyond Belief Web Design</span>
+    <span class="pre-mark" aria-hidden="true">
+      <Fragment set:html={logoSvg} />
+    </span>
+  </div>
+
+  <div class="pre-bottom">
+    <span class="pre-count">0</span>
+    <span class="pre-status">Loading</span>
+  </div>
+
+  <div class="pre-bar"><i></i></div>
+</div>
+
+<style lang="scss">
+  #preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px 32px;
+    overflow: hidden;
+    background: var(--paper);
+    transform: translateY(0);
+    transition: transform 0.75s var(--ease-in-out);
+    will-change: transform;
+  }
+
+  /* shown only when JS is present (html.js is set pre-paint in BaseHead) */
+  html.js #preloader {
+    display: flex;
+    /* backstop: if the JS never runs, don't leave the overlay stuck */
+    animation: preBackstop 0.3s linear 7s forwards;
+  }
+  /* reduced motion / no-JS-motion: never show the loader */
+  html[data-motion="off"] #preloader {
+    display: none;
+  }
+
+  /* slide-away (class added by initPreloader) */
+  #preloader.is-leaving {
+    transform: translateY(-100%);
+  }
+
+  @keyframes preBackstop {
+    to {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+
+  .pre-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .pre-brand {
+    font: 700 0.72rem/1.6 var(--font-mono);
+    letter-spacing: var(--track-label);
+    color: var(--fg2);
+  }
+  .pre-mark {
+    color: var(--ink-900);
+
+    /* :global — the svg arrives via set:html, so it carries no scoped-style attribute */
+    :global(svg) {
+      display: block;
+      height: 54px;
+      width: auto;
+    }
+  }
+
+  .pre-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .pre-count {
+    font: 800 clamp(5rem, 16vw, 11rem)/0.85 var(--font-display);
+    letter-spacing: -0.04em;
+    color: var(--ink-900);
+    font-variant-numeric: tabular-nums;
+  }
+  .pre-status {
+    font: 700 0.72rem/1.8 var(--font-mono);
+    letter-spacing: var(--track-label);
+    color: var(--fg3);
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  .pre-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background: var(--stone-100);
+
+    i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--lime);
+    }
+  }
+</style>

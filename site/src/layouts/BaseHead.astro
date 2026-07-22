@@ -1,0 +1,69 @@
+---
+// COMPONENTS
+import Analytics from "@/components/Analytics.astro";
+import AhrefsAnalytics from "@/components/AhrefsAnalytics.astro";
+
+// DATA
+import { baseData } from "@/data/siteData";
+
+// PROPS
+const { pageTitle = baseData.title, description = baseData.description } = Astro.props;
+
+const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const AHREFS_DATA_KEY = import.meta.env.PUBLIC_AHREFS_DATA_KEY;
+
+// Open Graph
+const ogImage = new URL("/og-image.jpg", Astro.site).toString();
+const ogUrl = Astro.url.toString();
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Flag JS + set the motion mode before paint (no reveal flash, respects reduced-motion) -->
+  <script is:inline>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add("js");
+      var reduce =
+        window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      d.setAttribute("data-motion", reduce ? "off" : "full");
+    })();
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={Astro.url} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={ogUrl} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={ogUrl} />
+  <meta property="twitter:title" content={pageTitle} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={ogImage} />
+
+  <!-- Fonts — Bricolage Grotesque (display) · Space Grotesk (body/UI) · Space Mono (labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="@/js/app.js"></script>
+
+  <Analytics measurementId={GA_MEASUREMENT_ID} />
+  <AhrefsAnalytics dataKey={AHREFS_DATA_KEY} />
+</head>

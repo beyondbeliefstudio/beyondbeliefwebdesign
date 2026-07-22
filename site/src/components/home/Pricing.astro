@@ -1,0 +1,218 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+---
+
+<section id="pricing" class="sec-pad">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"><span class="num">// 04</span> Pricing</span>
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        One simple plan. No surprises.
+      </Heading>
+      <p class="lead">
+        Most web designers charge thousands upfront, bill for every change, and disappear after launch.
+        <strong>That's not how I work.</strong>
+      </p>
+    </div>
+
+    <div class="price-grid" data-reveal>
+      <div class="price-panel">
+        <span class="pp-glow" aria-hidden="true"></span>
+        <div class="pp-in">
+          <span class="pp-label">// Everything included</span>
+          <div class="price-big">
+            <sup>$</sup><span data-count="149">149</span> <small>/ month</small>
+          </div>
+          <p class="terms">
+            No hidden fees. A 12-month commitment to start, because building a real online presence
+            takes time and I want to make sure we do it right. After that it's completely month to
+            month.
+          </p>
+          <Links variant="primary" href="#contact">
+            Get started today <span class="arr" aria-hidden="true">→</span>
+          </Links>
+          <p class="free">
+            Not ready to commit? I'll design your homepage completely free, so you can see exactly what
+            your site could look like before you decide anything.
+          </p>
+        </div>
+      </div>
+
+      <div class="compare-panel">
+        <span class="cp-label">The way it usually goes</span>
+        <ul class="clist bad">
+          <li><span class="tk">✕</span><span class="tx">$3,000 to $8,000 upfront cost</span></li>
+          <li><span class="tk">✕</span><span class="tx">Hourly fees for every update or change</span></li>
+          <li>
+            <span class="tk">✕</span><span class="tx">You're responsible for hosting and maintenance</span>
+          </li>
+          <li><span class="tk">✕</span><span class="tx">No guarantee it ranks or brings in business</span></li>
+          <li><span class="tk">✕</span><span class="tx">On your own after launch</span></li>
+        </ul>
+        <div class="cp-div"></div>
+        <span class="cp-label lime">The Beyond Belief way</span>
+        <ul class="clist yes">
+          <li><span class="tk">✓</span><span>$149 per month, no large upfront cost</span></li>
+          <li><span class="tk">✓</span><span>Unlimited content updates, just ask</span></li>
+          <li><span class="tk">✓</span><span>Hosting and maintenance fully handled</span></li>
+          <li><span class="tk">✓</span><span>Built specifically to rank and convert</span></li>
+          <li><span class="tk">✓</span><span>Ongoing support whenever you need it</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .price-grid {
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: var(--_spacing---space--8);
+    align-items: stretch;
+  }
+  .price-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding: clamp(36px, 4vw, 52px);
+    color: var(--paper);
+    background: var(--ink-900);
+    border-radius: var(--radius-xl);
+  }
+  .pp-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(420px 300px at 18% 115%, rgba(204, 255, 0, 0.24), transparent 65%);
+  }
+  .pp-in {
+    position: relative;
+    z-index: 2;
+  }
+  .pp-label {
+    display: block;
+    margin-bottom: var(--_spacing---space--8);
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--stone-300);
+  }
+  .price-big {
+    font: 800 clamp(3.6rem, 6vw, 5.4rem)/1 var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--paper);
+    font-variant-numeric: tabular-nums;
+
+    sup {
+      font-size: 0.38em;
+      font-weight: 700;
+      vertical-align: super;
+      color: var(--lime);
+    }
+    small {
+      font-size: 0.28em;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--stone-300);
+    }
+  }
+  .price-panel .terms {
+    max-width: 46ch;
+    margin: var(--_spacing---space--7) 0 var(--_spacing---space--8);
+    font: 400 0.9375rem/1.6 var(--font-body);
+    color: var(--stone-200);
+  }
+  .price-panel .free {
+    max-width: 44ch;
+    margin: var(--_spacing---space--7) 0 0;
+    padding-top: var(--_spacing---space--7);
+    font: 400 13.5px/1.55 var(--font-body);
+    color: var(--stone-300);
+    border-top: 1px solid var(--ink-600);
+  }
+  .compare-panel {
+    padding: clamp(28px, 3.4vw, 40px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+  }
+  .cp-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_spacing---space--4);
+    margin-bottom: var(--_spacing---space--7);
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--fg3);
+
+    &.lime {
+      padding: 6px 10px;
+      color: var(--ink-900);
+      background: var(--lime);
+      border: 1.5px solid var(--ink-900);
+      border-radius: var(--radius-sm);
+    }
+  }
+  .cp-div {
+    height: 1px;
+    margin: var(--_spacing---space--8) 0;
+    background: var(--border-strong);
+  }
+  .clist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---space--5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--_spacing---space--5);
+      font: 400 0.9375rem/1.45 var(--font-body);
+      color: var(--fg2);
+    }
+    .tk {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 21px;
+      height: 21px;
+      margin-top: 1px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    &.bad .tk {
+      color: var(--tangerine);
+      border: 1.5px solid var(--tangerine);
+    }
+    &.bad .tx {
+      color: var(--fg3);
+      text-decoration: line-through;
+      text-decoration-color: var(--stone-200);
+    }
+    &.yes {
+      li {
+        color: var(--fg1);
+        font-weight: 500;
+      }
+      .tk {
+        color: var(--ink-900);
+        background: var(--lime);
+        border: 1.5px solid var(--ink-900);
+      }
+    }
+  }
+  @media (max-width: 900px) {
+    .price-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

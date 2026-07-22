@@ -1,0 +1,14 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+export interface Props extends HTMLAttributes<"button"> {
+  variant?: "primary" | "primary-light" | "secondary" | "outline" | "outline-dark" | "light";
+  classes?: string;
+}
+
+const { variant = "primary", classes = "", ...rest } = Astro.props;
+---
+
+<button type="submit" class:list={["btn", variant, classes]} {...rest}>
+  <slot />
+</button>

@@ -1,0 +1,165 @@
+---
+// Recurring "final CTA" / contact block that closes Home, Web Design, and About.
+// Dark band, cursor-following lime glow, two columns: copy + text-me phone | form card.
+// Rendered by Layout.astro when a page passes a `cta` prop (see Layout).
+
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import ContactForm from "@/components/ContactForm.astro";
+
+// DATA
+import { baseData } from "@/data/siteData";
+
+// PROPS
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+  textMeHeading?: string;
+  reassurance?: string;
+  freeQuestion?: string;
+  freeBody?: string;
+  formEyebrow?: string;
+  submitText?: string;
+  formName?: string;
+}
+const {
+  eyebrow = "Let's build something",
+  title = "Let's build something your business is proud of.",
+  body = "If you are ready to stop losing customers to competitors with better websites, this is where it starts. Reach out and we will have a straightforward conversation about your business and what your new site could look like.",
+  textMeHeading = "Or honestly, just text me.",
+  reassurance = "No forms, no back and forth, no pressure. Just shoot me a text and we'll go from here. I'm a real person and I actually respond.",
+  freeQuestion = "Not ready to commit yet?",
+  freeBody = "I will design your homepage completely free so you can see exactly what your site could look like first.",
+  formEyebrow = "// Start a project",
+  submitText = "Get started today",
+  formName = "contact",
+} = Astro.props;
+
+const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
+---
+
+<section id="contact" class="cta sec-pad sec-dark" data-cta-glow>
+  <span class="cta-glow" aria-hidden="true"></span>
+  <div class="container container-md">
+    <div class="cbgrid">
+      <div class="cta-left" data-reveal>
+        <span class="eyebrow"><span class="dot"></span>{eyebrow}</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
+          {title}
+        </Heading>
+        <p class="cbody">{body}</p>
+        {freeQuestion && (
+          <div class="cta-free">
+            <hr class="cta-free__rule" />
+            <p class="cta-free__text">
+              <strong>{freeQuestion}</strong>{" "}{freeBody}
+            </p>
+          </div>
+        )}
+        <div class="text-me">
+          <Heading tag="h3" size="s" fontFamily="primary" marginBottom="none" weight="fw700">
+            {textMeHeading}
+          </Heading>
+          <a class="phone" href={telHref}>{baseData.phone}</a>
+          <p>{reassurance}</p>
+        </div>
+      </div>
+
+      <div class="cta-right" data-reveal>
+        <div class="form-card">
+          <span class="eyebrow fc-eyebrow">{formEyebrow}</span>
+          <ContactForm name={formName} submitText={submitText} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  #contact.cta {
+    position: relative;
+    background: var(--ink-800);
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      560px 420px at var(--mx, 25%) var(--my, 110%),
+      rgba(204, 255, 0, 0.16),
+      transparent 62%
+    );
+  }
+
+  .cbgrid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 5vw, 72px);
+    align-items: start;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cta-left .eyebrow {
+    margin-bottom: 18px;
+    color: var(--lime);
+
+    .dot {
+      background: var(--lime);
+      box-shadow: 0 0 8px var(--lime);
+    }
+  }
+
+  .cta-left :global(h2) {
+    max-width: 16ch;
+    margin-bottom: 20px;
+    color: var(--paper);
+  }
+
+  .cbody {
+    max-width: 46ch;
+    margin: 0 0 24px;
+    font: 400 1.0625rem/1.6 var(--font-body);
+    color: var(--stone-200);
+  }
+
+  .cta-free {
+    max-width: 46ch;
+    margin: 0 0 24px;
+
+    &__rule {
+      border: none;
+      border-top: 1px solid var(--stone-700, rgba(255, 255, 255, 0.12));
+      margin: 0 0 20px;
+    }
+
+    &__text {
+      margin: 0;
+      font: 400 1rem/1.6 var(--font-body);
+      color: var(--stone-300);
+
+      strong {
+        font-weight: 700;
+        color: var(--paper);
+      }
+    }
+  }
+
+  .text-me {
+    margin-top: 8px;
+  }
+
+  /* form card is a light island on the dark band — keep its eyebrow dark */
+  .form-card .fc-eyebrow {
+    display: inline-flex;
+    color: var(--fg2);
+  }
+</style>

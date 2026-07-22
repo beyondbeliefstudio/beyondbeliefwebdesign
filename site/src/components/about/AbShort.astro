@@ -1,0 +1,72 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+---
+
+<section id="short" class="sec-pad">
+  <div class="container container-md">
+    <span class="eyebrow" data-reveal><span class="num">// 01</span> The short version</span>
+    <Heading
+      tag="h2"
+      size="xxl"
+      fontFamily="primary"
+      marginBottom="none"
+      weight="fw700"
+      lineHeight="1.08"
+      class="statement"
+      data-fill-words
+    >
+      No agency. No account managers. No overseas team you will never meet. Just me.
+    </Heading>
+    <div class="short-body" data-reveal>
+      <p>
+        I am a web designer and developer based right here in Monroe, North Carolina. I build fast,
+        custom, hand-coded websites for local businesses that need to look great, get found on
+        Google, and actually bring in customers.
+      </p>
+      <p class="emph">
+        <span class="emph-mark" aria-hidden="true">✦</span>
+        Just me, doing work I genuinely care about, for businesses I genuinely want to see win.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .statement {
+    max-width: 21ch;
+    margin: var(--_spacing---space--7) 0 0;
+    letter-spacing: var(--track-tight);
+  }
+
+  .short-body {
+    max-width: 64ch;
+    margin-top: var(--_spacing---section-space--small);
+
+    p {
+      margin-bottom: var(--_spacing---space--7);
+      font-size: var(--_typography---font-size--text-main);
+      line-height: 1.6;
+      color: var(--fg2);
+    }
+
+    .emph {
+      display: flex;
+      align-items: baseline;
+      gap: var(--_spacing---space--6);
+      margin-top: var(--_spacing---space--8);
+      font-weight: 700;
+      font-size: var(--_typography---font-size--text-large);
+      line-height: 1.45;
+      font-family: var(--font-display);
+      letter-spacing: var(--track-tight);
+      color: var(--fg1);
+    }
+
+    .emph-mark {
+      flex: none;
+      font-size: 0.7em;
+      color: var(--lime-deep);
+    }
+  }
+</style>

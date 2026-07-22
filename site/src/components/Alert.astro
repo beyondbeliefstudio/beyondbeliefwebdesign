@@ -1,0 +1,44 @@
+---
+// Optional top-of-page announcement bar.
+// Include in Layout.astro above <Nav /> when needed.
+// If used, set --address-height via JS so the nav offset accounts for it.
+---
+
+<div class="alert" role="alert">
+  <div class="container container-md">
+    <p class="alert__message">
+      <slot />
+    </p>
+  </div>
+</div>
+
+<style lang="scss">
+  .alert {
+    background: var(--brand-primary);
+    padding: 0.5rem 0;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    width: 100%;
+
+    .container {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &__message {
+      margin: 0;
+      color: var(--dark-900);
+      font-size: var(--_typography---font-size--text-main);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,246 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+import BrowserFrame from "@/components/BrowserFrame.astro";
+
+// HELPERS
+import { Image } from "astro:assets";
+
+// IMAGES
+import fdCigarSite from "@/assets/fd-cigar-site.png";
+import lambosSite from "@/assets/lambos-site.png";
+---
+
+<section id="work" class="band">
+  <div class="work-stage">
+    <div class="work-track">
+      <div class="work-card head-card">
+        <span class="eyebrow"><span class="num">// 05</span> The work</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+          Real businesses. Real results.
+        </Heading>
+        <p class="lead">
+          Live sites built for local businesses like yours. Hand-coded, fast, and already winning
+          customers.
+        </p>
+      </div>
+
+      <div class="work-card">
+        <BrowserFrame url="fdcigarcompany.com" class="bframe--scroll">
+          <Image
+            src={fdCigarSite}
+            alt="FD Cigar Company website"
+            widths={[720, 1080]}
+            sizes="(max-width: 640px) 92vw, 780px"
+          />
+        </BrowserFrame>
+        <div class="work-meta">
+          <div>
+            <Heading tag="h3" size="s" fontFamily="primary" marginBottom="xs" weight="fw700">
+              FD Cigar Company
+            </Heading>
+            <p>
+              A cigar lounge and craft cocktail bar whose basic Wix template sold the place short. I
+              rebuilt it around the firehouse aesthetic and lounge culture, so the cigars, the
+              cocktails, and the whole vibe finally come through.
+            </p>
+          </div>
+          <a class="link" href="https://fdcigarcompany.com" target="_blank" rel="noopener">
+            View the site <span class="larr" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <BrowserFrame url="lambosgaragedoorservice.com" class="bframe--scroll">
+          <Image
+            src={lambosSite}
+            alt="Lambo's Garage Door Service website"
+            widths={[720, 1080]}
+            sizes="(max-width: 640px) 92vw, 780px"
+          />
+        </BrowserFrame>
+        <div class="work-meta">
+          <div>
+            <Heading tag="h3" size="s" fontFamily="primary" marginBottom="xs" weight="fw700">
+              Lambo's Garage Door Service
+            </Heading>
+            <p>
+              An outdated site, an unresponsive provider, and nowhere to be found on Google. I rebuilt
+              it from the ground up with all-new content, then added a local SEO package of 10 pages
+              targeting their core services and nearby towns to climb the local rankings.
+            </p>
+          </div>
+          <a class="link" href="https://lambosgaragedoorservice.com" target="_blank" rel="noopener">
+            View the site <span class="larr" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="work-card cta-card">
+        <div class="inner">
+          <span class="eyebrow"><span class="dot"></span>Next up</span>
+          <span class="ch">Your business could be sitting right here.</span>
+          <Links variant="primary" href="#contact">
+            Start a project <span class="arr" aria-hidden="true">→</span>
+          </Links>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  /* Default (and reduced-motion / no-JS): a clean vertical stack. */
+  #work {
+    overflow: hidden;
+  }
+  .work-stage {
+    padding: var(--_spacing---section-space--main) 0;
+  }
+  .work-track {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---section-space--small);
+    max-width: var(--site--max-width--md);
+    margin: 0 auto;
+    padding: 0 var(--site--margin);
+  }
+  .work-card {
+    width: 100%;
+  }
+  .work-card.head-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .work-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--_spacing---section-space--small);
+    margin-top: var(--_spacing---space--8);
+  }
+  .work-meta p {
+    max-width: 46ch;
+    font: 400 0.9375rem/1.5 var(--font-body);
+    color: var(--fg2);
+  }
+  /* side-by-side on desktop; stack the link under the copy on mobile */
+  @media (max-width: 640px) {
+    .work-meta {
+      flex-direction: column;
+      gap: var(--_spacing---space--7);
+    }
+  }
+  .work-card.cta-card {
+    display: flex;
+  }
+  .work-card.cta-card .inner {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--_spacing---space--8);
+    min-height: 360px;
+    padding: var(--_spacing---section-space--large) var(--_spacing---section-space--main);
+    text-align: center;
+    border: 1.5px dashed var(--border-strong);
+    border-radius: var(--radius-lg);
+  }
+  .work-card.cta-card .ch {
+    max-width: 14ch;
+    font: 800 clamp(26px, 2.6vw, 34px)/1.05 var(--font-display);
+    letter-spacing: -0.03em;
+  }
+
+  /* Desktop with motion + JS confirmed: horizontal pin-scroll (class from app.js). */
+  #work.work-pinned .work-stage {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+  }
+  #work.work-pinned .work-track {
+    flex-direction: row;
+    align-items: stretch;
+    gap: clamp(20px, 3vw, 40px);
+    max-width: none;
+    margin: 0;
+    will-change: transform;
+  }
+  #work.work-pinned .work-card {
+    flex: none;
+    width: min(72vw, 780px);
+  }
+  #work.work-pinned .work-card.head-card {
+    width: min(38vw, 470px);
+  }
+</style>
+
+<script>
+  // Scrolling-screenshot frames: the tall screenshot slides up inside a fixed
+  // window to read like scrolling the site. Both directions are driven here so
+  // their durations can follow a constant speed (px/s) from wherever the image
+  // currently sits — a slow scroll-through down, a gentle glide back on leave.
+  const DESCENT_SPEED = 150; // px/s — the slow scroll-through (lower = slower)
+  const RETURN_SPEED = 400; // px/s — the glide back to the top (lower = slower)
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const touch = window.matchMedia("(hover: none)").matches;
+
+  document.querySelectorAll<HTMLElement>(".bframe--scroll").forEach(frame => {
+    const body = frame.querySelector<HTMLElement>(".bframe-body");
+    const img = body?.querySelector("img");
+    if (!body || !img || reduce) return;
+
+    let dist = 0;
+    const measure = () => (dist = Math.max(0, img.offsetHeight - body.offsetHeight));
+    if (img.complete) measure();
+    else img.addEventListener("load", measure, { once: true });
+    window.addEventListener("resize", measure, { passive: true });
+
+    // Drive the transform ourselves per-frame so a position is always known.
+    // Reading a running CSS transition back mid-flight is unreliable (it snaps
+    // on repeat interrupts), so no CSS transition is used at all.
+    img.style.transition = "none";
+    let y = 0; // current downward offset in px (0 = top, dist = bottom)
+    let target = 0;
+    let speed = DESCENT_SPEED;
+    let raf = 0;
+    let last = 0;
+
+    const frameStep = (t: number) => {
+      if (!last) last = t;
+      const dt = (t - last) / 1000;
+      last = t;
+      const dir = Math.sign(target - y);
+      y += dir * speed * dt;
+      if ((dir > 0 && y >= target) || (dir < 0 && y <= target)) y = target;
+      img.style.transform = `translateY(${-y}px)`;
+      raf = y === target ? ((last = 0), 0) : requestAnimationFrame(frameStep);
+    };
+    const animateTo = (to: number, spd: number) => {
+      target = to;
+      speed = spd;
+      last = 0;
+      if (!raf) raf = requestAnimationFrame(frameStep);
+    };
+
+    const descend = () => animateTo(dist, DESCENT_SPEED);
+    const revert = () => animateTo(0, RETURN_SPEED);
+
+    if (touch) {
+      // no hover — scroll when the frame is in view, glide back when it leaves
+      new IntersectionObserver(
+        entries => entries.forEach(e => (e.isIntersecting ? descend() : revert())),
+        { threshold: 0.6 }
+      ).observe(frame);
+    } else {
+      frame.addEventListener("pointerenter", descend);
+      frame.addEventListener("pointerleave", revert);
+    }
+  });
+</script>

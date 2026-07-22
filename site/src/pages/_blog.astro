@@ -1,0 +1,384 @@
+---
+// COMPONENTS
+import Layout from "@/layouts/Layout.astro";
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+import PostCard from "@/components/PostCard.astro";
+import Newsletter from "@/components/Newsletter.astro";
+import HeroBackdrop from "@/components/HeroBackdrop.astro";
+
+// HELPERS
+import { getCollection } from "astro:content";
+
+// DATA
+import { baseData } from "@/data/siteData";
+
+const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+const featured = posts.find(p => p.data.featured) ?? posts[0];
+
+const categories = ["All", "Web Design", "Local SEO", "Small Business Tips", "Behind the Scenes"];
+---
+
+<Layout
+  pageTitle="Web Design & Local SEO Tips for Small Businesses | Beyond Belief Web Design"
+  description="Plain-spoken, practical advice for local business owners on web design, local SEO, and growing your business, written by Chris, the person who builds the sites."
+>
+  <!-- ===================== HERO (editorial) ===================== -->
+  <section id="hero" class="blog-hero">
+    <HeroBackdrop />
+    <div class="container container-md">
+      <div class="bh-in">
+        <span class="eyebrow hero-badge"><span class="dot"></span>The blog · Monroe, NC</span>
+        <div class="lines bh-h1">
+          <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
+            <span class="line"
+              ><span class="line-inner"><span class="hl">Straight answers<span class="hl-bar"></span></span> about</span></span
+            >
+            <span class="line"><span class="line-inner">websites, SEO, and</span></span>
+            <span class="line"><span class="line-inner">growing your business.</span></span>
+          </Heading>
+        </div>
+        <p class="lead">
+          No jargon, no fluff. Just practical advice for local business owners who want their website
+          to actually work, written by Chris, the person who builds them.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURED ===================== -->
+  <section id="featured">
+    <div class="container container-md">
+      <a class="feat-card" href={`/blog/${featured.id}`} data-reveal data-cursor="view">
+        <div class="feat-media" aria-hidden="true">
+          <span class="feat-pin">✦ Featured</span>
+          <span class="feat-star">✦</span>
+        </div>
+        <div class="feat-body">
+          <div class="feat-meta">
+            <span class="feat-tag">{featured.data.category}</span>
+            <span class="feat-read">{featured.data.readTime}</span>
+          </div>
+          <Heading tag="h2" size="l" fontFamily="primary" marginBottom="m" weight="fw700">
+            {featured.data.title}
+          </Heading>
+          <p class="feat-excerpt">{featured.data.excerpt}</p>
+          <span class="feat-link">Read the post <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== POSTS GRID ===================== -->
+  <section id="posts" class="sec-pad">
+    <div class="container container-md">
+      <div class="posts-head" data-reveal>
+        <div>
+          <span class="eyebrow"><span class="num">// 01</span> Latest posts</span>
+          <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
+            Everything on the blog.
+          </Heading>
+        </div>
+        <div class="filter-bar" role="group" aria-label="Filter posts by category">
+          {
+            categories.map((cat, i) => (
+              <button
+                type="button"
+                class:list={["chip-btn", i === 0 && "active"]}
+                data-filter={cat}
+                aria-pressed={i === 0 ? "true" : "false"}
+              >
+                {cat}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="posts-grid">
+        {
+          posts.map(p => (
+            <PostCard
+              id={p.id}
+              category={p.data.category}
+              title={p.data.title}
+              excerpt={p.data.excerpt}
+              readTime={p.data.readTime}
+            />
+          ))
+        }
+      </div>
+      <p class="posts-empty" hidden>No posts in that category yet, check back soon.</p>
+    </div>
+  </section>
+
+  <!-- ===================== NEWSLETTER ===================== -->
+  <Newsletter />
+
+  <!-- ===================== END CTA ===================== -->
+  <section class="end-cta sec-pad">
+    <span class="ec-glow" aria-hidden="true"></span>
+    <div class="container container-md">
+      <div class="ec-in" data-reveal>
+        <span class="eyebrow"><span class="dot"></span>Stop reading, start doing</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
+          Ready to stop reading about it and start doing it?
+        </Heading>
+        <p>
+          If your website isn't pulling its weight, let's fix that. Reach out and we'll talk about what
+          your business actually needs.
+        </p>
+        <div class="btn-wrapper">
+          <Links variant="primary" href="/contact">
+            Get started today <span class="arr" aria-hidden="true">→</span>
+          </Links>
+          <Links variant="secondary" href="/web-design">See what's included</Links>
+        </div>
+        <p class="ec-text">Or just text me at <a href={telHref}>{baseData.phone}</a>.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const chips = Array.from(document.querySelectorAll(".chip-btn"));
+  const cards = Array.from(document.querySelectorAll("#posts .post-card"));
+  const empty = document.querySelector(".posts-empty");
+
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      const filter = chip.getAttribute("data-filter");
+      chips.forEach(c => {
+        const active = c === chip;
+        c.classList.toggle("active", active);
+        c.setAttribute("aria-pressed", String(active));
+      });
+      let shown = 0;
+      cards.forEach(card => {
+        const match = filter === "All" || card.getAttribute("data-cat") === filter;
+        card.toggleAttribute("hidden", !match);
+        if (match) shown++;
+      });
+      if (empty) empty.toggleAttribute("hidden", shown !== 0);
+    });
+  });
+</script>
+
+<style lang="scss">
+  /* ===================== HERO ===================== */
+  .blog-hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .bh-in {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+    padding: clamp(150px, 20vh, 220px) 0 clamp(48px, 6vw, 80px);
+  }
+  .hero-badge {
+    margin-bottom: 26px;
+  }
+  .bh-in .lead {
+    max-width: 58ch;
+    margin-top: 26px;
+  }
+
+  /* ===================== FEATURED ===================== */
+  .feat-card {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    transition:
+      border-color var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+
+    &:hover {
+      border-color: rgba(166, 204, 0, 0.6);
+      box-shadow: var(--shadow-md), 0 0 0 1px rgba(166, 204, 0, 0.2);
+      transform: translateY(-4px);
+    }
+  }
+  .feat-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    background:
+      radial-gradient(120% 120% at 0% 0%, var(--paper-sunken), var(--stone-100)),
+      var(--paper-sunken);
+  }
+  .feat-star {
+    font-size: 2.4rem;
+    color: var(--lime-deep);
+    opacity: 0.45;
+  }
+  .feat-pin {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    padding: 7px 13px;
+    font: 700 0.68rem/1 var(--mono-family);
+    letter-spacing: 0.08em;
+    color: var(--ink-900);
+    background: var(--lime);
+    border: 1.5px solid var(--ink-900);
+    border-radius: var(--radius-pill);
+  }
+  .feat-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(28px, 3.4vw, 48px);
+  }
+  .feat-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .feat-tag {
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lime-deep);
+  }
+  .feat-read {
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+  .feat-excerpt {
+    max-width: 52ch;
+    margin-bottom: 22px;
+    font: 400 1.0625rem/1.6 var(--font-body);
+    color: var(--fg2);
+  }
+  .feat-link {
+    font: 600 0.95rem/1 var(--font-body);
+    color: var(--fg1);
+  }
+  .feat-card:hover .feat-link {
+    color: var(--lime-deep);
+  }
+  @media (max-width: 860px) {
+    .feat-card {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ===================== POSTS GRID ===================== */
+  .posts-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: clamp(32px, 4vw, 56px);
+  }
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip-btn {
+    padding: 9px 15px;
+    font: 700 0.72rem/1 var(--mono-family);
+    letter-spacing: 0.06em;
+    color: var(--fg2);
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition:
+      border-color var(--dur),
+      background var(--dur),
+      color var(--dur),
+      box-shadow var(--dur);
+
+    &:hover {
+      border-color: var(--ink-900);
+    }
+    &.active {
+      color: var(--ink-900);
+      background: var(--lime);
+      border-color: var(--ink-900);
+      box-shadow: var(--glow-soft);
+    }
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(18px, 2.2vw, 26px);
+  }
+  .posts-empty {
+    margin-top: 24px;
+    font: 400 1rem/1.55 var(--font-body);
+    color: var(--fg3);
+  }
+  @media (max-width: 920px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ===================== END CTA ===================== */
+  .end-cta {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .ec-glow {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 760px;
+    height: 520px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.32), transparent 70%);
+  }
+  .ec-in {
+    position: relative;
+    z-index: 2;
+    max-width: 780px;
+    margin: 0 auto;
+
+    .eyebrow {
+      justify-content: center;
+    }
+    > p {
+      max-width: 52ch;
+      margin: 0 auto;
+      font: 400 1.0625rem/1.6 var(--font-body);
+      color: var(--fg2);
+    }
+  }
+  .ec-text {
+    margin-top: 22px !important;
+    font-size: 0.95rem !important;
+    color: var(--fg3) !important;
+
+    a {
+      color: var(--lime-deep);
+      font-family: var(--mono-family);
+      text-decoration: none;
+      border-bottom: 1px solid var(--lime-deep);
+    }
+  }
+</style>

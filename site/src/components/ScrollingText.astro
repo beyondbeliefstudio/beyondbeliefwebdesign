@@ -1,0 +1,86 @@
+---
+// BB lime marquee band. Pass phrases via slot as inline elements; the `//`
+// separators get a tangerine accent via the .x class.
+// app.js clones the track once (sets data-animated) for a seamless -50% loop,
+// and skips both clone + animation under prefers-reduced-motion.
+//
+// Usage:
+//   <ScrollingText>
+//     <span>Your business deserves better than a GoDaddy Airo site <span class="x">//</span></span>
+//     ...
+//   </ScrollingText>
+
+interface Props {
+  speed?: number; // seconds per loop
+}
+const { speed = 90 } = Astro.props;
+---
+
+<section class="marquee" aria-hidden="true" data-cursor="grow">
+  <div class="marquee-track" style={`--marquee-speed:${speed}s`}>
+    <slot />
+  </div>
+</section>
+
+<style lang="scss">
+  .marquee {
+    overflow: hidden;
+    background: var(--lime);
+    border-top: 1.5px solid var(--ink-900);
+    border-bottom: 1.5px solid var(--ink-900);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    padding: 26px 0;
+    white-space: nowrap;
+
+    &[data-animated] {
+      animation: bb-marquee var(--marquee-speed, 90s) linear infinite;
+    }
+  }
+
+  @keyframes bb-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track[data-animated] {
+      animation: none;
+    }
+  }
+
+  /* slotted phrases — inline-flex + center so the mono `//` separators sit on the
+     same optical line as the display-font text (baseline alignment leaves them low) */
+  :global(.marquee .marquee-track > *) {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 36px;
+    font: 800 clamp(28px, 2.4vw, 36px)/1 var(--primary-family);
+    letter-spacing: -0.015em;
+    color: var(--ink-900);
+  }
+
+  :global(.marquee .marquee-track .x) {
+    padding: 0;
+    color: var(--tangerine-deep);
+    font-family: var(--mono-family);
+    font-weight: 700;
+    opacity: 0.9;
+  }
+
+  /* tangerine star divider between phrases (matches the nav marquee). padding:0
+     so it centers in the gap the adjacent phrases' padding already provides. */
+  :global(.marquee .marquee-track .star) {
+    padding: 0;
+    font-size: 1.15em;
+    color: var(--tangerine-deep);
+  }
+</style>

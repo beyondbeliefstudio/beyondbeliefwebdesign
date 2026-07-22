@@ -1,0 +1,19 @@
+---
+// Brand wordmark (single-path SVG in src/icons/bb-logo.svg, currentColor).
+// Ink on light grounds; flips to paper on dark grounds (footer / .sec-dark /
+// menu-open) via the .lockup color rules in global.scss.
+
+// COMPONENTS
+import { Icon } from "astro-icon/components";
+
+// PROPS
+interface Props {
+  href?: string;
+  class?: string;
+}
+const { href = "/", class: className } = Astro.props;
+---
+
+<a href={href} class:list={["lockup", className]} aria-label="Beyond Belief Web Design home">
+  <Icon name="bb-logo" aria-hidden="true" />
+</a>

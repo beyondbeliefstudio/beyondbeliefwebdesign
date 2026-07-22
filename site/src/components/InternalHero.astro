@@ -1,0 +1,46 @@
+---
+// Simple BB page header for legal / utility pages: eyebrow + H1 over paper,
+// with enough top padding to clear the floating header.
+import Heading from "@/components/Heading.astro";
+import HeroBackdrop from "@/components/HeroBackdrop.astro";
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  lead?: string;
+}
+const { title, eyebrow, lead } = Astro.props;
+---
+
+<section class="internal-hero">
+  <HeroBackdrop />
+  <div class="container container-md">
+    <div class="ih-in">
+      {eyebrow && <span class="eyebrow"><span class="num">//</span> {eyebrow}</span>}
+      <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
+        {title}
+      </Heading>
+      {lead && <p class="lead ih-lead">{lead}</p>}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .internal-hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .ih-in {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+    padding: clamp(140px, 18vh, 200px) 0 clamp(32px, 4vw, 56px);
+  }
+  .ih-in .eyebrow {
+    margin-bottom: 18px;
+  }
+  .ih-lead {
+    max-width: 56ch;
+    margin-top: 20px;
+  }
+</style>

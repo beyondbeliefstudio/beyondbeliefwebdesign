@@ -1,0 +1,19 @@
+---
+// Browser-chrome media wrapper: three dots + a mono URL over a slotted screenshot.
+// Styles live in global.scss (.bframe) since it appears across several pages.
+interface Props {
+  url: string;
+  class?: string;
+}
+const { url, class: className } = Astro.props;
+---
+
+<div class:list={["bframe", className]}>
+  <div class="tb" aria-hidden="true">
+    <i></i><i></i><i></i>
+    <span class="url">{url}</span>
+  </div>
+  <div class="bframe-body">
+    <slot />
+  </div>
+</div>

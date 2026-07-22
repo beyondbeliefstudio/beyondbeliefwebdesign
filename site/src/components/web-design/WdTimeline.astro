@@ -1,0 +1,181 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+const timeline = [
+  {
+    week: "Week one",
+    body: "We talk about your business and goals. Your homepage design is typically ready to review within the first week.",
+  },
+  {
+    week: "Weeks two and three",
+    body: "You give feedback on the homepage, then I build out the rest of your site with your input at every step.",
+  },
+  {
+    week: "By the end of month one",
+    body: "Your site is live, fully built and optimized, and working for your business before your second payment ever processes.",
+  },
+];
+---
+
+<section id="timeline" class="sec-pad">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"><span class="num">// 02</span> Timeline</span>
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        From first conversation to live website in under 30 days.
+      </Heading>
+      <p class="lead">Most web designers drag projects out for months. That is not how I work.</p>
+    </div>
+
+    <div class="tl" data-reveal>
+      {
+        timeline.map((item, i) => (
+          <div class="tl-item">
+            <div class="tl-node">
+              <div class="tl-mark">{String(i + 1).padStart(2, "0")}</div>
+            </div>
+            <div class="tl-body">
+              <Heading tag="h3" size="l" fontFamily="primary" marginBottom="s" weight="fw700">
+                {item.week}
+              </Heading>
+              <p>{item.body}</p>
+            </div>
+          </div>
+        ))
+      }
+      <div class="tl-item">
+        <div class="tl-node">
+          <div class="tl-mark fin">✦</div>
+        </div>
+        <div class="tl-body">
+          <Heading tag="h3" size="l" fontFamily="primary" marginBottom="s" weight="fw700">
+            Live before your second payment.
+          </Heading>
+          <p>
+            That is the goal every single time. I do not start building until your first payment, and
+            my aim is always to have you
+            <span class="hl">live before the second one hits.<span class="hl-bar"></span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  /* ── layout ─────────────────────────────────────────────── */
+
+  .tl {
+    margin-top: var(--_spacing---section-space--large);
+  }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: clamp(24px, 3.5vw, 48px);
+    padding-bottom: var(--_spacing---section-space--small);
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  /* ── node column ─────────────────────────────────────────── */
+
+  .tl-node {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* align-self: stretch (grid default) — node fills full row height */
+  }
+
+  /* Spine segment per non-last item: circle bottom → center of next circle.
+     bottom is negative to cross the padding-bottom gap between rows. */
+  .tl-item:not(:last-child) .tl-node::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - 1px);
+    top: 52px; /* bottom of the 52px circle */
+    bottom: calc(-1 * var(--_spacing---section-space--small) - 26px);
+    width: 2px;
+    background: var(--lime-deep);
+  }
+
+  /* ── numbered circle ─────────────────────────────────────── */
+
+  .tl-mark {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--paper-raised);
+    border: 2px solid var(--ink-900);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: var(--_typography---font-size--h5);
+    line-height: 1;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--ink-900);
+    box-shadow: var(--shadow-md);
+  }
+
+  .tl-mark.fin {
+    background: var(--lime);
+    border-color: var(--ink-900);
+    font-size: var(--_typography---font-size--text-large);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  /* ── body column ─────────────────────────────────────────── */
+
+  .tl-body {
+    padding-top: 10px;
+  }
+
+  .tl-body :global(h3) {
+    font-size: clamp(1.35rem, 1.85vw, 1.65rem);
+    letter-spacing: var(--track-tight);
+    line-height: 1.15;
+    color: var(--fg1);
+  }
+
+  .tl-body p {
+    max-width: 56ch;
+    font-weight: 400;
+    font-size: var(--_typography---font-size--text-main);
+    line-height: 1.62;
+    font-family: var(--font-body);
+    color: var(--fg2);
+  }
+
+  /* ── responsive ──────────────────────────────────────────── */
+
+  @media (max-width: 560px) {
+    .tl-item {
+      grid-template-columns: 40px 1fr;
+      gap: 16px;
+    }
+
+    .tl-mark {
+      width: 40px;
+      height: 40px;
+      font-size: var(--_typography---font-size--text-small);
+    }
+
+    .tl-mark.fin {
+      font-size: var(--_typography---font-size--text-main);
+    }
+
+    .tl-item:not(:last-child) .tl-node::after {
+      top: 40px; /* bottom of 40px circle */
+      bottom: calc(-1 * var(--_spacing---section-space--small) - 20px);
+      left: calc(50% - 1px);
+    }
+  }
+</style>

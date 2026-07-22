@@ -1,0 +1,82 @@
+---
+// BB contact form. Netlify-wired with a honeypot. Fields follow the handoff:
+// name / business / email / (optional phone) / "what does your business do?".
+// Each .field is a <label> wrapping its input for implicit association.
+import Buttons from "@/components/Buttons.astro";
+
+interface Props {
+  name?: string;
+  includePhone?: boolean;
+  submitText?: string;
+  messageLabel?: string;
+  messagePlaceholder?: string;
+}
+const {
+  name = "contact",
+  includePhone = false,
+  submitText = "Get started today",
+  messageLabel = "What does your business do?",
+  messagePlaceholder = "",
+} = Astro.props;
+
+const fid = (s: string) => `${name}-${s}`;
+---
+
+<form
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  name={name}
+  method="POST"
+  action="/submit-contact"
+>
+  <input type="hidden" name="form-name" value={name} />
+  <p class="hidden" aria-hidden="true">
+    <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <label class="field" for={fid("name")}>
+    <span class="fl">Your name</span>
+    <input type="text" id={fid("name")} name="name" placeholder="Jane Smith" required />
+  </label>
+
+  <label class="field" for={fid("business")}>
+    <span class="fl">Your business name</span>
+    <input type="text" id={fid("business")} name="business" placeholder="Smith &amp; Co." />
+  </label>
+
+  <label class="field" for={fid("email")}>
+    <span class="fl">Your email</span>
+    <input type="email" id={fid("email")} name="email" placeholder="jane@example.com" required />
+  </label>
+
+  {
+    includePhone && (
+      <label class="field" for={fid("phone")}>
+        <span class="fl">
+          Your phone number <span class="opt">(optional)</span>
+        </span>
+        <input type="tel" id={fid("phone")} name="phone" placeholder="(980) 290-7034" />
+      </label>
+    )
+  }
+
+  <label class="field" for={fid("message")}>
+    <span class="fl">{messageLabel}</span>
+    <textarea
+      id={fid("message")}
+      name="message"
+      rows={includePhone ? 4 : 3}
+      placeholder={messagePlaceholder}></textarea>
+  </label>
+
+  <Buttons variant="primary" classes="form-submit">
+    {submitText} <span class="arr" aria-hidden="true">→</span>
+  </Buttons>
+</form>
+
+<style is:global>
+  form .form-submit {
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+</style>

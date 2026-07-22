@@ -1,0 +1,437 @@
+---
+// COMPONENTS
+import Layout from "@/layouts/Layout.astro";
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+import PostCard from "@/components/PostCard.astro";
+import Newsletter from "@/components/Newsletter.astro";
+import HeroBackdrop from "@/components/HeroBackdrop.astro";
+
+// HELPERS
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+
+// IMAGES
+import portrait from "@/assets/chris-portrait.png";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const sorted = posts.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+  return sorted.map(post => ({
+    params: { slug: post.id },
+    props: { post, all: sorted },
+  }));
+}
+
+const { post, all } = Astro.props;
+const { Content } = await render(post);
+
+const updated = post.data.publishDate.toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
+const related = all.filter(p => p.id !== post.id).slice(0, 3);
+---
+
+<Layout
+  pageTitle={`${post.data.title} | Beyond Belief Web Design`}
+  description={post.data.description}
+>
+  <!-- ===================== POST HEADER ===================== -->
+  <section id="hero" class="post-hero">
+    <HeroBackdrop />
+    <div class="container container-md">
+      <div class="ph-in">
+        <a class="back-link" href="/blog"><span aria-hidden="true">←</span> All posts</a>
+        <span class="eyebrow ph-cat">// {post.data.category}</span>
+        <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="m" weight="fw800">
+          {post.data.title}
+        </Heading>
+        <div class="ph-meta">
+          <span>{post.data.readTime}</span>
+          <span class="dot-sep" aria-hidden="true">·</span>
+          <span>Updated {updated}</span>
+        </div>
+        <p class="ph-lead lead">{post.data.description}</p>
+        <div class="byline">
+          <Image src={portrait} alt="Chris" class="byline-avatar" widths={[46, 92]} />
+          <div>
+            <span class="byline-name">Chris</span>
+            <span class="byline-role">Founder &amp; Developer · Monroe, NC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COVER ===================== -->
+  <div class="post-cover">
+    <div class="pcover-ph" aria-hidden="true"><span>✦</span></div>
+  </div>
+
+  <!-- ===================== ARTICLE ===================== -->
+  <article class="article">
+    <Content />
+
+    <div class="inline-cta">
+      <div>
+        <Heading tag="h3" size="s" fontFamily="primary" marginBottom="xs" weight="fw700">
+          See exactly what's included in my plan
+        </Heading>
+        <p>
+          One flat monthly rate covers design, build, hosting, maintenance, and unlimited updates, no
+          upfront wall.
+        </p>
+      </div>
+      <Links variant="primary" href="/web-design">
+        See the plan <span class="arr" aria-hidden="true">→</span>
+      </Links>
+    </div>
+
+    <div class="author-card">
+      <Image src={portrait} alt="Chris" class="ac-avatar" widths={[84, 168]} />
+      <div>
+        <span class="ac-label">// Written by</span>
+        <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700">
+          Chris, Beyond Belief Web Design
+        </Heading>
+        <p>
+          I hand-code websites from scratch for local businesses around Monroe, NC. No templates, no
+          page builders, no agencies in the middle. Just straight answers and sites that actually pull
+          their weight.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== RELATED ===================== -->
+  <section id="related" class="sec-pad">
+    <div class="container container-md">
+      <div class="related-head" data-reveal>
+        <div>
+          <span class="eyebrow"><span class="num">// 02</span> Keep reading</span>
+          <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
+            More straight talk.
+          </Heading>
+        </div>
+        <a class="link related-all" href="/blog">All posts <span class="larr" aria-hidden="true">→</span></a>
+      </div>
+      <div class="related-grid">
+        {
+          related.map(p => (
+            <PostCard
+              id={p.id}
+              category={p.data.category}
+              title={p.data.title}
+              excerpt={p.data.excerpt}
+              readTime={p.data.readTime}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
+</Layout>
+
+<style lang="scss">
+  /* ===================== POST HEADER ===================== */
+  .post-hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .ph-in {
+    position: relative;
+    z-index: 3;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: clamp(140px, 18vh, 200px) 0 clamp(32px, 4vw, 56px);
+    text-align: center;
+  }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 26px;
+    font: 600 0.85rem/1 var(--font-body);
+    color: var(--fg3);
+    text-decoration: none;
+    transition: color var(--dur);
+
+    &:hover {
+      color: var(--lime-deep);
+    }
+  }
+  .ph-cat {
+    justify-content: center;
+    margin-bottom: 18px;
+    color: var(--tangerine-deep);
+  }
+  .ph-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    font: 700 0.72rem/1 var(--mono-family);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+  .ph-lead {
+    max-width: 60ch;
+    margin: 22px auto 0;
+  }
+  .byline {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 420px;
+    margin: 30px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-strong);
+  }
+  .byline :global(.byline-avatar) {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .byline-name {
+    display: block;
+    font: 700 0.95rem/1.2 var(--font-display);
+    color: var(--fg1);
+  }
+  .byline-role {
+    display: block;
+    font: 400 0.72rem/1.2 var(--mono-family);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+
+  /* ===================== COVER ===================== */
+  .post-cover {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 48px);
+  }
+  .pcover-ph {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 8;
+    background:
+      radial-gradient(120% 120% at 0% 0%, var(--paper-sunken), var(--stone-100)),
+      var(--paper-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+
+    span {
+      font-size: 2.6rem;
+      color: var(--lime-deep);
+      opacity: 0.4;
+    }
+  }
+
+  /* ===================== ARTICLE PROSE ===================== */
+  .article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(48px, 6vw, 84px) clamp(20px, 4vw, 48px) 0;
+  }
+  .article :global(p) {
+    margin: 0 0 22px;
+    font: 400 1.16rem/1.72 var(--font-body);
+    color: var(--fg2);
+  }
+  .article :global(p > strong),
+  .article :global(strong) {
+    font-weight: 600;
+    color: var(--fg1);
+  }
+  /* lead paragraph + drop cap */
+  .article :global(> p:first-of-type) {
+    font-size: clamp(1.22rem, 1.6vw, 1.42rem);
+    line-height: 1.62;
+    color: var(--fg1);
+  }
+  .article :global(> p:first-of-type::first-letter) {
+    float: left;
+    margin: 0.04em 0.08em 0 0;
+    font: 800 3.6rem/0.8 var(--font-display);
+    color: var(--ink-900);
+  }
+  .article :global(h2) {
+    margin: 40px 0 14px;
+    font: 700 clamp(1.5rem, 2.4vw, 2rem)/1.15 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--fg1);
+  }
+  /* mono kicker label (Kicker.astro), keep mono/tangerine above .article p */
+  .article :global(.post-kicker) {
+    margin: 38px 0 2px;
+    font: 700 0.72rem/1.4 var(--mono-family);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tangerine-deep);
+  }
+  .article :global(.post-kicker.lime) {
+    color: var(--lime-deep);
+  }
+  .article :global(.post-kicker + h2) {
+    margin-top: 0;
+  }
+  .article :global(h3) {
+    margin: 30px 0 12px;
+    font: 700 1.3rem/1.2 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--fg1);
+  }
+  .article :global(ol) {
+    margin: 0 0 24px;
+    padding: 0;
+    list-style: none;
+    counter-reset: consider;
+  }
+  .article :global(ol li) {
+    position: relative;
+    counter-increment: consider;
+    padding: 18px 0 18px 56px;
+    border-top: 1px solid var(--border);
+    font: 400 1.05rem/1.6 var(--font-body);
+    color: var(--fg2);
+  }
+  .article :global(ol li::before) {
+    content: counter(consider, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 18px;
+    font: 700 1rem/1 var(--mono-family);
+    color: transparent;
+    -webkit-text-stroke: 1px var(--stone-300);
+  }
+  .article :global(ul) {
+    margin: 0 0 24px;
+    padding-left: 1.2em;
+  }
+  .article :global(ul li) {
+    margin-bottom: 8px;
+    font: 400 1.1rem/1.65 var(--font-body);
+    color: var(--fg2);
+  }
+  .article :global(a) {
+    color: var(--lime-deep);
+    text-underline-offset: 2px;
+  }
+  /* pull quote (markdown blockquote) */
+  .article :global(blockquote) {
+    position: relative;
+    overflow: hidden;
+    margin: 32px 0;
+    padding: clamp(26px, 3vw, 38px);
+    color: var(--paper);
+    background: var(--ink-900);
+    border-radius: var(--radius-lg);
+  }
+  .article :global(blockquote p) {
+    margin: 0;
+    font: 700 clamp(1.3rem, 2vw, 1.7rem)/1.3 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--paper);
+  }
+  .article :global(blockquote p:first-child) {
+    margin-bottom: 12px;
+  }
+  .article :global(blockquote strong) {
+    display: block;
+    font: 700 0.72rem/1 var(--mono-family);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lime);
+  }
+
+  /* ===================== INLINE CTA ===================== */
+  .inline-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin: 40px 0;
+    padding: 28px 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: box-shadow var(--dur);
+
+    &:hover {
+      box-shadow: var(--shadow-md), 0 0 0 1px rgba(166, 204, 0, 0.2);
+    }
+
+    p {
+      max-width: 46ch;
+      margin: 0;
+      font: 400 0.95rem/1.5 var(--font-body);
+      color: var(--fg2);
+    }
+  }
+
+  /* ===================== AUTHOR CARD ===================== */
+  .author-card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin: 44px 0 8px;
+    padding: 28px 30px;
+    background: var(--paper-sunken);
+    border-radius: var(--radius-lg);
+  }
+  .author-card :global(.ac-avatar) {
+    flex: none;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .ac-label {
+    display: block;
+    margin-bottom: 8px;
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+  .author-card p {
+    max-width: 60ch;
+    margin: 0;
+    font: 400 0.98rem/1.6 var(--font-body);
+    color: var(--fg2);
+  }
+  @media (max-width: 680px) {
+    .inline-cta,
+    .author-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  /* ===================== RELATED ===================== */
+  .related-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: clamp(28px, 4vw, 48px);
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(18px, 2.2vw, 26px);
+  }
+  @media (max-width: 860px) {
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

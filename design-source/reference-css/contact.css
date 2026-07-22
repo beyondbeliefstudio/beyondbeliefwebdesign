@@ -1,0 +1,90 @@
+/* ============================================================
+   Beyond Belief V2 — Contact page
+   Paper ground; type-led hero; dark anchor: the free homepage offer.
+   ============================================================ */
+
+/* ============================================================
+   HERO — type-led headline on the paper ground + field wash
+   ============================================================ */
+#hero{min-height:0;}
+#hero .hero-in{max-width:1020px;padding-top:clamp(116px,15vh,158px);padding-bottom:clamp(44px,6vh,76px);}
+#hero .display{font-size:clamp(2.6rem,5.6vw,5.4rem);}
+#hero .lead{max-width:52ch;}
+
+/* ============================================================
+   TWO WAYS TO REACH ME — equal-weight call card + form card
+   ============================================================ */
+#reach .reach-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(18px,2.2vw,28px);align-items:stretch;}
+@media (max-width:900px){#reach .reach-grid{grid-template-columns:1fr;}}
+
+.reach-card{border-radius:var(--radius-xl);padding:clamp(30px,3.4vw,46px);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;}
+
+/* --- call / text card: dark, lime signal --- */
+.call-card{background:var(--ink-900);color:var(--paper);box-shadow:var(--shadow-lg);}
+.call-card .rc-glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(460px 340px at 14% 116%,rgba(204,255,0,0.22),transparent 62%);}
+.call-card .rc-in{position:relative;z-index:2;display:flex;flex-direction:column;height:100%;}
+.call-card .rc-tag{font:700 0.66rem/1.7 var(--font-mono);letter-spacing:var(--track-label);text-transform:uppercase;
+  color:var(--lime);display:block;}
+.call-card h3{font:800 clamp(1.7rem,2.7vw,2.4rem)/1.04 var(--font-display);letter-spacing:-0.02em;
+  color:var(--paper);margin:22px 0 14px;max-width:14ch;}
+.call-card .rc-body{font:400 1.02rem/1.62 var(--font-body);color:var(--stone-200);max-width:34ch;margin:0;}
+.call-card .rc-phone{font:700 clamp(2rem,3.6vw,3rem)/1 var(--font-mono);letter-spacing:-0.01em;color:var(--lime);
+  margin:30px 0 0;display:inline-block;width:fit-content;
+  transition:color var(--dur) var(--ease-out),transform var(--dur) var(--ease-out);}
+.call-card .rc-phone:hover{color:var(--lime-bright);transform:translateX(2px);}
+.call-card .rc-meta{margin-top:auto;padding-top:28px;display:flex;flex-direction:column;gap:0;}
+.call-card .rcm{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:14px 0;border-top:1px solid var(--ink-600);}
+.call-card .rcm:first-child{margin-top:4px;}
+.call-card .rcm .k{font:700 0.62rem/1.4 var(--font-mono);letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--stone-400);flex:none;}
+.call-card .rcm a,.call-card .rcm .v{font:600 0.95rem/1.4 var(--font-body);color:var(--paper);text-align:right;
+  transition:color var(--dur) var(--ease-out);}
+.call-card .rcm a:hover{color:var(--lime);}
+.call-card .rcm.rcm-wide{flex-direction:column;align-items:stretch;gap:7px;}
+.call-card .rcm.rcm-wide .v{text-align:left;font-weight:500;line-height:1.5;color:var(--stone-200);}
+
+/* --- form card: paper --- */
+#reach .form-card{background:var(--surface);border:1px solid var(--border);}
+#reach .form-card .fc-eyebrow{color:var(--fg2);margin-bottom:10px;}
+#reach .form-card .fc-sub{font:400 0.95rem/1.6 var(--font-body);color:var(--fg2);margin:0 0 24px;max-width:46ch;}
+.field .fl .opt{color:var(--stone-300);font-weight:400;}
+.field .fl.fl-long{text-transform:none;letter-spacing:0.005em;font:700 0.82rem/1.45 var(--font-mono);color:var(--fg2);
+  max-width:48ch;}
+
+/* ============================================================
+   THE FREE HOMEPAGE OFFER — dark anchor, lime accent
+   ============================================================ */
+#free{position:relative;overflow:hidden;border-top:1px solid var(--ink-600);border-bottom:1px solid var(--ink-600);}
+#free .free-glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(640px 480px at 84% -10%,rgba(204,255,0,0.20),transparent 60%),
+             radial-gradient(520px 420px at 4% 118%,rgba(204,255,0,0.11),transparent 64%);}
+#free .free-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.02fr 0.98fr;
+  gap:clamp(36px,5vw,86px);align-items:center;}
+@media (max-width:900px){#free .free-grid{grid-template-columns:1fr;gap:clamp(28px,4vw,40px);}}
+#free .eyebrow{color:var(--lime);}
+#free .eyebrow .dot{background:var(--lime);box-shadow:0 0 8px var(--lime);}
+#free h2{color:var(--paper);margin-top:22px;max-width:15ch;}
+#free h2 .hl{color:var(--ink-900);}
+#free .free-body{font:400 1.0625rem/1.7 var(--font-body);color:var(--stone-200);margin:0;max-width:52ch;}
+#free .free-body + .free-body{margin-top:16px;}
+#free .free-cue{font:700 clamp(1.12rem,1.6vw,1.4rem)/1.45 var(--font-display);letter-spacing:-0.015em;
+  color:var(--paper);margin:26px 0 0;max-width:30ch;}
+#free .free-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}
+#free .free-chips .chip{font:700 0.64rem/1 var(--font-mono);letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--paper);border:1px solid var(--ink-500);border-radius:var(--radius-pill);padding:11px 16px;
+  display:inline-flex;align-items:center;gap:9px;}
+#free .free-chips .chip i{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none;}
+#free .free-cta{margin-top:34px;}
+
+/* ============================================================
+   CLOSING — centered final statement
+   ============================================================ */
+#closing{padding-top:clamp(64px,8vw,110px);padding-bottom:clamp(96px,12vw,150px);text-align:center;}
+#closing .closing-kick{font:700 0.72rem/1.7 var(--font-mono);letter-spacing:var(--track-label);text-transform:uppercase;
+  color:var(--fg3);display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;}
+#closing .closing-kick .st{color:var(--lime-deep);}
+#closing .closing-line{font:800 clamp(2rem,4.2vw,3.5rem)/1.06 var(--font-display);letter-spacing:var(--track-tight);
+  max-width:18ch;margin:0 auto;text-wrap:balance;}

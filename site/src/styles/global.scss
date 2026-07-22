@@ -1,0 +1,1454 @@
+html {
+  /* 16px base — the BB design tokens (e.g. body prose 1.0625rem = 17px) were
+     authored against the 16px browser default, not the starter's old 20px. */
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --nav-height: 0px;
+  --address-height: 0px;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  /* The header floats (fixed); heroes self-clear it. Non-hero pages add their own top offset. */
+}
+
+section {
+  position: relative;
+  z-index: 3;
+}
+
+// ==========================================
+// DESIGN TOKENS — Beyond Belief Web Design
+// Light "paper" ground · electric-lime signal · near-black "ink" anchors.
+// Palette + families come from the handoff (reference-css/colors_and_type.css).
+// ==========================================
+:root {
+  /* BB RAW PALETTE — authoritative design values */
+  /* Signal — electric lime. One loud voice; use sparingly. */
+  --lime: #ccff00;
+  --lime-bright: #d4ff1a;
+  --lime-deep: #a6cc00; /* lime-on-light text/stroke safe */
+  --lime-wash: rgba(204, 255, 0, 0.12);
+
+  /* Secondary accent — tangerine. Only small negative/technical marks. */
+  --tangerine: #ff6a3d;
+  --tangerine-deep: #e04e22;
+  --tangerine-wash: rgba(255, 106, 61, 0.12);
+
+  /* Ink — cool green-tinted near-black. Never pure #000. */
+  --ink-900: #0b0e0a;
+  --ink-800: #11140f;
+  --ink-700: #1a1e17;
+  --ink-600: #262b22;
+  --ink-500: #3a4034;
+
+  /* Stone — olive-gray mid-tones. */
+  --stone-400: #6b7268;
+  --stone-300: #8b9384;
+  --stone-200: #b7bdaf;
+  --stone-100: #d7dbcf;
+
+  /* Paper — warm off-white light ground. */
+  --paper: #f5f6ef;
+  --paper-raised: #fbfcf6;
+  --paper-sunken: #eceee2;
+  --white: #ffffff;
+
+  /* BRAND COLORS — the six rebrand knobs, mapped to the BB palette */
+  --brand-primary: var(--lime); /* electric lime = primary accent */
+  --brand-primary-light: var(--lime-bright);
+  --brand-primary-dark: var(--lime-deep);
+
+  --brand-secondary: var(--tangerine);
+  --brand-secondary-light: var(--tangerine); /* palette has no lighter tangerine */
+  --brand-secondary-dark: var(--tangerine-deep);
+
+  /* NEUTRAL SCALE — re-pointed to BB so existing utilities inherit the palette */
+  --light-100: var(--paper-raised);
+  --light-100--transparency: rgba(255, 255, 255, 0.1);
+  --light-200: var(--paper-sunken);
+  --light-200--transparency: rgba(245, 244, 240, 0.5);
+  --light-glass: rgba(255, 255, 255, 0.66);
+
+  --dark-900: var(--ink-900);
+  --dark-900--transparency: rgba(11, 14, 10, 0.6);
+  --dark-800: var(--ink-800);
+  --dark-700: var(--stone-400);
+
+  --border-light: rgba(255, 255, 255, 0.15);
+
+  /* SEMANTIC ALIASES — light "paper" theme (use these, not raw swatches) */
+  --surface-primary: var(--paper); /* page background */
+  --surface-secondary: var(--paper-sunken); /* subtle background */
+  --content-primary: var(--ink-900); /* primary text */
+  --content-secondary: #3a4034; /* secondary / body text */
+  --border-color: var(--stone-100); /* default hairline */
+  --glass: var(--light-glass);
+
+  /* BB SEMANTIC TOKENS — consumed by ported sections; dark flips live in .sec-dark */
+  --bg: var(--paper);
+  --surface: var(--paper-raised);
+  --border: var(--stone-100);
+  --border-strong: var(--stone-200);
+  --fg1: var(--ink-900);
+  --fg2: #3a4034;
+  --fg3: var(--stone-400);
+
+  /* BORDERS / RADII */
+  --border-width: 1.5px;
+  --border-radius-small: 8px; /* BB md — the workhorse */
+  --border-radius-medium: 14px; /* BB lg — cards, frames */
+  --border-radius-round: 999px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* MOTION / ELEVATION */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;
+  --dur-slow: 520ms;
+  --shadow-md: 0 8px 24px -10px rgba(20, 30, 15, 0.18);
+  --shadow-lg: 0 28px 70px -28px rgba(20, 30, 15, 0.32);
+  --glow-soft: 0 0 40px rgba(204, 255, 0, 0.3);
+
+  /* FONTS — three families (display / body / mono). Match the BaseHead.astro <link>. */
+  --primary-family: "Bricolage Grotesque", "Space Grotesk", system-ui, sans-serif;
+  --secondary-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --mono-family: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: var(--primary-family);
+  --font-body: var(--secondary-family);
+  --font-mono: var(--mono-family);
+  --track-display: -0.03em;
+  --track-tight: -0.02em;
+  --track-label: 0.18em;
+
+  /* CONTAINER WIDTHS */
+  --site--margin: clamp(1rem, 0.428rem + 2.86vw, 3rem);
+
+  --site--width--sm: 61rem;
+  --site--width--md: 80rem;
+  --site--width--lg: 110rem;
+
+  --site--max-width--sm: min(var(--site--width--sm), 100%);
+  --site--max-width--md: min(var(--site--width--md), 100%);
+  --site--max-width--lg: min(var(--site--width--lg), 100%);
+
+  /* width caps; the single horizontal gutter comes from .container-* padding
+     (don't subtract --site--margin here too, or the content is gutter'd twice) */
+  --container--main--sm: var(--site--max-width--sm);
+  --container--main--md: var(--site--max-width--md);
+  --container--main--lg: var(--site--max-width--lg);
+  --container--main--full: 100%;
+
+  /* FLUID TYPOGRAPHY SCALE — BB exact values (handoff §1.2), verbatim clamps */
+  --_typography---font-size--display: clamp(3rem, 7.2vw, 7rem); /* .display */
+  --_typography---font-size--h1: clamp(2.5rem, 5.1vw, 5.3rem); /* hero H1 */
+  --_typography---font-size--h2: clamp(2.1rem, 3.6vw, 3.4rem); /* section .h2 */
+  --_typography---font-size--h3: clamp(1.5rem, 2.2vw, 2rem);
+  --_typography---font-size--h4: clamp(1.3rem, 1.6vw, 1.4rem);
+  --_typography---font-size--h5: clamp(1.1rem, 1.2vw, 1.25rem);
+  --_typography---font-size--h6: clamp(0.95rem, 1vw, 1.05rem);
+  --_typography---font-size--text-large: clamp(1.05rem, 1.4vw, 1.3rem); /* .lead */
+  --_typography---font-size--text-main: 1rem;
+  --_typography---font-size--text-small: 0.875rem;
+  --_typography---font-size--label: 0.66rem;       /* tiny mono labels: index tags, chips, captions */
+  --_typography---font-size--mono-sm: 0.72rem;     /* small mono (matches .mono-sm class size) */
+  --_typography---font-size--price: clamp(3.5rem, 6vw, 5.5rem); /* hero/callout price numbers */
+
+  /* FLUID SPACING SCALE */
+  --_spacing---section-space--xl: clamp(3.69rem, 3.01rem + 3.4vw, 6.75rem);
+  --_spacing---section-space--large: clamp(2.33rem, 1.558rem + 3.86vw, 5.03rem);
+  --_spacing---section-space--main: clamp(1.86rem, 1.328rem + 2.66vw, 3.72rem);
+  --_spacing---section-space--small: clamp(1.49rem, 1.128rem + 1.81vw, 2.76rem);
+  --_spacing---space--8: clamp(1.19rem, 0.948rem + 1.21vw, 2.04rem);
+  --_spacing---space--7: clamp(0.95rem, 0.79rem + 0.8vw, 1.51rem);
+  --_spacing---space--6: clamp(0.76rem, 0.658rem + 0.51vw, 1.12rem);
+  --_spacing---space--5: clamp(0.61rem, 0.548rem + 0.31vw, 0.83rem);
+  --_spacing---space--4: clamp(0.49rem, 0.452rem + 0.19vw, 0.62rem);
+  --_spacing---space--3: clamp(0.39rem, 0.37rem + 0.1vw, 0.46rem);
+  --_spacing---space--2: clamp(0.31rem, 0.302rem + 0.04vw, 0.34rem);
+  --_spacing---space--1: clamp(0.25rem, 0.25rem + 0vw, 0.25rem);
+}
+
+// ==========================================
+// RESET
+// ==========================================
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: var(--secondary-family);
+  font-weight: 400;
+  font-size: var(--_typography---font-size--text-main);
+  line-height: 1.55;
+  color: var(--content-primary);
+  background-color: var(--surface-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--ink-900);
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+/* No underline by default — links are distinguished by their component styling
+   (.btn, .link, nav, cards). The underline affordance is opt-in for long-form
+   prose only: legal pages + blog article body. Styled buttons/links inside that
+   prose are excluded so they stay clean. */
+.terms a:not(.btn):not(.link),
+.accessibility a:not(.btn):not(.link),
+.article a:not(.btn):not(.link) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+  transition: 0.25s ease-in-out color;
+
+  &:hover {
+    color: var(--brand-primary-dark); /* lime-deep — neon lime fails contrast on paper */
+  }
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--_spacing---space--4);
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--content-primary);
+
+  &.large {
+    font-size: var(--_typography---font-size--text-large);
+  }
+  &.small {
+    font-size: var(--_typography---font-size--text-small);
+  }
+}
+
+// ==========================================
+// BUTTONS
+// ==========================================
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  white-space: nowrap;
+  margin: 0;
+  padding: 17px 30px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  color: var(--fg1);
+  background: transparent;
+  transition:
+    background var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+  will-change: transform;
+}
+
+.btn .arr {
+  font-family: var(--mono-family);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+@keyframes arr-march {
+  to {
+    transform: translateX(6px);
+  }
+}
+
+.btn:hover .arr {
+  animation: arr-march 0.45s ease-in-out infinite alternate;
+  transition: none;
+}
+
+html[data-motion="off"] .btn:hover .arr {
+  animation: none;
+}
+
+.btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+
+  .btn {
+    margin: 0;
+  }
+
+  &--left {
+    justify-content: flex-start;
+  }
+}
+
+// ==========================================
+// NAV LINKS
+// ==========================================
+.nav-link {
+  text-transform: capitalize !important;
+  font-weight: 700;
+  width: fit-content;
+  font-size: var(--_typography---font-size--h6);
+}
+
+// ==========================================
+// SOCIAL ICONS
+// ==========================================
+.social-grid {
+  display: flex;
+  gap: 0.5rem;
+
+  .social {
+    background: var(--brand-primary);
+    border-radius: 100%;
+    height: 36px;
+    width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.25s ease-in-out all;
+    cursor: pointer;
+
+    img {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      background: var(--light-100);
+    }
+  }
+}
+
+// ==========================================
+// BACKGROUND UTILITIES
+// ==========================================
+.bg-primary {
+  background-color: var(--brand-primary);
+  *:not(.btn) {
+    color: var(--dark-900);
+  }
+}
+
+.bg-primary-dark {
+  background-color: var(--brand-primary-dark);
+  *:not(.btn) {
+    color: var(--light-200);
+  }
+}
+
+.bg-white {
+  background-color: var(--light-100);
+}
+.bg-light {
+  background-color: var(--light-200);
+}
+
+.bg-black {
+  background-color: var(--dark-900);
+  *:not(.btn) {
+    color: var(--light-100);
+  }
+}
+
+.bg-dark {
+  background-color: var(--dark-800);
+  *:not(.btn) {
+    color: var(--light-100);
+  }
+}
+
+.bg-glass {
+  background: rgb(248 248 248 / 70%);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(18px);
+}
+
+// ==========================================
+// LAYOUT HELPERS
+// ==========================================
+.grid-auto-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--_spacing---space--6);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-auto-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--_spacing---space--6);
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-auto-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--_spacing---space--6);
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row;
+  gap: var(--_spacing---section-space--main);
+  justify-content: flex-start;
+}
+
+.row-small {
+  display: flex;
+  flex-flow: row;
+  gap: var(--_spacing---space--5);
+  justify-content: flex-start;
+}
+
+.column-main {
+  display: flex;
+  flex-flow: column;
+  gap: var(--_spacing---section-space--main);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.column-medium {
+  display: flex;
+  flex-flow: column;
+  gap: var(--_spacing---space--8);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.column-small {
+  display: flex;
+  flex-flow: column;
+  gap: var(--_spacing---space--6);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.vc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+// ==========================================
+// CONTAINERS
+// ==========================================
+.container {
+  position: relative;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  /* horizontal-only — vertical rhythm comes from .sec-pad (or a section's own padding) */
+
+  &-full {
+    max-width: var(--container--main--full);
+  }
+  &-lg {
+    max-width: var(--container--main--lg);
+    padding-left: var(--site--margin);
+    padding-right: var(--site--margin);
+  }
+  &-md {
+    max-width: var(--container--main--md);
+    padding-left: var(--site--margin);
+    padding-right: var(--site--margin);
+  }
+  &-sm {
+    max-width: var(--container--main--sm);
+    padding-left: var(--site--margin);
+    padding-right: var(--site--margin);
+  }
+}
+
+// ==========================================
+// CONTENT WIDTH HELPERS
+// ==========================================
+.content-md {
+  text-align: center;
+  max-width: 46rem;
+  width: 100%;
+  margin: auto;
+  text-wrap: balance;
+}
+
+.content-lg {
+  text-align: center;
+  max-width: 55rem;
+  margin: auto;
+  width: 100%;
+}
+
+.content-full {
+  text-align: left;
+  max-width: 100%;
+  margin: auto;
+  width: 100%;
+}
+
+.content-left {
+  text-align: left;
+  max-width: 55rem;
+  margin-left: 0;
+  width: 100%;
+}
+
+// ==========================================
+// TYPOGRAPHY HELPERS
+// ==========================================
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  font: 700 0.75rem/1 var(--mono-family);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg2);
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+
+  &:before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 6px;
+    left: 0;
+    bottom: 4px;
+    background: var(--brand-primary);
+    border-radius: 100px;
+    z-index: -1;
+  }
+}
+
+// ==========================================
+// CARD BASE
+// ==========================================
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 34px 30px 36px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--fg2);
+  }
+}
+
+/* card heading — fixed size, scoped above the Heading component's .fs-s (0,2,0) */
+.cards .card h3 {
+  font: 700 21px/1.12 var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.icon-box {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 24px;
+  color: var(--lime-deep);
+  background: var(--paper);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+
+  svg {
+    width: 26px;
+    height: 26px;
+    display: block;
+  }
+}
+
+// ==========================================
+// FORMS
+// ==========================================
+form {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--dark-900) !important;
+  font-size: var(--_typography---font-size--text-large);
+  text-align: left;
+
+  .required {
+    color: #d32f2f;
+  }
+}
+
+input,
+select,
+textarea {
+  padding: 0.75rem;
+  border-radius: var(--border-radius-small);
+  font-size: var(--_typography---font-size--text-main);
+  font-family: var(--secondary-family);
+  border: 1.5px solid var(--border-color);
+  width: 100%;
+  transition: all 0.2s ease;
+  color: var(--dark-900) !important;
+
+  &:hover {
+    border-color: var(--stone-300);
+  }
+  &:focus {
+    outline: none;
+    border-color: var(--lime-deep);
+    box-shadow: 0 0 0 3px var(--lime-wash);
+  }
+}
+
+textarea {
+  height: 140px;
+  resize: vertical;
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  padding-right: 3rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  position: absolute !important;
+  left: -9999px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+// ==========================================
+// PROSE / LEGAL CONTENT
+// ==========================================
+.terms,
+.accessibility,
+.legal {
+  max-width: 760px;
+
+  h2 {
+    margin: 2rem 0 0.75rem;
+    font: 700 clamp(1.4rem, 2.2vw, 1.9rem)/1.2 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--fg1);
+  }
+
+  h3 {
+    margin: 1.5rem 0 0.6rem;
+    font: 700 1.25rem/1.25 var(--font-display);
+    color: var(--fg1);
+  }
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--fg2);
+  }
+
+  ul {
+    margin: 0 0 1.2rem;
+    padding-left: 1.4em;
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+    line-height: 1.65;
+    color: var(--fg2);
+    list-style: disc;
+  }
+
+  a {
+    color: var(--lime-deep);
+  }
+
+  em {
+    color: var(--fg3);
+  }
+
+  hr {
+    margin: 2rem 0;
+    height: 1px;
+    border: 0;
+    background: var(--border);
+  }
+}
+
+// ==========================================
+// BB SHARED LAYER — section rhythm, type accents, lime marker, arrow links,
+// form fields, recurring-CTA primitives, dark-section flips, film grain.
+// Ported from the design's master stylesheet (reference-css/v2.css).
+// ==========================================
+
+/* ---- section rhythm ---- */
+.sec-pad {
+  padding: clamp(88px, 11vw, 150px) 0;
+}
+
+/* width comes from .container; .sec-pad owns the vertical rhythm (no doubling) */
+.sec-pad > .container {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* When two same-bg sections stack, collapse the redundant top gap */
+.sec-pad:not(.sec-dark) + .sec-pad:not(.sec-dark),
+.sec-dark.sec-pad + .sec-dark.sec-pad {
+  padding-top: 0;
+}
+
+.band {
+  background: var(--paper-sunken);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-head {
+  max-width: 760px;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+
+/* ---- type accents ---- */
+.lead {
+  margin: 0;
+  font-size: var(--_typography---font-size--text-large);
+  line-height: 1.5;
+  color: var(--fg2);
+  text-wrap: pretty;
+}
+
+.mono-sm {
+  font: 700 0.72rem/1.5 var(--mono-family);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg3);
+}
+
+/* line-mask reveal scaffolding (JS animates .line-inner; final state is static-safe) */
+.lines .line {
+  display: block;
+  overflow: hidden;
+}
+
+.lines .line-inner {
+  display: block;
+  padding: 0.04em 0;
+  will-change: transform;
+}
+
+/* lime marker highlight — lime only ever sits behind ink text on the light ground */
+.hl {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.12em;
+  isolation: isolate;
+}
+
+.hl .hl-bar {
+  position: absolute;
+  inset: 0.06em -0.04em 0.02em -0.04em;
+  z-index: -1;
+  background: var(--lime);
+  border-radius: 3px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.8s var(--ease-out);
+}
+
+.hl.on .hl-bar {
+  transform: scaleX(1);
+}
+
+html[data-motion="off"] .hl .hl-bar {
+  transform: scaleX(1);
+  transition: none;
+}
+
+/* ---- eyebrow accents (base .eyebrow lives in the typography helpers above) ---- */
+.eyebrow .num {
+  color: var(--tangerine-deep);
+}
+
+.eyebrow .dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 6px 2px rgba(204, 255, 0, 0.7);
+}
+
+.eyebrow.hero-badge {
+  padding: 10px 18px;
+  background: var(--surface);
+  border: 1px solid var(--stone-200);
+  border-radius: var(--radius-pill);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .eyebrow.hero-badge .dot {
+    animation: badge-blink 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes badge-blink {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow:
+      0 0 4px 1px rgba(204, 255, 0, 0.4),
+      0 0 10px 3px rgba(204, 255, 0, 0.2);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 8px 3px rgba(204, 255, 0, 0.9),
+      0 0 20px 8px rgba(204, 255, 0, 0.5),
+      0 0 40px 14px rgba(204, 255, 0, 0.2);
+  }
+}
+
+/* ---- quiet arrow link ---- */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font: 600 15px/1 var(--font-body);
+  color: var(--fg1);
+  text-decoration: none;
+  transition:
+    gap var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.link .larr {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--ink-900);
+  border-radius: 50%;
+  font: 13px/1 var(--mono-family);
+  transition:
+    background var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.link:hover {
+  gap: 14px;
+}
+
+.link:hover .larr {
+  color: var(--ink-900);
+  background: var(--lime);
+  border-color: var(--ink-900);
+  transform: translateX(2px);
+}
+
+.link:active .larr {
+  background: var(--lime-deep);
+  transform: translateX(2px) scale(0.94);
+}
+
+/* ---- form fields (.field used by the recurring CTA + contact + newsletter) ---- */
+.field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.field .fl {
+  display: block;
+  margin-bottom: 8px;
+  font: 700 0.6875rem/1 var(--mono-family);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg3);
+}
+
+.field .fl .opt {
+  color: var(--stone-300);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 13px 14px;
+  font: 400 1rem/1.5 var(--font-body);
+  color: var(--fg1);
+  background: var(--paper-raised);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  outline: none;
+  resize: none;
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--lime-deep);
+  box-shadow: 0 0 0 3px var(--lime-wash);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--stone-300);
+}
+
+.form-card {
+  padding: 32px;
+  color: var(--ink-900);
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+}
+
+.form-card .fc-eyebrow {
+  margin-bottom: 22px;
+  color: var(--fg2);
+}
+
+/* text-me block (recurring CTA contact column) */
+.text-me {
+  padding: 26px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--ink-600);
+  border-radius: var(--radius-lg);
+}
+
+.text-me .phone {
+  display: inline-block;
+  margin: 12px 0;
+  font: 700 clamp(24px, 2.4vw, 30px)/1 var(--mono-family);
+  color: var(--lime);
+}
+
+.text-me p {
+  margin: 0;
+  font: 400 0.875rem/1.5 var(--font-body);
+  color: var(--stone-300);
+}
+
+/* ---- fact rows (key/value list with border dividers; used in About + home AboutTeaser) ---- */
+.fact-list {
+  border-top: 1px solid var(--border-strong);
+}
+.fact-list .fact {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--_spacing---space--7);
+  padding: var(--_spacing---space--6) 0;
+  border-bottom: 1px solid var(--border-strong);
+}
+.fact-list .fk {
+  flex: none;
+  font-weight: 700;
+  font-size: var(--_typography---font-size--label);
+  line-height: 1.4;
+  font-family: var(--mono-family);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg3);
+}
+.fact-list .fv {
+  font-weight: 600;
+  font-size: var(--_typography---font-size--text-small);
+  line-height: 1.4;
+  font-family: var(--font-body);
+  text-align: right;
+  color: var(--fg1);
+}
+
+/* ---- dark-section flips ---- */
+.sec-dark {
+  background: var(--ink-900);
+  color: var(--paper);
+}
+
+.sec-dark .lead {
+  color: var(--stone-200);
+}
+.sec-dark .eyebrow {
+  color: var(--stone-300);
+}
+.sec-dark .eyebrow .num {
+  color: var(--stone-400);
+}
+.sec-dark .link {
+  color: var(--paper);
+}
+.sec-dark .link .larr {
+  color: var(--paper);
+  border-color: var(--stone-300);
+}
+.sec-dark .link:hover .larr {
+  color: var(--ink-900);
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.sec-dark .hl {
+  color: var(--ink-900);
+}
+.sec-dark .card {
+  background: var(--ink-800);
+  border-color: var(--ink-600);
+}
+
+.sec-dark .card p {
+  color: var(--stone-300);
+}
+.sec-dark .card .icon-box {
+  color: var(--lime);
+  background: var(--ink-700);
+  border-color: var(--ink-600);
+}
+
+/* ---- film grain (toggle via html[data-grain="off"]) ---- */
+#grain {
+  position: fixed;
+  inset: -100px;
+  z-index: 650;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html[data-grain="off"] #grain {
+  display: none;
+}
+
+/* ---- hero field wash (Three.js canvas in HeroBackdrop; kill via html[data-field="off"]) ---- */
+html[data-field="off"] .field-wrap {
+  display: none;
+}
+
+/* ---- custom cursor (desktop fine-pointer enhancement: trailing ink dot + ring) ---- */
+#cursor-dot,
+#cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  pointer-events: none;
+  border-radius: 50%;
+  transform: translate(-100px, -100px);
+  display: none;
+}
+/* only ever shown on a fine pointer AND once the JS has opted in */
+@media (pointer: fine) {
+  html[data-cursor="on"] #cursor-dot,
+  html[data-cursor="on"] #cursor-ring {
+    display: block;
+  }
+}
+#cursor-dot {
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  background: var(--ink-900);
+}
+#cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(58, 64, 52, 0.55);
+  transition:
+    width 0.3s var(--ease-out),
+    height 0.3s var(--ease-out),
+    margin 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out),
+    background 0.3s var(--ease-out);
+}
+
+/* The overlay menu is near-black — flip the cursor to light tones so the dot and
+   default ring stay visible against it. Declared before the hover rule so
+   that (equal specificity) still wins and keeps its lime over menu links. */
+html.menu-open #cursor-dot,
+body.cur-light #cursor-dot {
+  background: var(--paper);
+}
+html.menu-open #cursor-ring,
+body.cur-light #cursor-ring {
+  border-color: rgba(245, 246, 239, 0.55);
+}
+
+/* HOVER — over any link / button / input / [data-cursor="grow"] */
+body.cur-hover #cursor-ring {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-color: var(--lime-deep);
+  background: var(--lime-wash);
+}
+
+/* ============================================================
+   MIX-BLEND-MODE CURSOR TEST — revertible. Delete this block to
+   restore the tone-detection cursor above. Makes the cursor white
+   and blends with `difference`, so it auto-inverts against any
+   background (white form card included). Overrides the tone-flip
+   and lime-hover color rules above since the blend handles contrast
+   itself (this drops the lime hover accent — the known tradeoff). */
+#cursor-dot,
+#cursor-ring {
+  mix-blend-mode: difference;
+}
+#cursor-dot,
+body.cur-light #cursor-dot,
+html.menu-open #cursor-dot {
+  background: #fff;
+}
+#cursor-ring,
+body.cur-light #cursor-ring,
+html.menu-open #cursor-ring,
+body.cur-hover #cursor-ring {
+  border-color: #fff;
+  background: transparent;
+}
+/* ============================================================ */
+
+/* hide the native cursor only while the custom one is active */
+@media (pointer: fine) {
+  html[data-cursor="on"],
+  html[data-cursor="on"] * {
+    cursor: none;
+  }
+}
+
+/* ---- brand lockup (Logo.astro) — ink on light grounds, paper on dark ---- */
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink-900);
+  transition: color var(--dur);
+}
+
+.lockup svg {
+  display: block;
+  height: 44px;
+  width: auto;
+}
+
+/* the header wordmark reads a touch larger on desktop; mobile header stays 44px */
+@media (min-width: 700px) {
+  #header .lockup svg {
+    height: 54px;
+  }
+}
+
+/* the footer wordmark is a brand moment — larger than the header */
+footer .lockup svg {
+  height: 66px;
+}
+
+footer .lockup,
+.sec-dark .lockup {
+  color: var(--paper);
+}
+
+/* ---- reveal system — CSS transitions toggled by .is-in (added by an
+   IntersectionObserver). Applied only with JS + full motion; without JS (or
+   under reduced motion) everything renders in its final, legible state. ---- */
+html.js[data-motion="full"] {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(34px);
+    transition:
+      opacity 0.9s var(--ease-out),
+      transform 0.9s var(--ease-out);
+
+    &.is-in {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  [data-reveal-stagger] > * {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      opacity 0.8s var(--ease-out),
+      transform 0.8s var(--ease-out);
+
+    &.is-in {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  [data-wipe] {
+    opacity: 0;
+    transform: translateY(26px);
+    clip-path: inset(0 0 100% 0);
+    transition:
+      opacity 1s var(--ease-out),
+      transform 1s var(--ease-out),
+      clip-path 1s var(--ease-out);
+
+    &.is-in {
+      opacity: 1;
+      transform: none;
+      clip-path: inset(0 0 0% 0);
+    }
+  }
+
+  .lines .line-inner {
+    transform: translateY(115%);
+    transition: transform 1.05s var(--ease-out);
+  }
+  .lines.is-in .line-inner {
+    transform: translateY(0);
+  }
+  .lines.is-in .line:nth-child(2) .line-inner {
+    transition-delay: 0.09s;
+  }
+  .lines.is-in .line:nth-child(3) .line-inner {
+    transition-delay: 0.18s;
+  }
+}
+
+/* word-fill statement — words ink in on enter */
+[data-fill-words] .w {
+  color: var(--stone-200);
+  transition: color 0.5s var(--ease-out);
+}
+.sec-dark [data-fill-words] .w {
+  color: var(--ink-500);
+}
+[data-fill-words].is-in .w {
+  color: var(--fg1);
+}
+.sec-dark [data-fill-words].is-in .w {
+  color: var(--paper);
+}
+
+/* no-JS: draw the lime highlight markers (JS otherwise animates them in) */
+html:not(.js) .hl .hl-bar {
+  transform: scaleX(1);
+}
+
+/* header hide-on-scroll */
+#header {
+  transition: transform 0.5s var(--ease-out);
+}
+#header.nav-hidden {
+  transform: translateY(-130%);
+}
+
+/* ---- prevent CSS-grid blowout: grid items default to min-width:auto, so a
+   framed image (or long heading) can refuse to shrink and overflow its column.
+   These are the 2-column grids that hold media or long titles. ---- */
+.prob-grid > *,
+.about-grid > *,
+.diff-grid > *,
+.story-grid > *,
+.local-grid > *,
+.proj > *,
+.feat-card > *,
+.reach-grid > *,
+.seo-grid > *,
+.ev-grid > *,
+.cbgrid > *,
+.plan-grid > * {
+  min-width: 0;
+}
+
+/* ---- BB display tracking on Heading sizes (display/h1/h2/h3) ---- */
+.fs-display,
+.fs-xxl {
+  letter-spacing: var(--track-display);
+}
+.fs-xl,
+.fs-l {
+  letter-spacing: var(--track-tight);
+}
+
+/* ---- browser frame (BrowserFrame.astro) ---- */
+.bframe {
+  overflow: hidden;
+  background: var(--paper-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.bframe .tb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--paper-sunken);
+  border-bottom: 1px solid var(--border);
+}
+
+.bframe .tb i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--stone-200);
+}
+
+.bframe .tb .url {
+  margin-left: 12px;
+  font: 400 0.75rem/1 var(--mono-family);
+  color: var(--fg3);
+}
+
+.bframe-body {
+  line-height: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.sec-dark .bframe {
+  border-color: var(--ink-600);
+  box-shadow: 0 40px 90px -38px rgba(0, 0, 0, 0.5);
+}
+
+/* scrolling-screenshot variant: the body is a fixed browser-viewport window and
+   the tall full-page screenshot inside translates up to read like scrolling the
+   site. The travel distance (--scroll) is measured per-frame in Work.astro. */
+.bframe--scroll .bframe-body {
+  aspect-ratio: 3840 / 2180; /* matches the other card's screenshot proportions */
+  overflow: hidden;
+}
+/* the scroll + glide-back transforms are driven inline by the script in
+   Work.astro (both directions use a constant speed from the current position). */
+@media (prefers-reduced-motion: no-preference) {
+  .bframe--scroll .bframe-body img {
+    will-change: transform;
+  }
+}

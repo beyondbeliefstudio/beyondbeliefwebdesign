@@ -1,0 +1,120 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+---
+
+<section id="addons" class="sec-pad band">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"><span class="num">// 03</span> Add-ons</span>
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        Need more? Add it whenever you are ready.
+      </Heading>
+      <p class="lead">
+        Your plan covers everything most local businesses need. But if you want to grow your site,
+        here are a few optional add-ons. None of these change your monthly rate.
+      </p>
+    </div>
+
+    <div class="addon-grid" data-reveal-stagger>
+      <div class="ao-card">
+        <span class="ao-price">$149 · one-time, per page</span>
+        <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700">
+          Additional pages
+        </Heading>
+        <p>
+          Want more than your five included pages? Any additional page is a one-time $149 to design
+          and build. Your monthly fee stays exactly the same.
+        </p>
+      </div>
+
+      <div class="ao-card">
+        <span class="ao-price">$499 · one-time</span>
+        <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700">
+          Blog setup
+        </Heading>
+        <p>
+          I build out a full content management system on the back end of your site and give you
+          direct access, so you can write and publish your own blog posts anytime without needing me.
+          Great for businesses that want to post updates, news, or articles on their own.
+        </p>
+      </div>
+
+      <div class="ao-card featured">
+        <span class="ao-price">$999 · one-time</span>
+        <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700">
+          Local SEO Expansion
+        </Heading>
+        <p>The most powerful way to dominate local search in your area.</p>
+        <a class="link" href="#seo">More on this below <span class="larr" aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .addon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--_spacing---space--7);
+  }
+
+  .ao-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--_spacing---space--8) var(--_spacing---space--8);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+
+    p {
+      font-weight: 400;
+      font-size: var(--_typography---font-size--text-main);
+      line-height: 1.55;
+      font-family: var(--font-body);
+      color: var(--fg2);
+    }
+
+    .link {
+      margin-top: var(--_spacing---space--6);
+    }
+  }
+
+  .ao-card.featured {
+    color: var(--paper);
+    background: var(--ink-900);
+    border-color: var(--ink-700);
+
+    p {
+      color: var(--stone-300);
+    }
+
+    .ao-price {
+      color: var(--ink-900);
+      background: var(--lime);
+      border-color: transparent;
+    }
+  }
+
+  .ao-price {
+    margin-bottom: var(--_spacing---space--6);
+    padding: 7px 14px;
+    font-weight: 700;
+    font-size: var(--_typography---font-size--mono-sm);
+    line-height: 1;
+    font-family: var(--mono-family);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg2);
+    background: var(--paper-sunken);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  @media (max-width: 900px) {
+    .addon-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

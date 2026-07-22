@@ -1,0 +1,197 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Icon from "@/components/Icon.astro";
+
+const plan = [
+  {
+    icon: "window",
+    index: "01 · Five custom pages",
+    title: "A fully custom five-page website",
+    body: "Your site is designed and hand-coded from scratch. That is your homepage plus four more pages built around what your business actually needs. Most businesses go with something like About, Services, Contact, and a Gallery, but these four pages are completely yours to shape. Some clients use one for a calendar, a menu, or a private events page, whatever helps your business most.",
+  },
+  {
+    icon: "search-rank",
+    index: "02 · Local search",
+    title: "Built to rank on Google",
+    body: "Every site is built for local search from the very first line of code. When someone nearby searches for what you do, your business shows up.",
+  },
+  {
+    icon: "server",
+    index: "03 · Hosting",
+    title: "Hosting and maintenance fully handled",
+    body: "Fast, reliable hosting with every technical update, security patch, and performance check handled behind the scenes. You never think about it.",
+  },
+  {
+    icon: "refresh",
+    index: "04 · Updates",
+    title: "Unlimited content updates",
+    body: "Hours, services, photos, pricing, or anything else. Just reach out and it gets done. No hourly fees. No waiting weeks for a simple change.",
+  },
+  {
+    icon: "phone",
+    index: "05 · Mobile",
+    title: "Mobile optimized on every device",
+    body: "More than half of all searches happen on a phone. Your site looks and works perfectly on mobile, tablet, and desktop.",
+  },
+  {
+    icon: "message",
+    index: "06 · Support",
+    title: "Ongoing support, directly from me",
+    body: "You are not handed off to a support ticket. You always talk to Chris. Always.",
+  },
+];
+---
+
+<section id="plan" class="sec-pad sec-dark">
+  <div class="container container-md">
+    <div class="plan-grid">
+      <aside class="plan-aside" data-reveal>
+        <span class="eyebrow"><span class="num">// 01</span> The plan</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
+          One plan. Everything included.
+        </Heading>
+        <div class="plan-price">
+          <span class="price-big"><sup>$</sup>149 <small>/ month</small></span>
+        </div>
+        <p class="plan-note">Here is exactly what you get from day one.</p>
+      </aside>
+
+      <div class="plan-rows">
+        {
+          plan.map(row => (
+            <div class="incl-row" data-reveal>
+              <span class="incl-icon"><Icon name={row.icon} /></span>
+              <div class="incl-body">
+                <span class="incl-index">{row.index}</span>
+                <Heading
+                  tag="h3"
+                  size="m"
+                  fontFamily="primary"
+                  marginBottom="s"
+                  weight="fw700"
+                  lineHeight="1.15"
+                >
+                  {row.title}
+                </Heading>
+                <p>{row.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .plan-grid {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: var(--_spacing---section-space--large);
+    align-items: start;
+  }
+
+  .plan-aside {
+    position: sticky;
+    top: calc(var(--nav-height, 90px) + var(--_spacing---space--8));
+  }
+
+  .plan-price {
+    margin: var(--_spacing---space--2) 0 var(--_spacing---space--6);
+  }
+
+  .price-big {
+    font-weight: 800;
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    line-height: 1;
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--paper);
+
+    sup {
+      font-size: 0.4em;
+      vertical-align: super;
+      color: var(--lime);
+    }
+    small {
+      font-size: 0.28em;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--stone-300);
+    }
+  }
+
+  .plan-note {
+    max-width: 28ch;
+    font-weight: 400;
+    font-size: var(--_typography---font-size--text-main);
+    line-height: 1.6;
+    font-family: var(--font-body);
+    color: var(--stone-300);
+  }
+
+  .plan-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .incl-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--_spacing---space--7);
+    padding: var(--_spacing---space--8) 0;
+    border-top: 1px solid var(--ink-600);
+
+    &:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  .incl-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    color: var(--lime);
+    background: var(--ink-800);
+    border: 1px solid var(--ink-600);
+    border-radius: var(--radius-md);
+
+    :global(svg) {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .incl-index {
+    display: block;
+    margin-bottom: var(--_spacing---space--4);
+    font-weight: 700;
+    font-size: var(--_typography---font-size--mono-sm);
+    line-height: 1;
+    font-family: var(--mono-family);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--stone-400);
+  }
+
+  .incl-body p {
+    max-width: 60ch;
+    font-weight: 400;
+    font-size: var(--_typography---font-size--text-main);
+    line-height: 1.55;
+    font-family: var(--font-body);
+    color: var(--stone-300);
+  }
+
+  @media (max-width: 900px) {
+    .plan-grid {
+      grid-template-columns: 1fr;
+    }
+    .plan-aside {
+      position: static;
+    }
+  }
+</style>

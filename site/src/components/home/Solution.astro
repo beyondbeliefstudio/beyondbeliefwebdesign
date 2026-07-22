@@ -1,0 +1,56 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Icon from "@/components/Icon.astro";
+
+// Card physics (.cards / .card / .icon-box / .ghost-num) + dark-section flips
+// live in global.scss, so this section needs no scoped styles of its own.
+---
+
+<section id="services" class="sec-pad sec-dark">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"><span class="num">// 02</span> The solution</span>
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        A website that actually <span class="hl">grows<span class="hl-bar"></span></span> your business.
+      </Heading>
+      <p class="lead">
+        I build every site from scratch, specifically for your business. It loads fast, shows up when
+        people in your area are searching, and looks like you're the obvious choice.
+      </p>
+    </div>
+
+    <div class="cards" data-reveal-stagger>
+      <div class="card">
+        <span class="icon-box"><Icon name="search-rank" /></span>
+        <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.12">
+          Show up higher on Google
+        </Heading>
+        <p>
+          Your site is built from the ground up to rank in local search. When someone nearby searches
+          for what you do, you show up.
+        </p>
+      </div>
+      <div class="card">
+        <span class="icon-box"><Icon name="bar-up" /></span>
+        <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.12">
+          Turn visitors into actual leads
+        </Heading>
+        <p>
+          A good-looking site is great. A site that gets people to call, text, or fill out a form is
+          better. That's what I build.
+        </p>
+      </div>
+      <div class="card">
+        <span class="icon-box"><Icon name="burst" /></span>
+        <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.12">
+          Look like the best option in town
+        </Heading>
+        <p>
+          First impressions happen online now. Your website should make people feel confident before
+          they ever pick up the phone.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

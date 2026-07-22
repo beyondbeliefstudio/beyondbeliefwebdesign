@@ -1,0 +1,58 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import InternalHero from "@/components/InternalHero.astro";
+---
+
+<Layout
+  pageTitle="Accessibility Statement | Beyond Belief Web Design"
+  description="Beyond Belief Web Design is committed to ensuring digital accessibility for people with disabilities."
+  hideCTA
+>
+  <InternalHero title="Accessibility Statement" eyebrow="Legal" />
+
+  <section class="sec-pad" aria-label="Accessibility Statement">
+    <div class="container container-md">
+      <div class="accessibility">
+        <p><em>Last updated: June 2026</em></p>
+
+        <h2>Our Commitment</h2>
+        <p>
+          Beyond Belief Web Design is committed to ensuring digital accessibility for people with
+          disabilities. We continually improve the user experience for everyone and apply relevant
+          accessibility standards.
+        </p>
+
+        <h2>Conformance Status</h2>
+        <p>
+          We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA. These
+          guidelines explain how to make web content more accessible to people with disabilities.
+        </p>
+
+        <h2>Measures Taken</h2>
+        <p>We take the following measures to ensure accessibility:</p>
+        <ul>
+          <li>Semantic HTML structure throughout the website</li>
+          <li>Descriptive alt text for all meaningful images</li>
+          <li>Keyboard navigation support</li>
+          <li>Sufficient color contrast ratios</li>
+          <li>Responsive design that works across all devices and screen sizes</li>
+          <li>Focus indicators for interactive elements</li>
+          <li>Respect for the <em>prefers-reduced-motion</em> setting</li>
+        </ul>
+
+        <h2>Known Limitations</h2>
+        <p>
+          While we strive for full accessibility, some content may not yet fully conform to WCAG 2.1
+          AA. We are actively working to resolve any known issues.
+        </p>
+
+        <h2>Feedback and Contact</h2>
+        <p>
+          We welcome your feedback on the accessibility of this website. If you experience any barriers
+          or have suggestions for improvement, please <a href="/#contact">contact us</a>. We aim to
+          respond to accessibility feedback within 2 business days.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

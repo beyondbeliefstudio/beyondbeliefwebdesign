@@ -1,0 +1,147 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+// HELPERS
+import { Image } from "astro:assets";
+
+// IMAGES
+import monroeImg from "@/assets/Monroe.png";
+---
+
+<section id="local" class="sec-pad local-pad">
+  <div class="container container-md">
+    <div class="local-grid">
+      <div class="local-head" data-reveal>
+        <span class="eyebrow"><span class="num">// 03</span> Why local</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
+          Their customers are right here. <span class="hl">So am I.<span class="hl-bar"></span></span>
+        </Heading>
+      </div>
+
+      <div class="local-body" data-reveal>
+        <p>
+          I could chase clients all over the country and compete with thousands of other designers
+          for businesses I will never meet. That has never interested me.
+        </p>
+        <p>
+          Local businesses like working with local people. Their customers are right here. So am I.
+          You can call me. You can text me. You might run into me at the coffee shop or in line at
+          Target. I am part of this community, which means I understand the people and businesses you
+          are trying to reach, because they are my neighbors too.
+        </p>
+        <p>
+          I was born in New Jersey and bounced around between Jersey, Florida, and North Carolina
+          growing up. But Monroe was always the place I knew I would come back to. It is where I went
+          to high school, and it is where my family and I have chosen to plant our roots. We love the
+          people here. We love the area. <strong>This is home.</strong>
+        </p>
+
+        <div class="fact-list local-facts">
+          <div class="fact"><span class="fk">Born</span><span class="fv">New Jersey</span></div>
+          <div class="fact">
+            <span class="fk">High school</span><span class="fv">Central Academy of Technology and Arts, Monroe</span>
+          </div>
+          <div class="fact">
+            <span class="fk">Home</span><span class="fv">Monroe, North Carolina, roots planted</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="local-band">
+    <div class="img-clip">
+      <Image src={monroeImg} alt="Downtown Monroe, North Carolina" widths={[768, 1280, 1920]} />
+      <div class="band-caption">
+        <span><span class="lm">//</span> Downtown Monroe · North Carolina</span>
+        <span class="lm">✦ Home</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .local-pad {
+    padding-bottom: 0;
+  }
+
+  .local-grid {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: var(--_spacing---section-space--large);
+    align-items: start;
+    margin-bottom: var(--_spacing---section-space--xl);
+  }
+
+  .local-body p {
+    max-width: 64ch;
+    margin-bottom: var(--_spacing---space--7);
+    font-size: var(--_typography---font-size--text-main);
+    line-height: 1.6;
+    color: var(--fg2);
+  }
+
+  .local-facts {
+    margin-top: var(--_spacing---section-space--small);
+  }
+
+  .local-band {
+    overflow: hidden;
+    max-height: min(60vh, 560px);
+  }
+
+  .img-clip {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      z-index: 1;
+      height: 22%;
+      pointer-events: none;
+      background: linear-gradient(to bottom, var(--paper), transparent);
+    }
+  }
+
+  .local-band :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: saturate(0.72) contrast(1.04) brightness(0.97);
+  }
+
+  .band-caption {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: var(--_spacing---space--8) var(--_spacing---section-space--small);
+    background: linear-gradient(to top, rgba(11, 14, 10, 0.55), transparent);
+
+    span {
+      font-weight: 700;
+      font-size: var(--_typography---font-size--label);
+      line-height: 1.6;
+      font-family: var(--mono-family);
+      letter-spacing: var(--track-label);
+      text-transform: uppercase;
+      color: var(--paper);
+    }
+
+    .lm {
+      color: var(--lime);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .local-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

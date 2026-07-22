@@ -1,0 +1,183 @@
+/* ============================================================================
+   BEYOND BELIEF WEB DESIGN — Foundations
+   Color + Type tokens. Import this file anywhere to inherit the system.
+   ----------------------------------------------------------------------------
+   Personality: Precise. Grounded. Alive.
+   Lime is the SIGNAL, not the background. Dark or light ground, never muddy.
+   ============================================================================ */
+
+/* --- Fonts (Google Fonts CDN). Swap to local /fonts if going offline. ----- */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  /* ========================================================================
+     COLOR — RAW PALETTE
+     ===================================================================== */
+
+  /* Signal — electric lime. The brand's single loud voice. Use sparingly. */
+  --lime:          #CCFF00;   /* primary signal */
+  --lime-bright:   #D4FF1A;   /* hover / max energy */
+  --lime-deep:     #A6CC00;   /* pressed / lime-on-light text safe */
+  --lime-wash:     rgba(204,255,0,0.12); /* glow fills, tints */
+
+  /* Ink — cool-tinted near-black ground. Never pure #000. */
+  --ink-900:       #0B0E0A;   /* deepest ground, page bg dark */
+  --ink-800:       #11140F;   /* raised surface on dark */
+  --ink-700:       #1A1E17;   /* cards / panels on dark */
+  --ink-600:       #262B22;   /* hairline borders on dark, hover fills */
+  --ink-500:       #3A4034;   /* disabled / faint strokes */
+
+  /* Stone — olive-gray mid-tones. The "grounded" connective tissue. */
+  --stone-400:     #6B7268;   /* muted text on dark, captions */
+  --stone-300:     #8B9384;   /* secondary text */
+  --stone-200:     #B7BDAF;   /* tertiary on light */
+  --stone-100:     #D7DBCF;   /* hairlines on light */
+
+  /* Paper — warm off-white. Breathing room. Light ground. */
+  --paper:         #F5F6EF;   /* page bg light */
+  --paper-raised:  #FBFCF6;   /* raised surface on light */
+  --paper-sunken:  #ECEEE2;   /* sunken wells on light */
+
+  --white:         #FFFFFF;
+  --black:         #000000;
+
+  /* Status (used rarely — this brand stays monochrome+lime) */
+  --positive:      #7CE38B;
+  --warning:       #FFB020;
+  --danger:        #FF6B5B;
+
+  /* ========================================================================
+     COLOR — SEMANTIC (default theme = DARK ground)
+     ===================================================================== */
+  --bg:            var(--ink-900);
+  --bg-raised:     var(--ink-800);
+  --surface:       var(--ink-700);
+  --surface-hover: var(--ink-600);
+  --border:        var(--ink-600);
+  --border-strong: var(--ink-500);
+
+  --fg1:           var(--paper);      /* primary text */
+  --fg2:           var(--stone-300);  /* secondary text */
+  --fg3:           var(--stone-400);  /* muted / captions */
+
+  --accent:        var(--lime);
+  --accent-hover:  var(--lime-bright);
+  --accent-press:  var(--lime-deep);
+  --on-accent:     var(--ink-900);    /* text sitting on lime */
+
+  /* Glow — the "screen in a dark room" halo. */
+  --glow-lime:     0 0 0.5px rgba(204,255,0,0.9), 0 0 24px rgba(204,255,0,0.28), 0 0 64px rgba(204,255,0,0.12);
+  --glow-soft:     0 0 40px rgba(204,255,0,0.16);
+
+  /* ========================================================================
+     TYPE — FAMILIES
+     ===================================================================== */
+  --font-display: 'Bricolage Grotesque', 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ========================================================================
+     TYPE — SCALE (1.250 major-third-ish, display jumps harder)
+     Display sizes carry TIGHT tracking. Body is comfortable + neutral.
+     ===================================================================== */
+  --text-display: 700 clamp(3.5rem, 7vw, 6.5rem)/0.94 var(--font-display);
+  --text-h1:      700 clamp(2.75rem, 5vw, 4.25rem)/1.0 var(--font-display);
+  --text-h2:      700 clamp(2rem, 3.4vw, 3rem)/1.04 var(--font-display);
+  --text-h3:      600 1.625rem/1.12 var(--font-display);
+  --text-h4:      600 1.25rem/1.2 var(--font-display);
+  --text-lead:    400 1.25rem/1.55 var(--font-body);
+  --text-body:    400 1rem/1.6 var(--font-body);
+  --text-small:   400 0.875rem/1.5 var(--font-body);
+  --text-caption: 400 0.75rem/1.4 var(--font-body);
+  --text-mono:    400 0.8125rem/1.5 var(--font-mono);
+  --text-label:   700 0.6875rem/1 var(--font-mono); /* eyebrow / kicker */
+
+  /* Tracking */
+  --track-display: -0.03em;  /* tight, owns its space */
+  --track-tight:   -0.02em;
+  --track-normal:  0;
+  --track-label:   0.18em;   /* mono eyebrows, uppercase */
+
+  /* ========================================================================
+     SPACING — 4px base rhythm
+     ===================================================================== */
+  --space-0: 0;
+  --space-1: 0.25rem;  /*  4 */
+  --space-2: 0.5rem;   /*  8 */
+  --space-3: 0.75rem;  /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+  --space-9: 6rem;     /* 96 */
+  --space-10: 8rem;    /* 128 */
+
+  /* ========================================================================
+     RADII — small + intentional. Corners are crisp, not pill-soft.
+     ===================================================================== */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* ========================================================================
+     ELEVATION — flat by default. Shadow is for lift, glow is for accent.
+     ===================================================================== */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 8px 24px -8px rgba(0,0,0,0.55);
+  --shadow-lg: 0 24px 60px -20px rgba(0,0,0,0.7);
+  --shadow-light-md: 0 8px 24px -10px rgba(20,30,15,0.18);
+
+  /* Motion — quick, confident, never bouncy. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;
+  --dur-slow: 520ms;
+
+  --maxw: 1200px;
+}
+
+/* ============================================================================
+   LIGHT GROUND — apply [data-theme="light"] to flip the semantic layer.
+   ============================================================================ */
+[data-theme="light"] {
+  --bg:            var(--paper);
+  --bg-raised:     var(--paper-raised);
+  --surface:       var(--paper-raised);
+  --surface-hover: var(--paper-sunken);
+  --border:        var(--stone-100);
+  --border-strong: var(--stone-200);
+
+  --fg1:           var(--ink-900);
+  --fg2:           #3A4034;
+  --fg3:           var(--stone-400);
+
+  --on-accent:     var(--ink-900);
+  --glow-lime:     0 0 0.5px rgba(166,204,0,0.6), 0 0 24px rgba(204,255,0,0.35);
+}
+
+/* ============================================================================
+   SEMANTIC ELEMENT DEFAULTS — opt-in via .bb-type on a wrapper, or use
+   the utility classes directly. Kept off bare tags to avoid global bleed.
+   ============================================================================ */
+.bb-type h1, .h1 { font: var(--text-h1); letter-spacing: var(--track-display); color: var(--fg1); margin: 0; }
+.bb-type h2, .h2 { font: var(--text-h2); letter-spacing: var(--track-tight); color: var(--fg1); margin: 0; }
+.bb-type h3, .h3 { font: var(--text-h3); letter-spacing: var(--track-tight); color: var(--fg1); margin: 0; }
+.bb-type h4, .h4 { font: var(--text-h4); letter-spacing: var(--track-tight); color: var(--fg1); margin: 0; }
+.display { font: var(--text-display); letter-spacing: var(--track-display); color: var(--fg1); margin: 0; text-wrap: balance; }
+.lead    { font: var(--text-lead); color: var(--fg2); margin: 0; text-wrap: pretty; }
+.body    { font: var(--text-body); color: var(--fg1); }
+.small   { font: var(--text-small); color: var(--fg2); }
+.caption { font: var(--text-caption); color: var(--fg3); }
+.mono    { font: var(--text-mono); color: var(--fg2); }
+.label, .eyebrow {
+  font: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.accent-text { color: var(--accent); }

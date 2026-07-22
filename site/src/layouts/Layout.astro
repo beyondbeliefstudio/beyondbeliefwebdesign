@@ -1,0 +1,34 @@
+---
+// COMPONENTS
+import BaseHead from "@/layouts/BaseHead.astro";
+import Nav from "@/layouts/Nav.astro";
+import Footer from "@/layouts/Footer.astro";
+import CTA from "@/components/CTA.astro";
+import UserBack from "@/components/UserBack.astro";
+import Preloader from "@/components/Preloader.astro";
+
+// STYLES
+import "@/styles/global.scss";
+
+// PROPS
+// `hideCTA` suppresses the recurring contact section (contact page, legal pages, 404, etc.)
+const { hideCTA, preloader } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light" data-grain="on" data-field="on">
+  <BaseHead {...Astro.props} />
+  <body>
+    {preloader && <Preloader />}
+    <div id="grain" aria-hidden="true"></div>
+    <div id="cursor-dot" aria-hidden="true"></div>
+    <div id="cursor-ring" aria-hidden="true"></div>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    {!hideCTA && <CTA />}
+    <Footer />
+    <UserBack />
+  </body>
+</html>

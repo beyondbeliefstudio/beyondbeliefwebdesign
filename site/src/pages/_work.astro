@@ -1,0 +1,383 @@
+---
+// COMPONENTS
+import Layout from "@/layouts/Layout.astro";
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+import BrowserFrame from "@/components/BrowserFrame.astro";
+import HeroBackdrop from "@/components/HeroBackdrop.astro";
+
+// HELPERS
+import { Image } from "astro:assets";
+
+// DATA
+import { baseData } from "@/data/siteData";
+
+// IMAGES
+import workFdcigar from "@/assets/work-fdcigar.png";
+import workLambos from "@/assets/work-lambos.png";
+
+const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
+
+const projects = [
+  {
+    index: "01",
+    name: "All The Rage Carpet Cleaning",
+    tag: ["Carpet Cleaning", "Monroe, NC"],
+    url: "alltheragecarpetcleaning.com",
+    image: null,
+    paras: [
+      "All The Rage Carpet Cleaning had the reputation, the reviews, and the loyal customers. What they did not have was a website. Before working together they had zero online presence, meaning anyone searching for carpet cleaning in Monroe was finding their competitors first, regardless of how good the actual service was.",
+      "We built them their very first website from the ground up. Clean, fast, and built specifically to rank in local search for carpet cleaning services in the Monroe area. Within weeks of launching they had a professional online presence that matched the quality of the work they had been doing for years, and new customers started finding them online for the first time.",
+    ],
+    quote:
+      "Before this we had nothing online at all. Now we have a site that looks incredible and people are actually finding us on Google. Chris made the whole process easy and we could not be happier with how it turned out.",
+    cite: "Owner · All The Rage Carpet Cleaning",
+  },
+  {
+    index: "02",
+    name: "Lambo's Garage Door",
+    tag: ["Garage Door Services", "Estill Springs, TN"],
+    url: "lambosgaragedoorservice.com",
+    image: workLambos,
+    paras: [
+      "Lambo's Garage Door is a local garage door installation and repair company serving homeowners in the area. Like a lot of trade businesses, their work spoke for itself but their website was not keeping up. They needed something that looked as professional as the service they were providing and could start pulling in leads from local search.",
+      "We built them a fully custom site focused on converting visitors into service calls. Every page was built with local search in mind so that homeowners searching for garage door repair in their area could find Lambo's first. The result is a site that looks sharp, loads fast, and works around the clock to bring in new business.",
+    ],
+    quote:
+      "Working with Chris was straightforward from start to finish. He knew exactly what our business needed and delivered a site we are genuinely proud of. We are already seeing more calls coming in from people who found us online.",
+    cite: "Owner · Lambo's Garage Door",
+  },
+  {
+    index: "03",
+    name: "FD Cigar Company",
+    tag: ["Cigar Lounge", "Waxhaw, NC"],
+    url: "fdcigarcompany.com",
+    image: workFdcigar,
+    paras: [
+      "FD Cigar Company is a premium cigar brand with a loyal following and a distinct identity. They needed a website that matched the quality and character of what they offer, something that felt elevated and intentional without losing the warmth and personality that makes them who they are.",
+      "We built them a custom site that reflects the brand they have spent years building. Bold design, fast performance, and a layout that guides visitors exactly where they need to go, whether that is exploring the product lineup, learning the story, or getting in touch. The site feels like FD Cigar Company, not like a template.",
+    ],
+    quote:
+      "Chris captured exactly what we were going for. The site feels like us, looks amazing, and our customers have been commenting on it since we launched. Exactly what we needed.",
+    cite: "Owner · FD Cigar Company",
+  },
+  {
+    index: "04",
+    name: "Andiamo Away Travel",
+    tag: ["Travel Agency", "Monroe, NC"],
+    url: "andiamowaytravel.com",
+    image: null,
+    paras: [
+      "Andiamo Away Travel is a boutique travel agency helping clients plan unforgettable trips with a personal touch. In an industry dominated by large booking platforms and generic travel sites, they needed a website that immediately set them apart and communicated the personalized, high-end experience they provide.",
+      "We built them a custom site that leads with the feeling of travel before it ever gets to the details. The design is warm, inviting, and confident, positioning Andiamo Away exactly where they belong: as the go-to choice for anyone who wants a travel experience that is actually planned by a real person who cares. The site works beautifully on mobile, loads instantly, and makes it easy for visitors to reach out and start planning.",
+    ],
+    quote:
+      "I knew I wanted something different from the typical travel agency website and Chris delivered exactly that. The whole process was smooth, he listened to everything we wanted, and the final product exceeded our expectations.",
+    cite: "Owner · Andiamo Away Travel",
+  },
+];
+---
+
+<Layout
+  pageTitle="Our Work | Beyond Belief Web Design | Monroe, NC"
+  description="Live, hand-coded websites built from scratch for local businesses around Monroe, NC, fast, custom, and built to get found and turn visitors into customers."
+>
+  <!-- ===================== HERO ===================== -->
+  <section id="hero" class="short-hero">
+    <HeroBackdrop />
+    <div class="hero-in">
+      <span class="eyebrow hero-badge"><span class="dot"></span>Selected work · Monroe, NC</span>
+      <div class="lines work-h1">
+        <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
+          <span class="line"><span class="line-inner">Real businesses. Real websites.</span></span>
+          <span class="line"
+            ><span class="line-inner"><span class="hl">Real results.<span class="hl-bar"></span></span></span></span
+          >
+        </Heading>
+      </div>
+      <p class="lead">
+        Every site here was built from scratch, no templates, no shortcuts. Just clean, fast, custom
+        websites designed to get found and turn visitors into customers.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section id="projects">
+    <div class="container container-md">
+      {
+        projects.map((p, i) => (
+          <article class:list={["proj", i % 2 === 1 && "flip"]} data-cursor="view">
+            <div class="proj-frame">
+              <BrowserFrame url={p.url}>
+                {p.image ? (
+                  <Image src={p.image} alt={`${p.name} website`} widths={[600, 960]} />
+                ) : (
+                  <div class="img-ph" aria-hidden="true">
+                    <span>{p.url}</span>
+                  </div>
+                )}
+              </BrowserFrame>
+            </div>
+
+            <div class="proj-copy" data-reveal>
+              <span class="proj-index">{p.index}</span>
+              <span class="proj-tag">
+                {p.tag[0]}
+                <br />
+                {p.tag[1]}
+              </span>
+              <Heading tag="h2" size="l" fontFamily="primary" marginBottom="m" weight="fw700">
+                {p.name}
+              </Heading>
+              {p.paras.map(para => (
+                <p>{para}</p>
+              ))}
+              <blockquote class="proj-quote">
+                <span class="qm" aria-hidden="true">
+                  &ldquo;
+                </span>
+                <p>{p.quote}</p>
+                <cite>{p.cite}</cite>
+              </blockquote>
+              <a class="proj-link" href={`https://${p.url}`} target="_blank" rel="noopener">
+                View the site <span class="proj-url">{p.url}</span>
+                <span class="larr" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ===================== CLOSING CTA (dark) ===================== -->
+  <section id="work-cta" class="sec-pad sec-dark">
+    <span class="glow glow-a" aria-hidden="true"></span>
+    <span class="glow glow-b" aria-hidden="true"></span>
+    <div class="container container-md">
+      <div class="wc-inner" data-reveal>
+        <span class="eyebrow"><span class="dot"></span>Let's build something</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
+          Want to be on this page?
+        </Heading>
+        <p>
+          Every business you see here started with a conversation. If you are ready to have a website
+          that actually works for your business, let's talk. And if you are not quite ready to commit,
+          I will design your homepage for free, so you can see exactly what is possible first.
+        </p>
+        <div class="btn-wrapper">
+          <Links variant="primary" href="/contact">
+            Get started today <span class="arr" aria-hidden="true">→</span>
+          </Links>
+        </div>
+        <p class="wc-text">
+          Or just text me at <a href={telHref}>{baseData.phone}</a>. No pressure, no forms, just a real
+          conversation.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style lang="scss">
+  /* ===================== HERO ===================== */
+  .short-hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-in {
+    position: relative;
+    z-index: 3;
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: clamp(150px, 22vh, 230px) clamp(20px, 4vw, 48px) clamp(64px, 9vw, 120px);
+  }
+  .hero-badge {
+    margin-bottom: 28px;
+  }
+  #hero .lead {
+    max-width: 56ch;
+    margin: 26px 0 0;
+  }
+
+  /* ===================== PROJECTS ===================== */
+  .proj {
+    display: grid;
+    grid-template-columns: 1.04fr 0.96fr;
+    gap: clamp(36px, 5vw, 72px);
+    align-items: start;
+    padding: clamp(56px, 8vw, 110px) 0;
+    border-top: 1px solid var(--border);
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+  .proj.flip .proj-frame {
+    order: 2;
+  }
+  .proj-frame {
+    position: sticky;
+    top: 100px;
+  }
+  .img-ph {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    background:
+      repeating-linear-gradient(135deg, var(--paper-sunken), var(--paper-sunken) 18px, var(--stone-100) 18px, var(--stone-100) 19px);
+
+    span {
+      padding: 8px 14px;
+      font: 700 0.72rem/1 var(--mono-family);
+      letter-spacing: 0.08em;
+      color: var(--fg3);
+      background: var(--paper-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+    }
+  }
+  .proj-index {
+    display: block;
+    font: 800 clamp(3rem, 5vw, 4.6rem)/0.9 var(--font-display);
+    letter-spacing: -0.04em;
+    color: var(--lime-deep);
+  }
+  .proj-tag {
+    display: block;
+    margin: 14px 0 16px;
+    font: 700 0.7rem/1.5 var(--mono-family);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+  .proj-copy p {
+    max-width: 58ch;
+    margin-bottom: 16px;
+    font: 400 1.0625rem/1.6 var(--font-body);
+    color: var(--fg2);
+  }
+  .proj-quote {
+    position: relative;
+    margin: 26px 0;
+    padding: 22px 24px 22px 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--lime-deep);
+    border-radius: var(--radius-lg);
+
+    .qm {
+      position: absolute;
+      left: 14px;
+      top: 6px;
+      font: 800 2.4rem/1 var(--font-display);
+      color: var(--lime-deep);
+    }
+    p {
+      margin: 0 0 10px;
+      font: 500 1.02rem/1.55 var(--font-body);
+      color: var(--fg1);
+    }
+    cite {
+      font: 700 0.72rem/1 var(--mono-family);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-style: normal;
+      color: var(--fg3);
+    }
+  }
+  .proj-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font: 600 0.95rem/1 var(--font-body);
+    color: var(--fg1);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--border-strong);
+    padding-bottom: 4px;
+    transition: border-color var(--dur), gap var(--dur);
+
+    .proj-url {
+      font-family: var(--mono-family);
+      font-size: 0.82rem;
+      color: var(--fg3);
+    }
+    .larr {
+      color: var(--lime-deep);
+      font-family: var(--mono-family);
+      transition: transform var(--dur);
+    }
+    &:hover {
+      gap: 13px;
+      border-color: var(--lime-deep);
+    }
+    &:hover .larr {
+      transform: translateX(3px);
+    }
+  }
+  @media (max-width: 920px) {
+    .proj {
+      grid-template-columns: 1fr;
+    }
+    .proj.flip .proj-frame {
+      order: 0;
+    }
+    .proj-frame {
+      position: static;
+    }
+  }
+
+  /* ===================== CLOSING CTA ===================== */
+  #work-cta {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .glow {
+    position: absolute;
+    pointer-events: none;
+  }
+  .glow-a {
+    inset: -12% auto auto 80%;
+    width: 560px;
+    height: 420px;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.18), transparent 62%);
+  }
+  .glow-b {
+    inset: auto 80% -12% auto;
+    width: 480px;
+    height: 380px;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.1), transparent 65%);
+  }
+  .wc-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+    margin: 0 auto;
+
+    .eyebrow {
+      justify-content: center;
+    }
+    p {
+      max-width: 56ch;
+      margin: 0 auto;
+      font: 400 1.0625rem/1.6 var(--font-body);
+      color: var(--stone-200);
+    }
+  }
+  .wc-text {
+    margin-top: 26px !important;
+    font-size: 0.95rem !important;
+    color: var(--stone-300) !important;
+
+    a {
+      color: var(--lime);
+      font-family: var(--mono-family);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(204, 255, 0, 0.4);
+    }
+  }
+</style>

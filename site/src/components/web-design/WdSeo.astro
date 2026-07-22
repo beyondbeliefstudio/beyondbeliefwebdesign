@@ -1,0 +1,312 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+const locationUrls = [
+  "/service-areas/monroe-nc",
+  "/service-areas/waxhaw-nc",
+  "/service-areas/matthews-nc",
+  "/service-areas/indian-trail-nc",
+  "/service-areas/charlotte-nc",
+];
+
+const serviceUrls = [
+  "/services/your-first-service",
+  "/services/your-second-service",
+  "/services/your-third-service",
+  "/services/your-fourth-service",
+  "/services/your-fifth-service",
+];
+---
+
+<section id="seo" class="sec-pad">
+  <div class="container container-md">
+    <div class="seo-panel" data-reveal>
+
+      <div class="seo-grid">
+        <!-- Left: headline + price + context -->
+        <div class="seo-left">
+          <span class="eyebrow"><span class="num">// 04</span> Local SEO Expansion</span>
+          <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
+            Want to own local search? This is how.
+          </Heading>
+          <p>
+            Once your site is up and running, the single best way to pull in more local customers is
+            to expand your reach across every town and service you offer. That is what the Local SEO
+            Expansion package does.
+          </p>
+          <div class="seo-price">
+            <span class="price-big"><sup>$</sup>999 <small>one-time</small></span>
+          </div>
+          <p class="seo-close">
+            <strong
+              >This is the difference between showing up for one search and showing up for dozens.</strong
+            >
+            {" "}It is available exclusively to clients on the monthly plan, because it builds
+            directly on the foundation your main site is already set up for.
+          </p>
+        </div>
+
+        <!-- Right: what you get cards -->
+        <div class="seo-right">
+          <p class="seo-eyebrow mono-sm">// What you get for $999 one-time</p>
+          <p class="seo-sub">
+            Ten additional pages, built and optimized specifically to rank in local search:
+          </p>
+
+          <div class="seo-card">
+            <div class="seo-card-head">
+              <h3 class="seo-card-title">Five location pages</h3>
+              <span class="seo-chip">×5</span>
+            </div>
+            <p>
+              Dedicated pages targeting the specific towns and areas you serve. So when someone in a
+              nearby town searches for what you do, you show up for their area, not just your home
+              base.
+            </p>
+            <ul class="seo-urls">
+              {
+                locationUrls.map(url => (
+                  <li>
+                    <span class="arr" aria-hidden="true">
+                      →
+                    </span>
+                    {url}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="seo-card">
+            <div class="seo-card-head">
+              <h3 class="seo-card-title">Five service pages</h3>
+              <span class="seo-chip">×5</span>
+            </div>
+            <p>
+              Dedicated pages for each of your individual services. So instead of competing on one
+              general page, you have a focused, optimized page for every single thing you offer.
+            </p>
+            <ul class="seo-urls">
+              {
+                serviceUrls.map(url => (
+                  <li>
+                    <span class="arr" aria-hidden="true">
+                      →
+                    </span>
+                    {url}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  /* ── panel shell ─────────────────────────────────────────── */
+
+  .seo-panel {
+    position: relative;
+    overflow: hidden;
+    padding: var(--_spacing---section-space--main);
+    color: var(--paper);
+    background: var(--ink-900);
+    border-radius: var(--radius-xl);
+  }
+
+  .glow {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .glow-a {
+    inset: -10% -8% auto auto;
+    width: 560px;
+    height: 420px;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.18), transparent 62%);
+  }
+
+  .glow-b {
+    inset: auto auto -10% -8%;
+    width: 480px;
+    height: 380px;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.1), transparent 65%);
+  }
+
+  /* ── two-column grid ─────────────────────────────────────── */
+
+  .seo-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--_spacing---section-space--main);
+    align-items: start;
+  }
+
+  /* Eyebrow override — base color is fg2 (near-black), invisible on dark panel */
+  .seo-panel :global(.eyebrow) {
+    color: var(--stone-300);
+  }
+
+  .seo-panel :global(.eyebrow .num) {
+    color: var(--tangerine);
+  }
+
+  /* ── left column ─────────────────────────────────────────── */
+
+  .seo-left p {
+    max-width: 52ch;
+    margin-bottom: var(--_spacing---space--6);
+    font-weight: 400;
+    font-size: var(--_typography---font-size--text-main);
+    line-height: 1.6;
+    font-family: var(--font-body);
+    color: var(--stone-200);
+  }
+
+  .seo-left .seo-close {
+    font-size: var(--_typography---font-size--text-main);
+    color: var(--stone-300);
+
+    strong {
+      font-weight: 700;
+      color: var(--stone-200);
+    }
+  }
+
+  .seo-price {
+    margin: var(--_spacing---space--7) 0;
+  }
+
+  .price-big {
+    font-weight: 800;
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    line-height: 1;
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--paper);
+
+    sup {
+      font-size: 0.4em;
+      vertical-align: super;
+      color: var(--lime);
+    }
+
+    small {
+      font-size: 0.32em;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--stone-300);
+    }
+  }
+
+  /* ── right column ────────────────────────────────────────── */
+
+  .seo-eyebrow {
+    display: block;
+    margin-bottom: var(--_spacing---space--4);
+    font-weight: 700;
+    color: var(--lime);
+  }
+
+  .seo-sub {
+    margin: 0 0 var(--_spacing---space--7);
+    font-weight: 400;
+    font-size: var(--_typography---font-size--text-main);
+    line-height: 1.55;
+    font-family: var(--font-body);
+    color: var(--stone-200);
+  }
+
+  /* ── service cards ───────────────────────────────────────── */
+
+  .seo-card {
+    padding: var(--_spacing---space--7);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--ink-600);
+    border-radius: var(--radius-lg);
+
+    & + .seo-card {
+      margin-top: var(--_spacing---space--6);
+    }
+
+    > p {
+      margin: var(--_spacing---space--5) 0 var(--_spacing---space--6);
+      font-weight: 400;
+      font-size: var(--_typography---font-size--text-small);
+      line-height: 1.55;
+      font-family: var(--font-body);
+      color: var(--stone-300);
+    }
+  }
+
+  .seo-card-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--_spacing---space--5);
+  }
+
+  /* Raw h3 — avoids Heading component's block/text-wrap-balance quirks in flex */
+  .seo-card-title {
+    flex: 1;
+    margin: 0;
+    font-weight: 700;
+    font-size: var(--_typography---font-size--h6);
+    line-height: 1.2;
+    font-family: var(--primary-family);
+    color: var(--paper);
+  }
+
+  .seo-chip {
+    flex: none;
+    padding: var(--_spacing---space--2) var(--_spacing---space--4);
+    font-weight: 700;
+    font-size: var(--_typography---font-size--label);
+    line-height: 1;
+    font-family: var(--mono-family);
+    color: var(--ink-900);
+    background: var(--lime);
+    border-radius: var(--radius-sm);
+  }
+
+  /* ── url list ────────────────────────────────────────────── */
+
+  .seo-urls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---space--3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: var(--_spacing---space--4);
+      font-weight: 400;
+      font-size: var(--_typography---font-size--mono-sm);
+      line-height: 1.4;
+      font-family: var(--mono-family);
+      color: var(--stone-200);
+    }
+  }
+
+  .arr {
+    flex: none;
+    color: var(--lime-deep);
+  }
+
+  /* ── responsive ──────────────────────────────────────────── */
+
+  @media (max-width: 900px) {
+    .seo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

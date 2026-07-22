@@ -1,0 +1,75 @@
+---
+// HELPERS
+import { Image } from "astro:assets";
+
+// IMAGES
+import problemIllo from "@/assets/problem-illustration.png";
+---
+
+<section id="problem" class="sec-pad">
+  <div class="container container-md">
+    <span class="eyebrow" data-reveal><span class="num">// 01</span> The problem</span>
+    <p class="statement" data-fill-words>
+      Most local business websites look like they were built in an afternoon. Because honestly, a lot
+      of them were.
+    </p>
+
+    <div class="prob-grid">
+      <div class="prob-copy" data-reveal>
+        <p>
+          GoDaddy Airo. Wix. A template someone threw together real quick. They look fine at first
+          glance, but they load slow, they don't rank on Google, and they don't make your business
+          look like the best option in town.
+        </p>
+        <p>
+          A huge number of local businesses either don't have a website at all, or have one so outdated
+          it's doing more harm than good. A brand-new, well-built site immediately puts you ahead of
+          most of your competition before the phone even rings.
+        </p>
+        <p class="strong">
+          That's the difference between winning the job and losing it to whoever shows up better
+          online.
+        </p>
+      </div>
+      <div class="prob-illo" data-reveal>
+        <Image src={problemIllo} alt="A slow, templated competitor website" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .statement {
+    max-width: 21ch;
+    margin: var(--_spacing---space--7) 0 0;
+    font: 700 clamp(2.2rem, 4.6vw, 4.4rem)/1.08 var(--font-display);
+    letter-spacing: var(--track-tight);
+  }
+  .prob-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--_spacing---section-space--main);
+    align-items: center;
+    margin-top: var(--_spacing---section-space--large);
+  }
+  .prob-copy p {
+    max-width: 56ch;
+    margin-bottom: var(--_spacing---space--6);
+    font: 400 1.0625rem/1.6 var(--font-body);
+    color: var(--fg2);
+    text-wrap: pretty;
+  }
+  .prob-copy p.strong {
+    font-weight: 600;
+    color: var(--fg1);
+  }
+  .prob-illo {
+    line-height: 0;
+    filter: drop-shadow(0 26px 46px rgba(20, 30, 15, 0.13));
+  }
+  @media (max-width: 900px) {
+    .prob-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

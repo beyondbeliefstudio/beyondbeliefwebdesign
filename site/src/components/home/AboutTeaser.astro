@@ -1,0 +1,162 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+// HELPERS
+import { Image } from "astro:assets";
+
+// IMAGES
+import portrait from "@/assets/chris-computer2.png";
+---
+
+<section id="about" class="sec-pad">
+  <div class="container container-md">
+    <div class="about-grid">
+      <div class="about-photo" data-reveal>
+        <span class="ap-dots" aria-hidden="true"></span>
+        <span class="ap-glow" aria-hidden="true"></span>
+        <div class="ap-frame">
+          <Image
+            src={portrait}
+            alt="Chris, founder and developer of Beyond Belief Web Design"
+            widths={[430, 860]}
+          />
+          <div class="ap-cap"><span>Chris · Founder &amp; Developer</span><span class="st">✦</span></div>
+        </div>
+      </div>
+
+      <div class="about-copy" data-reveal>
+        <span class="eyebrow"><span class="num">// 06</span> About</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
+          You're not hiring an agency. You're hiring <span class="hl">Chris<span class="hl-bar"></span></span>.
+        </Heading>
+        <p>
+          I've been building websites and helping local businesses grow their online presence for
+          years. I'm based right here in Monroe, and most of my clients are neighbors, referrals, and
+          local business owners I've met along the way.
+        </p>
+        <p>
+          I'm not trying to be the biggest web design company around. I'm trying to be the most useful
+          one to the businesses in this community. Your website reflects on both of us, and I take that
+          seriously.
+        </p>
+
+        <div class="about-facts">
+          <div class="fact"><span class="fk">Based in</span><span class="fv">Monroe, North Carolina</span></div>
+          <div class="fact">
+            <span class="fk">Works with</span><span class="fv">Local businesses, neighbors &amp; referrals</span>
+          </div>
+          <div class="fact">
+            <span class="fk">When you reach out</span><span class="fv">You get Chris, not a ticket queue</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: var(--_spacing---section-space--large);
+    align-items: center;
+  }
+  .about-photo {
+    position: relative;
+    max-width: 430px;
+    margin: 0 auto;
+  }
+  .ap-dots {
+    position: absolute;
+    right: -13%;
+    top: -9%;
+    z-index: 0;
+    width: 58%;
+    height: 62%;
+    opacity: 0.7;
+    background-image: radial-gradient(var(--stone-200) 1.4px, transparent 1.9px);
+    background-size: 13px 13px;
+  }
+  .ap-glow {
+    position: absolute;
+    left: -15%;
+    bottom: -14%;
+    z-index: 0;
+    width: 130%;
+    height: 55%;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.5), transparent 72%);
+  }
+  .ap-frame {
+    position: relative;
+    z-index: 2;
+    padding: 13px 13px 0;
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    transform: rotate(-2.4deg);
+  }
+  .ap-frame :global(img) {
+    display: block;
+    width: 100%;
+    border-radius: 9px;
+    filter: saturate(0.94);
+  }
+  .ap-cap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--_spacing---space--5);
+    padding: var(--_spacing---space--5) var(--_spacing---space--3);
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg3);
+
+    .st {
+      font-size: 0.9rem;
+      letter-spacing: 0;
+      color: var(--lime-deep);
+    }
+  }
+  .about-copy p {
+    max-width: 54ch;
+    margin-bottom: var(--_spacing---space--7);
+    font: 400 1.0625rem/1.6 var(--font-body);
+    color: var(--fg2);
+  }
+  .about-facts {
+    max-width: 520px;
+    margin-top: var(--_spacing---section-space--small);
+    border-top: 1px solid var(--border-strong);
+  }
+  .about-facts .fact {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--_spacing---space--7);
+    padding: var(--_spacing---space--6) var(--_spacing---space--2);
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .about-facts .fk {
+    flex: none;
+    font: 700 0.66rem/1.4 var(--mono-family);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+  .about-facts .fv {
+    font: 600 0.95rem/1.4 var(--font-body);
+    text-align: right;
+    color: var(--fg1);
+  }
+  .about-link {
+    margin-top: var(--_spacing---space--8);
+  }
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

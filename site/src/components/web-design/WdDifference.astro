@@ -1,0 +1,194 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+// HELPERS
+import { Image } from "astro:assets";
+
+// IMAGES
+import portrait from "@/assets/chris-computer2.png";
+---
+
+<section id="different" class="sec-pad">
+  <div class="container container-md">
+    <div class="diff-grid">
+      <div class="diff-photo" data-reveal>
+        <span class="ap-dots" aria-hidden="true"></span>
+        <span class="ap-glow" aria-hidden="true"></span>
+        <div class="ap-frame">
+          <Image src={portrait} alt="Chris, founder and developer" widths={[430, 860]} />
+          <div class="ap-cap">
+            <span>Chris · Founder &amp; Developer</span><span class="st">✦</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="diff-copy" data-reveal>
+        <span class="eyebrow"><span class="num">// 05</span> The difference</span>
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
+          This is not a template. It is a real website, built by a real person.
+        </Heading>
+        <div class="strike-chips">
+          <span class="chip strike">GoDaddy Airo</span>
+          <span class="chip strike">Wix</span>
+          <span class="chip strike">Drag-and-drop</span>
+          <span class="chip-arrow" aria-hidden="true">→</span>
+          <span class="chip lime">Hand-coded from scratch</span>
+        </div>
+        <p>
+          Most local business websites are slapped together on GoDaddy Airo, Wix, or some
+          drag-and-drop builder. They look fine until you look closely. They load slow, they do not
+          rank, and they all look the same.
+        </p>
+        <p>
+          Every site I build is hand-coded from scratch, specifically for your business. That means
+          it is faster, ranks better, and looks like you actually invested in your business. Because
+          you did.
+        </p>
+        <p class="strong">
+          And you are not working with an agency or a faceless company. You are working with me,
+          directly, every step of the way.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: var(--_spacing---section-space--large);
+    align-items: center;
+  }
+
+  .diff-photo {
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .ap-dots {
+    position: absolute;
+    right: -12%;
+    top: -8%;
+    z-index: 0;
+    width: 56%;
+    height: 60%;
+    opacity: 0.7;
+    background-image: radial-gradient(var(--stone-200) 1.4px, transparent 1.9px);
+    background-size: 13px 13px;
+  }
+
+  .ap-glow {
+    position: absolute;
+    left: -14%;
+    bottom: -12%;
+    z-index: 0;
+    width: 128%;
+    height: 54%;
+    background: radial-gradient(closest-side, rgba(204, 255, 0, 0.5), transparent 72%);
+  }
+
+  .ap-frame {
+    position: relative;
+    z-index: 2;
+    padding: 13px 13px 0;
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    transform: rotate(-2.4deg);
+  }
+
+  .ap-frame :global(img) {
+    display: block;
+    width: 100%;
+    border-radius: 9px;
+    filter: saturate(0.94);
+  }
+
+  .ap-cap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--_spacing---space--5);
+    padding: var(--_spacing---space--5) var(--_spacing---space--3);
+    font-weight: 700;
+    font-size: var(--_typography---font-size--label);
+    line-height: 1;
+    font-family: var(--mono-family);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg3);
+
+    .st {
+      font-size: var(--_typography---font-size--text-small);
+      letter-spacing: 0;
+      color: var(--lime-deep);
+    }
+  }
+
+  .strike-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--_spacing---space--4);
+    margin-bottom: var(--_spacing---space--7);
+  }
+
+  .chip {
+    padding: var(--_spacing---space--3) var(--_spacing---space--5);
+    font-weight: 600;
+    font-size: var(--_typography---font-size--text-small);
+    line-height: 1;
+    font-family: var(--font-body);
+    background: var(--paper-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+  }
+
+  .chip.strike {
+    color: var(--fg3);
+    text-decoration: line-through;
+    text-decoration-color: var(--tangerine-deep);
+  }
+
+  .chip.lime {
+    color: var(--ink-900);
+    background: var(--lime);
+    border-color: var(--ink-900);
+  }
+
+  .chip-arrow {
+    color: var(--fg3);
+    font-family: var(--mono-family);
+  }
+
+  .diff-copy p {
+    max-width: 56ch;
+    margin-bottom: var(--_spacing---space--6);
+    font-weight: 400;
+    font-size: var(--_typography---font-size--text-main);
+    line-height: 1.6;
+    font-family: var(--font-body);
+    color: var(--fg2);
+  }
+
+  .diff-copy p.strong {
+    font-weight: 600;
+    color: var(--fg1);
+  }
+
+  .diff-copy :global(.eyebrow) {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+  }
+
+  @media (max-width: 900px) {
+    .diff-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

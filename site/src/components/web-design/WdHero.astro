@@ -1,0 +1,168 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+import HeroBackdrop from "@/components/HeroBackdrop.astro";
+
+const photoLabels = [
+  "Plumber",
+  "Landscaper",
+  "Electrician",
+  "Painter",
+  "Contractor",
+  "Professional",
+  "Restaurant owner",
+  "Electrician",
+  "Retail owner",
+  "Tradesperson",
+];
+---
+
+<section id="hero">
+  <HeroBackdrop map={false} />
+
+  <div class="hero-grid container container-full">
+    <div class="hero-copy">
+      <span class="eyebrow hero-badge"><span class="dot"></span>Custom web design · Monroe, NC</span>
+      <div class="lines svc-h1">
+        <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
+          <span class="line"><span class="line-inner">A website that works</span></span>
+          <span class="line"
+            ><span class="line-inner"
+              >as hard as <span class="hl">you do.<span class="hl-bar"></span></span></span
+            ></span
+          >
+        </Heading>
+      </div>
+      <p class="lead hero-lead">
+        One simple plan covers everything. Design, build, hosting, maintenance, and unlimited
+        updates. No giant upfront cost, no hourly fees, no technical headaches. Just a website that
+        brings in customers.
+      </p>
+      <div class="cta-row">
+        <Links variant="primary" href="/contact">
+          Get started today <span class="arr" aria-hidden="true">→</span>
+        </Links>
+        <Links variant="secondary" href="#plan">See what's included</Links>
+      </div>
+    </div>
+
+    <div class="hero-photos" aria-hidden="true">
+      <div class="photo-col col-a">
+        {[...photoLabels.slice(0, 5), ...photoLabels.slice(0, 5)].map(label => (
+          <div class="photo-tile"><span>{label}</span></div>
+        ))}
+      </div>
+      <div class="photo-col col-b">
+        {[...photoLabels.slice(5), ...photoLabels.slice(5)].map(label => (
+          <div class="photo-tile"><span>{label}</span></div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: var(--_spacing---section-space--large);
+    align-items: center;
+    padding: var(--_spacing---section-space--xl) var(--site--margin) var(--_spacing---section-space--large);
+  }
+
+  .hero-copy .hero-badge {
+    margin-bottom: var(--_spacing---space--8);
+  }
+
+  .hero-lead {
+    max-width: 52ch;
+    margin-top: var(--_spacing---space--8);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--_spacing---space--6);
+    margin-top: var(--_spacing---section-space--main);
+  }
+
+  #hero :global(.btn.secondary) {
+    background: var(--surface);
+  }
+
+  .hero-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--_spacing---space--6);
+    height: 78vh;
+    max-height: 640px;
+    overflow: hidden;
+    opacity: 0.71;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  }
+
+  .photo-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---space--6);
+    will-change: transform;
+  }
+
+  .photo-tile {
+    flex: none;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--paper-sunken), var(--stone-100));
+    border: 1px solid var(--border);
+
+    span {
+      font-weight: 700;
+      font-size: var(--_typography---font-size--label);
+      line-height: 1;
+      font-family: var(--mono-family);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone-400);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .col-a { animation: scrollUp 80s linear infinite; }
+    .col-b { animation: scrollDown 100s linear infinite; }
+  }
+
+  @keyframes scrollUp {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+
+  @keyframes scrollDown {
+    from { transform: translateY(-50%); }
+    to { transform: translateY(0); }
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      padding-top: calc(var(--nav-height) + var(--_spacing---section-space--main));
+    }
+    .hero-photos {
+      height: 56vw;
+      max-height: 420px;
+    }
+  }
+</style>

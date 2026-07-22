@@ -1,0 +1,32 @@
+---
+// Userback feedback widget — lazy-loaded, and only when a token is configured.
+const userbackToken = import.meta.env.PUBLIC_USERBACK_TOKEN ?? "";
+---
+
+<script is:inline define:vars={{ userbackToken }}>
+  // @ts-nocheck
+  // Lazy-loads Userback after 3s or on first user interaction. No-op without a token.
+  let userbackLoaded = false;
+
+  function loadUserback() {
+    if (userbackLoaded || !userbackToken) return;
+    userbackLoaded = true;
+
+    window.Userback = window.Userback || {};
+    Userback.access_token = userbackToken;
+
+    (function (d) {
+      const s = d.createElement("script");
+      s.async = true;
+      s.src = "https://static.userback.io/widget/v1.js";
+      (d.head || d.body).appendChild(s);
+    })(document);
+  }
+
+  if (userbackToken) {
+    setTimeout(loadUserback, 3000);
+    ["click", "scroll", "touchstart"].forEach(event => {
+      document.addEventListener(event, loadUserback, { once: true });
+    });
+  }
+</script>

@@ -1,0 +1,75 @@
+---
+// HELPERS
+import { Image } from "astro:assets";
+
+// IMAGES
+import monroeImg from "@/assets/Monroe.png";
+---
+
+<section id="monroe">
+  <div class="img-clip">
+    <Image src={monroeImg} alt="Downtown Monroe, North Carolina" widths={[768, 1280, 1920]} />
+    <div class="band-caption">
+      <span><span class="lm">//</span> Monroe, North Carolina</span>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  #monroe {
+    position: relative;
+    overflow: hidden;
+    max-height: min(82vh, 780px);
+  }
+  .img-clip {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      z-index: 1;
+      height: 24%;
+      pointer-events: none;
+      background: linear-gradient(to bottom, var(--paper), transparent);
+    }
+  }
+  #monroe :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: saturate(0.72) contrast(1.04) brightness(0.97);
+  }
+  /* the photo is wide landscape — on narrow screens it would collapse to a thin
+     strip, so give it a taller fixed height and crop to fill. */
+  @media (max-width: 768px) {
+    #monroe :global(img) {
+      height: min(40vh, 300px);
+      object-fit: cover;
+      /* bias the crop toward the courthouse (left-of-center in the frame) */
+      object-position: 36% center;
+    }
+  }
+  .band-caption {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 26px clamp(20px, 4vw, 48px);
+    background: linear-gradient(to top, rgba(11, 14, 10, 0.55), transparent);
+
+    span {
+      font: 700 0.7rem/1.6 var(--mono-family);
+      letter-spacing: var(--track-label);
+      text-transform: uppercase;
+      color: var(--paper);
+    }
+    .lm {
+      color: var(--lime);
+    }
+  }
+</style>
