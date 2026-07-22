@@ -159,4 +159,15 @@ import portrait from "@/assets/chris-computer2.png";
       grid-template-columns: 1fr;
     }
   }
+  @media (max-width: 600px) {
+    .about-facts .fact {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--_spacing---space--2);
+      padding: var(--_spacing---space--4) var(--_spacing---space--2);
+    }
+    .about-facts .fv {
+      text-align: left;
+    }
+  }
 </style>
