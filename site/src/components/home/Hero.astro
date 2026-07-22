@@ -144,5 +144,13 @@ import HeroBackdrop from "@/components/HeroBackdrop.astro";
     .hero-meta {
       display: none;
     }
+    /* Tall heading + vertical centering pushes the top of the hero behind the
+       floating nav on phones. Top-align it and clear the nav height instead. */
+    #hero {
+      align-items: start;
+    }
+    .hero-in {
+      padding-top: calc(var(--nav-height, 88px) + var(--_spacing---space--8));
+    }
   }
 </style>
