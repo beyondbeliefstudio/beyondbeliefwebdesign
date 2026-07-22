@@ -59,6 +59,12 @@ import logoSvg from "@/icons/bb-logo.svg?raw";
   html[data-motion="off"] #preloader {
     display: none;
   }
+  /* skip on phones — keeps the hero as the first (LCP) paint on mobile */
+  @media (max-width: 767px) {
+    #preloader {
+      display: none;
+    }
+  }
 
   /* slide-away (class added by initPreloader) */
   #preloader.is-leaving {

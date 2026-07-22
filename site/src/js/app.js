@@ -213,6 +213,13 @@ function initPreloader() {
   const pre = document.getElementById("preloader");
   if (!pre) return; // rendered on the home page only
 
+  // Skip on phones — the overlay delays the hero from counting as LCP, and mobile
+  // is where that budget matters most. CSS hides it there too (no flash/scroll-lock).
+  if (window.matchMedia("(max-width: 767px)").matches) {
+    pre.remove();
+    return;
+  }
+
   const countEl = pre.querySelector(".pre-count");
   const barEl = pre.querySelector(".pre-bar i");
   lockScroll(true);
@@ -382,12 +389,29 @@ function initWorkScroll() {
 // ==========================================
 // HERO FIELD WASH (Three.js watercolor field, lazy-loaded as its own chunk)
 // ==========================================
+// The Three.js chunk is ~480KB. On a throttled mobile CPU it wrecks LCP/TBT, so
+// it only loads on capable large-screen devices, and only AFTER the page has
+// loaded and the main thread is idle — the hero paints first, effect second.
+// Everywhere else the CSS "paper" ground is the (indistinguishable) fallback.
+function fieldWashAllowed() {
+  if (motionOff()) return false;
+  if (root.getAttribute("data-field") === "off") return false;
+  if (!window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches) return false;
+  const cores = navigator.hardwareConcurrency;
+  if (cores && cores < 4) return false;
+  const mem = navigator.deviceMemory; // Chromium only; undefined elsewhere = allow
+  if (mem && mem < 4) return false;
+  return true;
+}
+
 function initFieldWash() {
-  if (root.getAttribute("data-field") === "off") return;
   if (!document.getElementById("field-canvas")) return;
-  import("./field.js")
-    .then(m => m.initField())
-    .catch(() => {}); // three/WebGL unavailable — the CSS paper ground stays
+  if (!fieldWashAllowed()) return;
+  const load = () => import("./field.js").then(m => m.initField()).catch(() => {});
+  const schedule = () =>
+    "requestIdleCallback" in window ? requestIdleCallback(load, { timeout: 2500 }) : setTimeout(load, 900);
+  if (document.readyState === "complete") schedule();
+  else window.addEventListener("load", schedule, { once: true });
 }
 
 // ==========================================

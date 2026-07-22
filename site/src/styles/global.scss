@@ -1336,9 +1336,10 @@ html.js[data-motion="full"] {
   }
 }
 
-/* word-fill statement — words ink in on enter */
+/* word-fill statement — words ink in on enter. Resting color must still clear
+   WCAG contrast on paper (below-fold words sit here until scrolled into view). */
 [data-fill-words] .w {
-  color: var(--stone-200);
+  color: var(--stone-400);
   transition: color 0.5s var(--ease-out);
 }
 .sec-dark [data-fill-words] .w {
@@ -1420,7 +1421,7 @@ html:not(.js) .hl .hl-bar {
 .bframe .tb .url {
   margin-left: 12px;
   font: 400 0.75rem/1 var(--mono-family);
-  color: var(--fg3);
+  color: var(--fg2);
 }
 
 .bframe-body {
