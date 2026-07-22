@@ -232,13 +232,8 @@ import lambosSite from "@/assets/lambos-site.png";
     const descend = () => animateTo(dist, DESCENT_SPEED);
     const revert = () => animateTo(0, RETURN_SPEED);
 
-    if (touch) {
-      // no hover — scroll when the frame is in view, glide back when it leaves
-      new IntersectionObserver(
-        entries => entries.forEach(e => (e.isIntersecting ? descend() : revert())),
-        { threshold: 0.6 }
-      ).observe(frame);
-    } else {
+    if (!touch) {
+      // desktop only: hover to scroll down, leave to glide back
       frame.addEventListener("pointerenter", descend);
       frame.addEventListener("pointerleave", revert);
     }

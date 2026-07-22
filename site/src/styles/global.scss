@@ -3,6 +3,7 @@ html {
      authored against the 16px browser default, not the starter's old 20px. */
   font-size: 16px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 :root {

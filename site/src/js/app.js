@@ -73,7 +73,12 @@ function initLenis() {
 
 function lockScroll(lock) {
   if (lenis) lock ? lenis.stop() : lenis.start();
-  document.body.style.overflow = lock ? "hidden" : "";
+  if (lock) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+    document.body.style.overflowX = "hidden";
+  }
 }
 
 // ==========================================
