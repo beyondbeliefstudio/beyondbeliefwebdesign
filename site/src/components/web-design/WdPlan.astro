@@ -47,7 +47,12 @@ const plan = [
   <div class="container container-md">
     <div class="plan-grid">
       <aside class="plan-aside" data-reveal>
-        <span class="eyebrow"><span class="num">// 01</span> The plan</span>
+        <span class="eyebrow"
+          ><span class="cmt" aria-hidden="true">/*</span>The plan<span
+            class="cmt"
+            aria-hidden="true">*/</span
+          ></span
+        >
         <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
           One plan. Everything included.
         </Heading>
@@ -61,7 +66,9 @@ const plan = [
         {
           plan.map(row => (
             <div class="incl-row" data-reveal>
-              <span class="incl-icon"><Icon name={row.icon} /></span>
+              <span class="incl-icon">
+                <Icon name={row.icon} />
+              </span>
               <div class="incl-body">
                 <span class="incl-index">{row.index}</span>
                 <Heading

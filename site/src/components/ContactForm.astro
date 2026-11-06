@@ -41,7 +41,7 @@ const fid = (s: string) => `${name}-${s}`;
 
   <label class="field" for={fid("business")}>
     <span class="fl">Your business name</span>
-    <input type="text" id={fid("business")} name="business" placeholder="Smith &amp; Co." />
+    <input type="text" id={fid("business")} name="business" placeholder="Smith & Co." />
   </label>
 
   <label class="field" for={fid("email")}>
@@ -70,7 +70,8 @@ const fid = (s: string) => `${name}-${s}`;
   </label>
 
   <Buttons variant="primary" classes="form-submit">
-    {submitText} <span class="arr" aria-hidden="true">→</span>
+    {submitText}
+    <span class="arr" aria-hidden="true">→</span>
   </Buttons>
 </form>
 

@@ -16,7 +16,19 @@ const { title, eyebrow, lead } = Astro.props;
   <HeroBackdrop />
   <div class="container container-md">
     <div class="ih-in">
-      {eyebrow && <span class="eyebrow"><span class="num">//</span> {eyebrow}</span>}
+      {
+        eyebrow && (
+          <span class="eyebrow">
+            <span class="cmt" aria-hidden="true">
+              /*
+            </span>
+            {eyebrow}
+            <span class="cmt" aria-hidden="true">
+              */
+            </span>
+          </span>
+        )
+      }
       <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
         {title}
       </Heading>

@@ -1,5 +1,5 @@
 ---
-// Mono "// label" used above article section headings.
+// Mono /* label */ used above article section headings.
 interface Props {
   tone?: "tangerine" | "lime";
 }
@@ -20,6 +20,9 @@ const { tone = "tangerine" } = Astro.props;
     color: var(--lime-deep);
   }
   .post-kicker::before {
-    content: "// ";
+    content: "/* ";
+  }
+  .post-kicker::after {
+    content: " */";
   }
 </style>

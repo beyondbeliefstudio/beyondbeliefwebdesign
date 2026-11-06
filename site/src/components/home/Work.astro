@@ -9,6 +9,8 @@ import { Image } from "astro:assets";
 
 // IMAGES
 import fdCigarSite from "@/assets/fd-cigar-site.png";
+import quantumSite from "@/assets/quantum-site.png";
+import allTheRageSite from "@/assets/all-the-rage-site.png";
 import lambosSite from "@/assets/lambos-site.png";
 ---
 
@@ -16,7 +18,12 @@ import lambosSite from "@/assets/lambos-site.png";
   <div class="work-stage">
     <div class="work-track">
       <div class="work-card head-card">
-        <span class="eyebrow"><span class="num">// 05</span> The work</span>
+        <span class="eyebrow"
+          ><span class="cmt" aria-hidden="true">/*</span>The work<span
+            class="cmt"
+            aria-hidden="true">*/</span
+          ></span
+        >
         <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
           Real businesses. Real results.
         </Heading>
@@ -53,6 +60,58 @@ import lambosSite from "@/assets/lambos-site.png";
       </div>
 
       <div class="work-card">
+        <BrowserFrame url="quantumhomecares.net" class="bframe--scroll">
+          <Image
+            src={quantumSite}
+            alt="Quantum Home Cares website"
+            widths={[720, 1080]}
+            sizes="(max-width: 640px) 92vw, 780px"
+          />
+        </BrowserFrame>
+        <div class="work-meta">
+          <div>
+            <Heading tag="h3" size="s" fontFamily="primary" marginBottom="xs" weight="fw700">
+              Quantum Home Cares
+            </Heading>
+            <p>
+              In-home senior care across New Jersey, built on hands-on medical advocacy. I designed
+              the site to speak to overwhelmed families first, with clear paths for care
+              professionals and DDD support.
+            </p>
+          </div>
+          <a class="link" href="https://quantumhomecares.net" target="_blank" rel="noopener">
+            View the site <span class="larr" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <BrowserFrame url="alltheragecarpetcleaning.com" class="bframe--scroll">
+          <Image
+            src={allTheRageSite}
+            alt="All The Rage Carpet Cleaning website"
+            widths={[720, 1080]}
+            sizes="(max-width: 640px) 92vw, 780px"
+          />
+        </BrowserFrame>
+        <div class="work-meta">
+          <div>
+            <Heading tag="h3" size="s" fontFamily="primary" marginBottom="xs" weight="fw700">
+              All The Rage Carpet Cleaning
+            </Heading>
+            <p>
+              A veteran-owned Monroe cleaner with 25+ years of experience and no online presence, so
+              local searches were finding competitors first. I built their first site around clear
+              services, the towns they serve, and a phone number that's always a tap away.
+            </p>
+          </div>
+          <a class="link" href="https://alltheragecarpetcleaning.com" target="_blank" rel="noopener">
+            View the site <span class="larr" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="work-card">
         <BrowserFrame url="lambosgaragedoorservice.com" class="bframe--scroll">
           <Image
             src={lambosSite}
@@ -67,9 +126,9 @@ import lambosSite from "@/assets/lambos-site.png";
               Lambo's Garage Door Service
             </Heading>
             <p>
-              An outdated site, an unresponsive provider, and nowhere to be found on Google. I rebuilt
-              it from the ground up with all-new content, then added a local SEO package of 10 pages
-              targeting their core services and nearby towns to climb the local rankings.
+              An outdated site, an unresponsive provider, and nowhere to be found on Google. I
+              rebuilt it from the ground up with all-new content, then added a local SEO package of
+              10 pages targeting their core services and nearby towns to climb the local rankings.
             </p>
           </div>
           <a class="link" href="https://lambosgaragedoorservice.com" target="_blank" rel="noopener">

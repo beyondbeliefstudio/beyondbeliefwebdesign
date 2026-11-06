@@ -1,0 +1,246 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Links from "@/components/Links.astro";
+
+// DATA
+import { plans } from "@/data/pricingData";
+---
+
+<section id="plans" class="sec-pad">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"
+        ><span class="cmt" aria-hidden="true">/*</span>The plans<span class="cmt" aria-hidden="true"
+          >*/</span
+        ></span
+      >
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        Two plans, because three would only make this harder.
+      </Heading>
+      <p class="lead">
+        One is for businesses people find on Google Maps and through referrals. The other is for
+        businesses that have to win a search result. Both start at zero.
+      </p>
+    </div>
+
+    <div class="plan-grid" data-reveal>
+      {
+        plans.map((plan, i) => (
+          <article class:list={["plan", i === 1 && "plan--dark"]}>
+            {i === 1 && <span class="plan-glow" aria-hidden="true" />}
+            <div class="plan-in">
+              <span class="plan-name">{plan.name}</span>
+
+              <div class="price-big">
+                <sup>$</sup>
+                <span>{plan.price}</span> <small>{plan.cadence}</small>
+              </div>
+              <span class="plan-terms">{plan.terms}</span>
+
+              <p class="plan-for">
+                <strong>Built for</strong> {plan.audience}
+              </p>
+
+              {i === 1 && <p class="plan-inherit">Everything in Essentials, plus:</p>}
+
+              <div class="feats">
+                {plan.features.map(f => (
+                  <div class="feat">
+                    <span class="fk">{f.label}</span>
+                    <span class="fv">{f.detail}</span>
+                  </div>
+                ))}
+              </div>
+
+              {plan.excluded && <p class="plan-excl">{plan.excluded}</p>}
+
+              <div class="plan-cta">
+                <Links variant="primary" href="/#contact">
+                  Start with {plan.name}{" "}
+                  <span class="arr" aria-hidden="true">
+                    →
+                  </span>
+                </Links>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--_spacing---space--7);
+    align-items: start;
+  }
+
+  .plan {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    padding: clamp(28px, 3.2vw, 44px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+  }
+  .plan--dark {
+    color: var(--paper);
+    background: var(--ink-900);
+    border-color: var(--ink-900);
+  }
+  .plan-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(460px 320px at 15% 108%, rgba(204, 255, 0, 0.22), transparent 65%);
+  }
+  .plan-in {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .plan-name {
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--fg3);
+    margin-bottom: var(--_spacing---space--7);
+
+    .plan--dark & {
+      color: var(--stone-300);
+    }
+  }
+
+  .price-big {
+    font: 800 clamp(2.9rem, 4.6vw, 4.2rem)/1 var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--fg1);
+    font-variant-numeric: tabular-nums;
+
+    .plan--dark & {
+      color: var(--paper);
+    }
+    sup {
+      font-size: 0.38em;
+      font-weight: 700;
+      vertical-align: super;
+      color: var(--fg1);
+    }
+    .plan--dark & sup {
+      color: var(--lime);
+    }
+    small {
+      font-size: 0.28em;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--fg3);
+    }
+    .plan--dark & small {
+      color: var(--stone-300);
+    }
+  }
+
+  /* Lime as a chip, never as text on cream. */
+  .plan-terms {
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: var(--_spacing---space--6);
+    padding: 6px 10px;
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ink-900);
+    background: var(--lime);
+    border: 1.5px solid var(--ink-900);
+    border-radius: var(--radius-sm);
+  }
+
+  .plan-for {
+    margin: var(--_spacing---space--7) 0 var(--_spacing---space--8);
+    font: 400 0.9375rem/1.6 var(--font-body);
+    color: var(--fg2);
+    text-wrap: pretty;
+
+    strong {
+      color: var(--fg1);
+    }
+    .plan--dark & {
+      color: var(--stone-200);
+    }
+    .plan--dark & strong {
+      color: var(--paper);
+    }
+  }
+
+  .plan-inherit {
+    margin: 0 0 var(--_spacing---space--6);
+    font: 700 0.72rem/1.4 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--lime);
+  }
+
+  .feats {
+    border-top: 1px solid var(--border);
+
+    .plan--dark & {
+      border-top-color: var(--ink-600);
+    }
+  }
+  .feat {
+    padding: var(--_spacing---space--6) 0;
+    border-bottom: 1px solid var(--border);
+
+    .plan--dark & {
+      border-bottom-color: var(--ink-600);
+    }
+  }
+  .fk {
+    display: block;
+    margin-bottom: 6px;
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--fg3);
+
+    .plan--dark & {
+      color: var(--stone-300);
+    }
+  }
+  .fv {
+    display: block;
+    max-width: 46ch;
+    font: 400 0.9375rem/1.55 var(--font-body);
+    color: var(--fg1);
+    text-wrap: pretty;
+
+    .plan--dark & {
+      color: var(--stone-100);
+    }
+  }
+
+  .plan-excl {
+    margin: var(--_spacing---space--7) 0 0;
+    font: 400 13.5px/1.6 var(--font-body);
+    color: var(--fg3);
+    text-wrap: pretty;
+  }
+
+  .plan-cta {
+    margin-top: var(--_spacing---space--8);
+  }
+
+  @media (max-width: 900px) {
+    .plan-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

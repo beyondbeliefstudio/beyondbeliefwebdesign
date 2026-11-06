@@ -17,17 +17,31 @@ const sizes = {
 const fontFamilies = { primary: "ff-primary", secondary: "ff-secondary" };
 
 const marginBottoms = {
-  xl: "mb-xl", l: "mb-l", m: "mb-m", s: "mb-s", xs: "mb-xs", none: "mb-none",
+  xl: "mb-xl",
+  l: "mb-l",
+  m: "mb-m",
+  s: "mb-s",
+  xs: "mb-xs",
+  none: "mb-none",
 };
 
 const weights = {
-  fw100: "fw-100", fw200: "fw-200", fw300: "fw-300", fw400: "fw-400",
-  fw500: "fw-500", fw600: "fw-600", fw700: "fw-700", fw800: "fw-800", fw900: "fw-900",
+  fw100: "fw-100",
+  fw200: "fw-200",
+  fw300: "fw-300",
+  fw400: "fw-400",
+  fw500: "fw-500",
+  fw600: "fw-600",
+  fw700: "fw-700",
+  fw800: "fw-800",
+  fw900: "fw-900",
 };
 
 const textTransforms = {
-  uppercase: "text-uppercase", lowercase: "text-lowercase",
-  capitalize: "text-capitalize", none: "text-none",
+  uppercase: "text-uppercase",
+  lowercase: "text-lowercase",
+  capitalize: "text-capitalize",
+  none: "text-none",
 };
 
 interface Props extends HTMLAttributes<keyof typeof tags> {
@@ -61,39 +75,100 @@ const CustomTag = tag;
 </CustomTag>
 
 <style>
-  .default { line-height: 1; text-wrap: balance; }
+  .default {
+    line-height: 1;
+    text-wrap: balance;
+  }
 
-  .fs-display { font-size: var(--_typography---font-size--display); }
-  .fs-xxl     { font-size: var(--_typography---font-size--h1); }
-  .fs-xl      { font-size: var(--_typography---font-size--h2); }
-  .fs-l       { font-size: var(--_typography---font-size--h3); }
-  .fs-m       { font-size: var(--_typography---font-size--h4); }
-  .fs-s       { font-size: var(--_typography---font-size--h5); }
-  .fs-xs      { font-size: var(--_typography---font-size--h6); }
-  .fs-xxs     { font-size: var(--_typography---font-size--text-small); }
+  .fs-display {
+    font-size: var(--_typography---font-size--display);
+  }
+  .fs-xxl {
+    font-size: var(--_typography---font-size--h1);
+  }
+  .fs-xl {
+    font-size: var(--_typography---font-size--h2);
+  }
+  .fs-l {
+    font-size: var(--_typography---font-size--h3);
+  }
+  .fs-m {
+    font-size: var(--_typography---font-size--h4);
+  }
+  .fs-s {
+    font-size: var(--_typography---font-size--h5);
+  }
+  .fs-xs {
+    font-size: var(--_typography---font-size--h6);
+  }
+  .fs-xxs {
+    font-size: var(--_typography---font-size--text-small);
+  }
 
-  .ff-primary   { font-family: var(--primary-family); }
-  .ff-secondary { font-family: var(--secondary-family); }
+  .ff-primary {
+    font-family: var(--primary-family);
+  }
+  .ff-secondary {
+    font-family: var(--secondary-family);
+  }
 
-  .mb-xl   { margin-bottom: 2rem; }
-  .mb-l    { margin-bottom: 1.5rem; }
-  .mb-m    { margin-bottom: 1rem; }
-  .mb-s    { margin-bottom: 0.5rem; }
-  .mb-xs   { margin-bottom: 0.25rem; }
-  .mb-none { margin-bottom: 0; }
+  .mb-xl {
+    margin-bottom: 2rem;
+  }
+  .mb-l {
+    margin-bottom: 1.5rem;
+  }
+  .mb-m {
+    margin-bottom: 1rem;
+  }
+  .mb-s {
+    margin-bottom: 0.5rem;
+  }
+  .mb-xs {
+    margin-bottom: 0.25rem;
+  }
+  .mb-none {
+    margin-bottom: 0;
+  }
 
-  .fw-100 { font-weight: 100; }
-  .fw-200 { font-weight: 200; }
-  .fw-300 { font-weight: 300; }
-  .fw-400 { font-weight: 400; }
-  .fw-500 { font-weight: 500; }
-  .fw-600 { font-weight: 600; }
-  .fw-700 { font-weight: 700; }
-  .fw-800 { font-weight: 800; }
-  .fw-900 { font-weight: 900; }
+  .fw-100 {
+    font-weight: 100;
+  }
+  .fw-200 {
+    font-weight: 200;
+  }
+  .fw-300 {
+    font-weight: 300;
+  }
+  .fw-400 {
+    font-weight: 400;
+  }
+  .fw-500 {
+    font-weight: 500;
+  }
+  .fw-600 {
+    font-weight: 600;
+  }
+  .fw-700 {
+    font-weight: 700;
+  }
+  .fw-800 {
+    font-weight: 800;
+  }
+  .fw-900 {
+    font-weight: 900;
+  }
 
-  .text-uppercase  { text-transform: uppercase; }
-  .text-lowercase  { text-transform: lowercase; }
-  .text-capitalize { text-transform: capitalize; }
-  .text-none       { text-transform: none; }
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+  .text-lowercase {
+    text-transform: lowercase;
+  }
+  .text-capitalize {
+    text-transform: capitalize;
+  }
+  .text-none {
+    text-transform: none;
+  }
 </style>

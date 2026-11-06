@@ -48,8 +48,12 @@ const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
             aria-current={current ? "page" : undefined}
           >
             <span class="mo-num">{String(i + 1).padStart(2, "0")}</span>
-            <span class="mo-word"><span class="mo-inner">{item.title}</span></span>
-            <span class="mo-arr" aria-hidden="true">→</span>
+            <span class="mo-word">
+              <span class="mo-inner">{item.title}</span>
+            </span>
+            <span class="mo-arr" aria-hidden="true">
+              →
+            </span>
             <span class="mo-marq" aria-hidden="true">
               <span class="mo-marq-track">
                 {Array.from({ length: 16 }).map(() => (
@@ -382,12 +386,24 @@ const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
   html.menu-open .mo-inner {
     transform: translateY(0);
   }
-  html.menu-open .mo-link:nth-child(1) .mo-inner { transition-delay: 0.09s; }
-  html.menu-open .mo-link:nth-child(2) .mo-inner { transition-delay: 0.13s; }
-  html.menu-open .mo-link:nth-child(3) .mo-inner { transition-delay: 0.17s; }
-  html.menu-open .mo-link:nth-child(4) .mo-inner { transition-delay: 0.21s; }
-  html.menu-open .mo-link:nth-child(5) .mo-inner { transition-delay: 0.25s; }
-  html.menu-open .mo-link:nth-child(6) .mo-inner { transition-delay: 0.29s; }
+  html.menu-open .mo-link:nth-child(1) .mo-inner {
+    transition-delay: 0.09s;
+  }
+  html.menu-open .mo-link:nth-child(2) .mo-inner {
+    transition-delay: 0.13s;
+  }
+  html.menu-open .mo-link:nth-child(3) .mo-inner {
+    transition-delay: 0.17s;
+  }
+  html.menu-open .mo-link:nth-child(4) .mo-inner {
+    transition-delay: 0.21s;
+  }
+  html.menu-open .mo-link:nth-child(5) .mo-inner {
+    transition-delay: 0.25s;
+  }
+  html.menu-open .mo-link:nth-child(6) .mo-inner {
+    transition-delay: 0.29s;
+  }
 
   .mo-foot {
     position: relative;
@@ -433,8 +449,12 @@ const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
   }
 
   @media (max-height: 760px) {
-    #menu-overlay { padding-top: 84px; }
-    .mo-link .mo-inner { font-size: clamp(1.7rem, 4.4vh, 3rem); }
+    #menu-overlay {
+      padding-top: 84px;
+    }
+    .mo-link .mo-inner {
+      font-size: clamp(1.7rem, 4.4vh, 3rem);
+    }
   }
 
   /* reduced motion / no-JS: overlay opens instantly, words sit in final state */

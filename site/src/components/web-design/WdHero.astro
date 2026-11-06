@@ -23,7 +23,8 @@ const photoLabels = [
 
   <div class="hero-grid container container-full">
     <div class="hero-copy">
-      <span class="eyebrow hero-badge"><span class="dot"></span>Custom web design · Monroe, NC</span>
+      <span class="eyebrow hero-badge"><span class="dot"></span>Custom web design · Monroe, NC</span
+      >
       <div class="lines svc-h1">
         <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
           <span class="line"><span class="line-inner">A website that works</span></span>
@@ -49,14 +50,22 @@ const photoLabels = [
 
     <div class="hero-photos" aria-hidden="true">
       <div class="photo-col col-a">
-        {[...photoLabels.slice(0, 5), ...photoLabels.slice(0, 5)].map(label => (
-          <div class="photo-tile"><span>{label}</span></div>
-        ))}
+        {
+          [...photoLabels.slice(0, 5), ...photoLabels.slice(0, 5)].map(label => (
+            <div class="photo-tile">
+              <span>{label}</span>
+            </div>
+          ))
+        }
       </div>
       <div class="photo-col col-b">
-        {[...photoLabels.slice(5), ...photoLabels.slice(5)].map(label => (
-          <div class="photo-tile"><span>{label}</span></div>
-        ))}
+        {
+          [...photoLabels.slice(5), ...photoLabels.slice(5)].map(label => (
+            <div class="photo-tile">
+              <span>{label}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>
@@ -78,7 +87,8 @@ const photoLabels = [
     grid-template-columns: 1fr 1.1fr;
     gap: var(--_spacing---section-space--large);
     align-items: center;
-    padding: var(--_spacing---section-space--xl) var(--site--margin) var(--_spacing---section-space--large);
+    padding: var(--_spacing---section-space--xl) var(--site--margin)
+      var(--_spacing---section-space--large);
   }
 
   .hero-copy .hero-badge {
@@ -141,18 +151,30 @@ const photoLabels = [
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .col-a { animation: scrollUp 80s linear infinite; }
-    .col-b { animation: scrollDown 100s linear infinite; }
+    .col-a {
+      animation: scrollUp 80s linear infinite;
+    }
+    .col-b {
+      animation: scrollDown 100s linear infinite;
+    }
   }
 
   @keyframes scrollUp {
-    from { transform: translateY(0); }
-    to { transform: translateY(-50%); }
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50%);
+    }
   }
 
   @keyframes scrollDown {
-    from { transform: translateY(-50%); }
-    to { transform: translateY(0); }
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0);
+    }
   }
 
   @media (max-width: 860px) {

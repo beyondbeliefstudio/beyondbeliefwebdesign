@@ -91,7 +91,9 @@ const projects = [
         <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
           <span class="line"><span class="line-inner">Real businesses. Real websites.</span></span>
           <span class="line"
-            ><span class="line-inner"><span class="hl">Real results.<span class="hl-bar"></span></span></span></span
+            ><span class="line-inner"
+              ><span class="hl">Real results.<span class="hl-bar"></span></span></span
+            ></span
           >
         </Heading>
       </div>
@@ -164,9 +166,10 @@ const projects = [
           Want to be on this page?
         </Heading>
         <p>
-          Every business you see here started with a conversation. If you are ready to have a website
-          that actually works for your business, let's talk. And if you are not quite ready to commit,
-          I will design your homepage for free, so you can see exactly what is possible first.
+          Every business you see here started with a conversation. If you are ready to have a
+          website that actually works for your business, let's talk. And if you are not quite ready
+          to commit, I will design your homepage for free, so you can see exactly what is possible
+          first.
         </p>
         <div class="btn-wrapper">
           <Links variant="primary" href="/contact">
@@ -174,8 +177,8 @@ const projects = [
           </Links>
         </div>
         <p class="wc-text">
-          Or just text me at <a href={telHref}>{baseData.phone}</a>. No pressure, no forms, just a real
-          conversation.
+          Or just text me at <a href={telHref}>{baseData.phone}</a>. No pressure, no forms, just a
+          real conversation.
         </p>
       </div>
     </div>
@@ -227,8 +230,13 @@ const projects = [
     display: grid;
     place-items: center;
     aspect-ratio: 16 / 10;
-    background:
-      repeating-linear-gradient(135deg, var(--paper-sunken), var(--paper-sunken) 18px, var(--stone-100) 18px, var(--stone-100) 19px);
+    background: repeating-linear-gradient(
+      135deg,
+      var(--paper-sunken),
+      var(--paper-sunken) 18px,
+      var(--stone-100) 18px,
+      var(--stone-100) 19px
+    );
 
     span {
       padding: 8px 14px;
@@ -298,7 +306,9 @@ const projects = [
     text-decoration: none;
     border-bottom: 1.5px solid var(--border-strong);
     padding-bottom: 4px;
-    transition: border-color var(--dur), gap var(--dur);
+    transition:
+      border-color var(--dur),
+      gap var(--dur);
 
     .proj-url {
       font-family: var(--mono-family);

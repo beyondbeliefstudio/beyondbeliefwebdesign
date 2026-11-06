@@ -1,0 +1,133 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+// DATA
+import { comparisonColumns, comparisonRows } from "@/data/pricingData";
+---
+
+<section id="compare" class="sec-pad band">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"
+        ><span class="cmt" aria-hidden="true">/*</span>The comparison<span
+          class="cmt"
+          aria-hidden="true">*/</span
+        ></span
+      >
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        What the alternatives actually cost you.
+      </Heading>
+      <p class="lead">
+        Not just in money. The freelancer column is where most of my competition lives, and the last
+        row is the one worth reading twice.
+      </p>
+    </div>
+
+    <div class="cmp-wrap" data-reveal tabindex="0" role="region" aria-label="Plan comparison table">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th scope="col"><span class="vh">Feature</span></th>
+            {
+              comparisonColumns.map(col => (
+                <th scope="col" class:list={[col === "Beyond Belief" && "is-bb"]}>
+                  {col}
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            comparisonRows.map(row => (
+              <tr>
+                <th scope="row">{row.label}</th>
+                <td>{row.diy}</td>
+                <td>{row.freelancer}</td>
+                <td>{row.agency}</td>
+                <td class="is-bb">{row.bb}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .vh {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Wide table scrolls inside its own box so the page never scrolls sideways. */
+  .cmp-wrap {
+    overflow-x: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .cmp {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font: 400 0.9375rem/1.4 var(--font-body);
+  }
+
+  .cmp th,
+  .cmp td {
+    padding: var(--_spacing---space--6) var(--_spacing---space--6);
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cmp thead th {
+    font: 700 0.66rem/1.3 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--fg3);
+    background: var(--paper-sunken);
+    border-bottom: 1.5px solid var(--ink-900);
+    white-space: nowrap;
+  }
+
+  .cmp tbody th {
+    font: 700 0.9375rem/1.4 var(--font-body);
+    color: var(--fg1);
+    white-space: nowrap;
+  }
+
+  .cmp td {
+    color: var(--fg2);
+  }
+
+  .cmp tbody tr:last-child th,
+  .cmp tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* The Beyond Belief column carries the emphasis. */
+  .cmp .is-bb {
+    font-weight: 600;
+    color: var(--fg1);
+    background: var(--lime-wash);
+    border-left: 1.5px solid var(--ink-900);
+    border-right: 1.5px solid var(--ink-900);
+  }
+  .cmp thead .is-bb {
+    color: var(--ink-900);
+    background: var(--lime);
+    border-top: 1.5px solid var(--ink-900);
+  }
+  .cmp tbody tr:last-child .is-bb {
+    border-bottom: 1.5px solid var(--ink-900);
+  }
+</style>

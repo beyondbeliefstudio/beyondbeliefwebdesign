@@ -25,7 +25,12 @@ const beliefs = [
 <section id="believe" class="sec-pad band">
   <div class="container container-md">
     <div class="section-head" data-reveal>
-      <span class="eyebrow"><span class="num">// 04</span> What I believe</span>
+      <span class="eyebrow"
+        ><span class="cmt" aria-hidden="true">/*</span>What I believe<span
+          class="cmt"
+          aria-hidden="true">*/</span
+        ></span
+      >
       <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
         A website is not a box to check.
       </Heading>
@@ -40,8 +45,17 @@ const beliefs = [
       {
         beliefs.map(b => (
           <div class="card">
-            <span class="icon-box"><Icon name={b.icon} /></span>
-            <Heading tag="h3" size="s" fontFamily="primary" marginBottom="s" weight="fw700" lineHeight="1.12">
+            <span class="icon-box">
+              <Icon name={b.icon} />
+            </span>
+            <Heading
+              tag="h3"
+              size="s"
+              fontFamily="primary"
+              marginBottom="s"
+              weight="fw700"
+              lineHeight="1.12"
+            >
               {b.title}
             </Heading>
             <p>{b.body}</p>

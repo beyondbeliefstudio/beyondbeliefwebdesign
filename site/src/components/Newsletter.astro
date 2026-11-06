@@ -29,11 +29,19 @@ import Heading from "@/components/Heading.astro";
         >
           <input type="hidden" name="form-name" value="newsletter" />
           <p class="hidden" aria-hidden="true">
-            <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            <label
+              >Don't fill this out: <input
+                name="bot-field"
+                tabindex="-1"
+                autocomplete="off"
+              /></label
+            >
           </p>
           <label class="sr-only" for="news-email">Your email</label>
           <input type="email" id="news-email" name="email" placeholder="you@example.com" required />
-          <button type="submit" class="btn primary">Subscribe <span class="arr" aria-hidden="true">→</span></button>
+          <button type="submit" class="btn primary"
+            >Subscribe <span class="arr" aria-hidden="true">→</span></button
+          >
         </form>
         <p class="sub-note">✦ Unsubscribe anytime. I'll never sell your email.</p>
       </div>
@@ -80,7 +88,9 @@ import Heading from "@/components/Heading.astro";
       border: 1.5px solid var(--ink-600);
       border-radius: var(--radius-pill);
       outline: none;
-      transition: border-color var(--dur), box-shadow var(--dur);
+      transition:
+        border-color var(--dur),
+        box-shadow var(--dur);
 
       &::placeholder {
         color: var(--stone-400);

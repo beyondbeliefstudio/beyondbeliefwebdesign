@@ -1,0 +1,144 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+// The staged rollout is genuinely the better SEO play, so it is sold as
+// strategy here rather than buried in the Professional feature table.
+const stages = [
+  {
+    when: "At launch",
+    what: "5 to 8 pages",
+    body: "The pages that earn you calls first. Home, your core services, and the ones people actually search for.",
+  },
+  {
+    when: "Every month after",
+    what: "2 to 3 more",
+    body: "New service pages, new location pages, new content. Each one gets indexed properly instead of competing with twenty others.",
+  },
+  {
+    when: "By month six or so",
+    what: "Your full count",
+    body: "Up to 25 pages on Professional, all of them crawled, indexed, and pulling their weight.",
+  },
+];
+---
+
+<section id="rollout" class="sec-pad band">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"
+        ><span class="cmt" aria-hidden="true">/*</span>How the pages roll out<span
+          class="cmt"
+          aria-hidden="true">*/</span
+        ></span
+      >
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        Why I don't launch 25 pages on day one.
+      </Heading>
+      <p class="lead">
+        It sounds better to get everything at once. It works worse, and here is the honest reason
+        why.
+      </p>
+    </div>
+
+    <div class="ro-grid" data-reveal>
+      <div class="ro-copy">
+        <p>
+          A brand new domain has almost no credit with Google. It will crawl a handful of your pages
+          and then wait to see whether you are worth coming back for. Publish twenty-five pages on
+          launch day and most of them sit uncrawled for months, which means they rank for nothing.
+        </p>
+        <p>
+          So we launch with the pages that earn you calls, then add two or three every month. Each
+          batch gets indexed properly. Google sees a site that keeps growing and keeps coming back
+          to check. And you see real work happening every month instead of one big day followed by
+          silence.
+        </p>
+        <p class="strong">
+          It is the better strategy. It also happens to be the honest one, which is why it is how
+          the plan is built rather than something quietly done to you.
+        </p>
+      </div>
+
+      <ol class="ro-stages">
+        {
+          stages.map(stage => (
+            <li class="ro-stage">
+              <span class="ro-when">{stage.when}</span>
+              <span class="ro-what">{stage.what}</span>
+              <p>{stage.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .ro-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+  }
+
+  .ro-copy p {
+    max-width: 58ch;
+    margin: 0 0 var(--_spacing---space--7);
+    font: 400 var(--_typography---font-size--text-main) / 1.65 var(--font-body);
+    color: var(--fg2);
+    text-wrap: pretty;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &.strong {
+      font-weight: 600;
+      color: var(--fg1);
+    }
+  }
+
+  .ro-stages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---space--6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: stage;
+  }
+  .ro-stage {
+    padding: var(--_spacing---space--7);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .ro-when {
+    display: block;
+    margin-bottom: 4px;
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+  .ro-what {
+    display: block;
+    margin-bottom: var(--_spacing---space--5);
+    font: 800 clamp(1.4rem, 2.2vw, 1.8rem)/1.1 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--fg1);
+  }
+  .ro-stage p {
+    margin: 0;
+    font: 400 0.9375rem/1.55 var(--font-body);
+    color: var(--fg2);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 900px) {
+    .ro-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

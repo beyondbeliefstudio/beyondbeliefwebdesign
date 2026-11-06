@@ -79,8 +79,8 @@ const related = all.filter(p => p.id !== post.id).slice(0, 3);
           See exactly what's included in my plan
         </Heading>
         <p>
-          One flat monthly rate covers design, build, hosting, maintenance, and unlimited updates, no
-          upfront wall.
+          One flat monthly rate covers design, build, hosting, maintenance, and unlimited updates,
+          no upfront wall.
         </p>
       </div>
       <Links variant="primary" href="/web-design">
@@ -97,8 +97,8 @@ const related = all.filter(p => p.id !== post.id).slice(0, 3);
         </Heading>
         <p>
           I hand-code websites from scratch for local businesses around Monroe, NC. No templates, no
-          page builders, no agencies in the middle. Just straight answers and sites that actually pull
-          their weight.
+          page builders, no agencies in the middle. Just straight answers and sites that actually
+          pull their weight.
         </p>
       </div>
     </div>
@@ -109,12 +109,19 @@ const related = all.filter(p => p.id !== post.id).slice(0, 3);
     <div class="container container-md">
       <div class="related-head" data-reveal>
         <div>
-          <span class="eyebrow"><span class="num">// 02</span> Keep reading</span>
+          <span class="eyebrow"
+            ><span class="cmt" aria-hidden="true">/*</span>Keep reading<span
+              class="cmt"
+              aria-hidden="true">*/</span
+            ></span
+          >
           <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
             More straight talk.
           </Heading>
         </div>
-        <a class="link related-all" href="/blog">All posts <span class="larr" aria-hidden="true">→</span></a>
+        <a class="link related-all" href="/blog"
+          >All posts <span class="larr" aria-hidden="true">→</span></a
+        >
       </div>
       <div class="related-grid">
         {
@@ -365,7 +372,9 @@ const related = all.filter(p => p.id !== post.id).slice(0, 3);
     transition: box-shadow var(--dur);
 
     &:hover {
-      box-shadow: var(--shadow-md), 0 0 0 1px rgba(166, 204, 0, 0.2);
+      box-shadow:
+        var(--shadow-md),
+        0 0 0 1px rgba(166, 204, 0, 0.2);
     }
 
     p {

@@ -1,0 +1,180 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+import Icon from "@/components/Icon.astro";
+
+const owned = [
+  {
+    icon: "window",
+    title: "Your domain",
+    body: "Registered in your name, on your account. If you ever leave, it leaves with you.",
+  },
+  {
+    icon: "server",
+    title: "Your hosting",
+    body: "The hosting account is yours. I manage it, but it has your name on it, not mine.",
+  },
+  {
+    icon: "pin",
+    title: "Your Google Business Profile",
+    body: "Set up and optimized under your Google account. It is the single most valuable local asset you own.",
+  },
+  {
+    icon: "bar-up",
+    title: "Your analytics",
+    body: "GA4 and Search Console, configured on your account, so your traffic history is yours forever.",
+  },
+];
+---
+
+<section id="ownership" class="sec-pad sec-dark">
+  <div class="container container-md">
+    <div class="own-grid">
+      <div class="own-copy" data-reveal>
+        <span class="eyebrow"
+          ><span class="cmt" aria-hidden="true">/*</span>What you own<span
+            class="cmt"
+            aria-hidden="true">*/</span
+          ></span
+        >
+        <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="m" weight="fw700">
+          All of it is in your name. From day one.
+        </Heading>
+        <p>
+          Plenty of people have been burned by a web company that held their domain hostage, or
+          registered their Google Business Profile under an account nobody could get back into. It
+          is one of the most common stories I hear, and it is the reason none of it happens here.
+        </p>
+        <p class="strong">
+          I do not hold anything of yours. Not the domain, not the hosting, not the profile that
+          your customers actually find you through.
+        </p>
+
+        <div class="own-exit">
+          <span class="oe-label">And when the term is up</span>
+          <p>
+            After the 12 months you can cancel and take a static export of the site, or the code
+            repository itself. There is no hostage situation and no penalty for leaving. Almost
+            nobody ever uses this, which is rather the point of offering it.
+          </p>
+        </div>
+      </div>
+
+      <ul class="own-list" data-reveal>
+        {
+          owned.map(item => (
+            <li class="own-item">
+              <span class="own-icon">
+                <Icon name={item.icon} />
+              </span>
+              <div>
+                <span class="own-title">{item.title}</span>
+                <p>{item.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .own-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.92fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+  }
+
+  .own-copy p {
+    max-width: 54ch;
+    margin: 0 0 var(--_spacing---space--7);
+    font: 400 var(--_typography---font-size--text-main) / 1.65 var(--font-body);
+    color: var(--stone-200);
+    text-wrap: pretty;
+
+    &.strong {
+      font-weight: 600;
+      color: var(--paper);
+    }
+  }
+
+  .own-exit {
+    max-width: 54ch;
+    margin-top: var(--_spacing---space--8);
+    padding: var(--_spacing---space--7);
+    background: var(--ink-800);
+    border: 1px solid var(--ink-600);
+    border-radius: var(--radius-lg);
+  }
+  .oe-label {
+    display: inline-block;
+    margin-bottom: var(--_spacing---space--5);
+    padding: 6px 10px;
+    font: 700 0.66rem/1 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ink-900);
+    background: var(--lime);
+    border-radius: var(--radius-sm);
+  }
+  .own-exit p {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  .own-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---space--5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .own-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--_spacing---space--6);
+    padding: var(--_spacing---space--7);
+    background: var(--ink-800);
+    border: 1px solid var(--ink-600);
+    border-radius: var(--radius-lg);
+  }
+  .own-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    color: var(--lime);
+    background: var(--ink-900);
+    border: 1px solid var(--ink-600);
+    border-radius: var(--radius-md);
+
+    :global(svg) {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .own-title {
+    display: block;
+    margin-bottom: 4px;
+    font: 700 1.0625rem/1.3 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--paper);
+  }
+  .own-item p {
+    max-width: 42ch;
+    margin: 0;
+    font: 400 0.9375rem/1.55 var(--font-body);
+    color: var(--stone-200);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 900px) {
+    .own-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

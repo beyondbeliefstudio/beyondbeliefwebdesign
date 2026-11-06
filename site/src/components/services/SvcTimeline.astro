@@ -1,0 +1,161 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+const timeline = [
+  {
+    week: "Week one",
+    body: "We have a discovery call about your business, your customers, and what the site actually needs to do. Your homepage design is usually ready to review within that first week.",
+  },
+  {
+    week: "Weeks two and three",
+    body: "You give feedback on the homepage, then I build out the rest of the site with your input at every step. Nothing goes live that you have not seen.",
+  },
+  {
+    week: "Within 30 days",
+    body: "Your site is live, indexed, and working. Analytics and Search Console are configured, and your Google Business Profile is set up and pointed at it.",
+  },
+];
+---
+
+<section id="timeline" class="sec-pad">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"
+        ><span class="cmt" aria-hidden="true">/*</span>Timeline<span class="cmt" aria-hidden="true"
+          >*/</span
+        ></span
+      >
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        From first conversation to live website in under 30 days.
+      </Heading>
+      <p class="lead">Most web designers drag projects out for months. That is not how I work.</p>
+    </div>
+
+    <div class="tl" data-reveal>
+      {
+        timeline.map((item, i) => (
+          <div class="tl-item">
+            <div class="tl-node">
+              <div class="tl-mark">{String(i + 1).padStart(2, "0")}</div>
+            </div>
+            <div class="tl-body">
+              <Heading tag="h3" size="l" fontFamily="primary" marginBottom="s" weight="fw700">
+                {item.week}
+              </Heading>
+              <p>{item.body}</p>
+            </div>
+          </div>
+        ))
+      }
+      <div class="tl-item">
+        <div class="tl-node">
+          <div class="tl-mark fin">✦</div>
+        </div>
+        <div class="tl-body">
+          <Heading tag="h3" size="l" fontFamily="primary" marginBottom="s" weight="fw700">
+            Thirty days, in the agreement.
+          </Heading>
+          <p>
+            Billing starts when you sign, not when the site goes live, and the 30-day build window
+            is written into the agreement rather than promised on a call. That way the clock is on
+            me, which is
+            <span class="hl">exactly where it should be.<span class="hl-bar"></span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .tl {
+    margin-top: var(--_spacing---section-space--large);
+  }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: clamp(24px, 3.5vw, 48px);
+    padding-bottom: var(--_spacing---section-space--small);
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  .tl-node {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Spine from the bottom of one circle to the centre of the next. */
+  .tl-item:not(:last-child) .tl-node::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - 1px);
+    top: 52px;
+    bottom: calc(-1 * var(--_spacing---section-space--small) - 26px);
+    width: 2px;
+    background: var(--lime-deep);
+  }
+
+  .tl-mark {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    font: 800 var(--_typography---font-size--h5) / 1 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--ink-900);
+    background: var(--paper-raised);
+    border: 2px solid var(--ink-900);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+  }
+  .tl-mark.fin {
+    font-size: var(--_typography---font-size--text-large);
+    font-weight: 400;
+    letter-spacing: 0;
+    background: var(--lime);
+  }
+
+  .tl-body {
+    padding-top: 10px;
+  }
+  .tl-body :global(h3) {
+    font-size: clamp(1.35rem, 1.85vw, 1.65rem);
+    line-height: 1.15;
+    letter-spacing: var(--track-tight);
+    color: var(--fg1);
+  }
+  .tl-body p {
+    max-width: 56ch;
+    font: 400 var(--_typography---font-size--text-main) / 1.62 var(--font-body);
+    color: var(--fg2);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 560px) {
+    .tl-item {
+      grid-template-columns: 40px 1fr;
+      gap: 16px;
+    }
+    .tl-mark {
+      width: 40px;
+      height: 40px;
+      font-size: var(--_typography---font-size--text-small);
+    }
+    .tl-mark.fin {
+      font-size: var(--_typography---font-size--text-main);
+    }
+    .tl-item:not(:last-child) .tl-node::after {
+      top: 40px;
+      bottom: calc(-1 * var(--_spacing---section-space--small) - 20px);
+    }
+  }
+</style>

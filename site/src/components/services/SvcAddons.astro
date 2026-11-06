@@ -1,0 +1,144 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+// DATA
+import { addOnGroups } from "@/data/pricingData";
+---
+
+<section id="add-ons" class="sec-pad">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"
+        ><span class="cmt" aria-hidden="true">/*</span>Add-ons<span class="cmt" aria-hidden="true"
+          >*/</span
+        ></span
+      >
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="s" weight="fw700">
+        Everything else, priced in the open.
+      </Heading>
+      <p class="lead">
+        These stack onto either plan. None of them is a hidden third tier, and you will never be
+        quoted one of these without asking for it first.
+      </p>
+    </div>
+
+    <div class="ao-groups">
+      {
+        addOnGroups.map(group => (
+          <div class="ao-group" data-reveal>
+            <div class="ao-head">
+              <Heading tag="h3" size="m" fontFamily="primary" marginBottom="s" weight="fw700">
+                {group.title}
+              </Heading>
+              <p class="ao-intro">{group.intro}</p>
+            </div>
+
+            <ul class="ao-list">
+              {group.items.map(item => (
+                <li class="ao-row">
+                  <div class="ao-main">
+                    <span class="ao-name">{item.name}</span>
+                    <span class="ao-price">{item.price}</span>
+                  </div>
+                  <p class="ao-note">{item.note}</p>
+                </li>
+              ))}
+            </ul>
+
+            {group.footnote && <p class="ao-foot">{group.footnote}</p>}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .ao-groups {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---section-space--small);
+  }
+
+  .ao-group {
+    display: grid;
+    grid-template-columns: 0.62fr 1fr;
+    gap: clamp(28px, 4vw, 64px);
+    align-items: start;
+    padding-top: var(--_spacing---space--8);
+    border-top: 1.5px solid var(--ink-900);
+  }
+
+  .ao-intro {
+    max-width: 38ch;
+    margin: 0;
+    font: 400 0.9375rem/1.6 var(--font-body);
+    color: var(--fg2);
+    text-wrap: pretty;
+  }
+
+  .ao-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ao-row {
+    padding: var(--_spacing---space--6) 0;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+  .ao-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--_spacing---space--5);
+    margin-bottom: 6px;
+  }
+  .ao-name {
+    font: 700 1.0625rem/1.3 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--fg1);
+  }
+  .ao-price {
+    flex: none;
+    font: 700 0.72rem/1.4 var(--mono-family);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--fg1);
+    white-space: nowrap;
+  }
+  .ao-note {
+    max-width: 62ch;
+    margin: 0;
+    font: 400 0.9375rem/1.6 var(--font-body);
+    color: var(--fg2);
+    text-wrap: pretty;
+  }
+
+  .ao-foot {
+    grid-column: 2;
+    max-width: 62ch;
+    margin: var(--_spacing---space--7) 0 0;
+    padding: var(--_spacing---space--7);
+    font: 400 0.9375rem/1.6 var(--font-body);
+    color: var(--fg2);
+    background: var(--paper-sunken);
+    border-radius: var(--radius-lg);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 900px) {
+    .ao-group {
+      grid-template-columns: 1fr;
+      gap: var(--_spacing---space--8);
+    }
+    .ao-foot {
+      grid-column: 1;
+    }
+  }
+</style>

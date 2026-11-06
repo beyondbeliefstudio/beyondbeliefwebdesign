@@ -41,7 +41,11 @@ const faqs = [
 <section id="faq" class="sec-pad band">
   <div class="container container-md">
     <div class="section-head" data-reveal>
-      <span class="eyebrow"><span class="num">// 06</span> FAQ</span>
+      <span class="eyebrow"
+        ><span class="cmt" aria-hidden="true">/*</span>FAQ<span class="cmt" aria-hidden="true"
+          >*/</span
+        ></span
+      >
       <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
         Questions people always ask.
       </Heading>
@@ -143,7 +147,9 @@ const faqs = [
       height: 2px;
       background: var(--ink-900);
       transform: translate(-50%, -50%);
-      transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out);
+      transition:
+        transform var(--dur) var(--ease-out),
+        opacity var(--dur) var(--ease-out);
     }
 
     &::after {

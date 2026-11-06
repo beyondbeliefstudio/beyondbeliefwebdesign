@@ -29,11 +29,15 @@ const collage = [chrisComputer, chrisComputer, chrisComputer, chrisComputer];
   <div class="collage-scrim" aria-hidden="true"></div>
 
   <div class="hero-in container container-md">
-    <span class="eyebrow hero-badge"><span class="dot"></span>The person behind the pixels · Monroe, NC</span>
+    <span class="eyebrow hero-badge"
+      ><span class="dot"></span>The person behind the pixels · Monroe, NC</span
+    >
     <div class="lines about-h1">
       <Heading tag="h1" size="xxl" fontFamily="primary" marginBottom="none" weight="fw800">
         <span class="line"
-          ><span class="line-inner">Hi, I'm <span class="hl">Chris.<span class="hl-bar"></span></span></span></span
+          ><span class="line-inner"
+            >Hi, I'm <span class="hl">Chris.<span class="hl-bar"></span></span></span
+          ></span
         >
         <span class="line"><span class="line-inner">I build websites</span></span>
         <span class="line"><span class="line-inner">for local businesses.</span></span>
@@ -104,13 +108,21 @@ const collage = [chrisComputer, chrisComputer, chrisComputer, chrisComputer];
   }
 
   @keyframes aboutUp {
-    from { transform: translateY(0%); }
-    to { transform: translateY(-50%); }
+    from {
+      transform: translateY(0%);
+    }
+    to {
+      transform: translateY(-50%);
+    }
   }
 
   @keyframes aboutDown {
-    from { transform: translateY(-50%); }
-    to { transform: translateY(0%); }
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
   }
 
   .collage-scrim {
@@ -119,8 +131,19 @@ const collage = [chrisComputer, chrisComputer, chrisComputer, chrisComputer];
     z-index: 1;
     pointer-events: none;
     background:
-      radial-gradient(80% 70% at 50% 50%, rgba(245, 246, 239, 0.92), rgba(245, 246, 239, 0.62) 55%, transparent 100%),
-      linear-gradient(to bottom, var(--paper), rgba(245, 246, 239, 0.2) 30%, rgba(245, 246, 239, 0.2) 70%, var(--paper));
+      radial-gradient(
+        80% 70% at 50% 50%,
+        rgba(245, 246, 239, 0.92),
+        rgba(245, 246, 239, 0.62) 55%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to bottom,
+        var(--paper),
+        rgba(245, 246, 239, 0.2) 30%,
+        rgba(245, 246, 239, 0.2) 70%,
+        var(--paper)
+      );
   }
 
   .hero-in {

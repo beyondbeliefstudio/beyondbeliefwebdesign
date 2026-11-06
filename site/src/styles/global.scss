@@ -32,7 +32,10 @@ section {
   /* Signal — electric lime. One loud voice; use sparingly. */
   --lime: #ccff00;
   --lime-bright: #d4ff1a;
-  --lime-deep: #a6cc00; /* lime-on-light text/stroke safe */
+  --lime-deep: #a6cc00; /* strokes, icons and fills on light — NOT a text color:
+                            1.8:1 on --paper, so it fails even the 3:1 large-text bar.
+                            For an accent on cream, use a lime chip (ink text on a
+                            lime ground), the way .tier-terms and the check marks do. */
   --lime-wash: rgba(204, 255, 0, 0.12);
 
   /* Secondary accent — tangerine. Only small negative/technical marks. */
@@ -161,8 +164,8 @@ section {
   --_typography---font-size--text-large: clamp(1.05rem, 1.4vw, 1.3rem); /* .lead */
   --_typography---font-size--text-main: 1rem;
   --_typography---font-size--text-small: 0.875rem;
-  --_typography---font-size--label: 0.66rem;       /* tiny mono labels: index tags, chips, captions */
-  --_typography---font-size--mono-sm: 0.72rem;     /* small mono (matches .mono-sm class size) */
+  --_typography---font-size--label: 0.66rem; /* tiny mono labels: index tags, chips, captions */
+  --_typography---font-size--mono-sm: 0.72rem; /* small mono (matches .mono-sm class size) */
   --_typography---font-size--price: clamp(3.5rem, 6vw, 5.5rem); /* hero/callout price numbers */
 
   /* FLUID SPACING SCALE */
@@ -242,7 +245,8 @@ a {
   transition: 0.25s ease-in-out color;
 
   &:hover {
-    color: var(--brand-primary-dark); /* lime-deep — neon lime fails contrast on paper */
+    color: var(--fg1);
+    text-decoration-thickness: 2px;
   }
 }
 
@@ -777,8 +781,10 @@ select {
     list-style: disc;
   }
 
+  /* Underlined by the prose-link rule above; ink keeps it readable (18:1)
+     where lime-deep was 1.8:1. */
   a {
-    color: var(--lime-deep);
+    color: var(--fg1);
   }
 
   em {
@@ -884,8 +890,12 @@ html[data-motion="off"] .hl .hl-bar {
 }
 
 /* ---- eyebrow accents (base .eyebrow lives in the typography helpers above) ---- */
-.eyebrow .num {
-  color: var(--tangerine-deep);
+/* Section labels read as a code comment: /* Label *\/. Muted and lighter than
+   the label itself, the way every editor renders a comment. Kept at --fg3
+   (4.8:1 on paper) rather than an accent, since this is small uppercase text. */
+.eyebrow .cmt {
+  font-weight: 400;
+  color: var(--fg3);
 }
 
 .eyebrow .dot {
@@ -1097,8 +1107,8 @@ html[data-motion="off"] .hl .hl-bar {
 .sec-dark .eyebrow {
   color: var(--stone-300);
 }
-.sec-dark .eyebrow .num {
-  color: var(--stone-400);
+.sec-dark .eyebrow .cmt {
+  color: var(--stone-300);
 }
 .sec-dark .link {
   color: var(--paper);

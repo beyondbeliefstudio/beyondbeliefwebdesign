@@ -1,0 +1,186 @@
+---
+// COMPONENTS
+import Heading from "@/components/Heading.astro";
+
+const faqs = [
+  {
+    q: "Is there really nothing upfront?",
+    a: "Nothing. No deposit, no setup fee, no first-and-last. You sign, I start building, and your first monthly payment is the first money that changes hands. Agencies cannot match this because their cash flow depends on the deposit.",
+  },
+  {
+    q: "Do you use AI to build my site?",
+    a: "AI is part of how I work and I am not going to pretend otherwise. It makes me faster and you get the benefit of that in the price. What I do not do is generate a site and ship it. Every line of code is written and reviewed by me, and your content is researched and edited for your business rather than pulled off a shelf. The problem with a generated site is not that a machine touched it. It is that nobody made a single decision about it. Somebody made every decision about yours.",
+  },
+  {
+    q: "Do I own my website and everything attached to it?",
+    a: "Yes, all of it, from day one. Your domain, hosting, Google Business Profile, and analytics are registered in your name on your accounts. I manage them for you, but I do not hold them. If you leave, they leave with you.",
+  },
+  {
+    q: "What does the 12-month term mean, and what happens after?",
+    a: "It means I ask you to stay for the first year, because building a real online presence takes time and twelve months is the shortest run where it actually works. After that you are month to month and can cancel anytime. If you do, you can take a static export of the site or the code repository itself.",
+  },
+  {
+    q: "What counts as a page?",
+    a: "Only a brand new URL. New sections, photo galleries, testimonial blocks, seasonal updates, and form changes are edits, and edits are unlimited. If you are not sure whether something counts, ask me and I will tell you straight.",
+  },
+  {
+    q: "What does unlimited content updates actually cover?",
+    a: "Text, photos, hours, services, prices, new sections, seasonal changes. Send it over and it gets done, usually the same day. There is no hourly rate and no per-change fee, because clients who fear a bill for every small edit stop asking, and then the site goes stale.",
+  },
+  {
+    q: "Do I have to write the content myself?",
+    a: "No, and there is no extra charge for it. You know your business better than anyone, so I ask the right questions on the discovery call and turn your answers into copy that sounds like you and works for search. You do not need to be a writer.",
+  },
+  {
+    q: "What if I do not have good photos?",
+    a: "Not a problem. If you have great photos we will use them. If you do not, I will help source or generate professional looking imagery so the site still looks sharp. A shortage of photos has never stopped a good website from getting built.",
+  },
+  {
+    q: "Will you build a site for my competitor?",
+    a: "No. One business per industry per region. If I am already building for a plumber in Monroe, I am not taking another one. It is the one promise here that costs me money, and it is the reason you can talk to me openly about what is actually working for you.",
+  },
+  {
+    q: "Why not just buy a website outright?",
+    a: "You are really asking whether you are renting your own site, and the answer is no. You own the domain, the hosting, the profile, and the analytics either way, and after the term you can take the code. If you genuinely want to buy it outright instead, ask me and I will quote it honestly. Most people look at that number and choose the plan.",
+  },
+  {
+    q: "What if I already have a website?",
+    a: "Then we migrate it properly. That means mapping your existing URLs to the new ones with redirects, so the rankings and links you have already earned carry over instead of evaporating on launch day. For sites over about a hundred URLs there is a migration fee, listed above.",
+  },
+  {
+    q: "Can I switch plans later?",
+    a: "Anytime, in either direction. Most people start on Essentials and move up when they are ready to compete on search. Your rate for the plan you are on never goes up, even when I raise prices for new clients.",
+  },
+];
+---
+
+<section id="faq" class="sec-pad">
+  <div class="container container-md">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"
+        ><span class="cmt" aria-hidden="true">/*</span>FAQ<span class="cmt" aria-hidden="true"
+          >*/</span
+        ></span
+      >
+      <Heading tag="h2" size="xl" fontFamily="primary" marginBottom="none" weight="fw700">
+        Questions people always ask.
+      </Heading>
+    </div>
+
+    <div class="faq-list" data-reveal>
+      {
+        faqs.map((item, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary>
+              <span class="faq-index">{String(i + 1).padStart(2, "0")}</span>
+              <span class="faq-q">{item.q}</span>
+              <span class="faq-plus" aria-hidden="true" />
+            </summary>
+            <div class="faq-a">
+              <p>{item.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_spacing---space--4);
+    max-width: 940px;
+    margin-top: var(--_spacing---section-space--small);
+  }
+
+  .faq-item {
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: border-color var(--dur) var(--ease-out);
+
+    &:hover {
+      border-color: var(--ink-900);
+    }
+  }
+
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    gap: var(--_spacing---space--6);
+    padding: var(--_spacing---space--7);
+    cursor: pointer;
+    list-style: none;
+    outline: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  .faq-index {
+    flex: none;
+    width: 2.2ch;
+    font: 700 var(--_typography---font-size--mono-sm) / 1 var(--mono-family);
+    letter-spacing: 0.1em;
+    color: var(--fg3);
+  }
+
+  .faq-q {
+    flex: 1;
+    font: 700 var(--_typography---font-size--text-large) / 1.3 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--fg1);
+    text-wrap: pretty;
+  }
+
+  .faq-plus {
+    position: relative;
+    flex: none;
+    width: 38px;
+    height: 38px;
+    background: var(--lime);
+    border: 2px solid var(--ink-900);
+    border-radius: 50%;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 14px;
+      height: 2px;
+      background: var(--ink-900);
+      transform: translate(-50%, -50%);
+      transition:
+        transform var(--dur) var(--ease-out),
+        opacity var(--dur) var(--ease-out);
+    }
+    &::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+  }
+
+  .faq-item[open] .faq-plus::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0;
+  }
+
+  .faq-a {
+    padding: var(--_spacing---space--7);
+    padding-left: calc(var(--_spacing---space--7) + 2.2ch + var(--_spacing---space--6));
+    border-top: 1px solid var(--border-color);
+
+    p {
+      max-width: 68ch;
+      margin: 0;
+      font: 400 var(--_typography---font-size--text-main) / 1.65 var(--font-body);
+      color: var(--fg2);
+      text-wrap: pretty;
+    }
+  }
+</style>

@@ -7,6 +7,8 @@ const { dataKey } = Astro.props;
 const isDev = import.meta.env.DEV;
 ---
 
-{!isDev && dataKey && (
-  <script async src="https://analytics.ahrefs.com/analytics.js" data-key={dataKey} />
-)}
+{
+  !isDev && dataKey && (
+    <script async src="https://analytics.ahrefs.com/analytics.js" data-key={dataKey} />
+  )
+}

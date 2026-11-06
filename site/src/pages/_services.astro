@@ -1,0 +1,32 @@
+---
+// LAYOUTS
+import Layout from "@/layouts/Layout.astro";
+
+// COMPONENTS
+import InternalHero from "@/components/InternalHero.astro";
+import SvcPlans from "@/components/services/SvcPlans.astro";
+import SvcRollout from "@/components/services/SvcRollout.astro";
+import SvcTimeline from "@/components/services/SvcTimeline.astro";
+import SvcAddons from "@/components/services/SvcAddons.astro";
+import SvcOwnership from "@/components/services/SvcOwnership.astro";
+import SvcCompare from "@/components/services/SvcCompare.astro";
+import SvcFaq from "@/components/services/SvcFaq.astro";
+---
+
+<Layout
+  pageTitle="Services & Pricing | Beyond Belief Web Design"
+  description="Two plans, nothing upfront. Hand-coded websites for local businesses in Monroe, NC from $149 a month, with hosting, unlimited updates and content written for you."
+>
+  <InternalHero
+    eyebrow="Services & pricing"
+    title="Two plans. Nothing upfront."
+    lead="Every price I charge is on this page, including the add-ons. No packages that only exist on a sales call, and no number you have to ask twice to get."
+  />
+  <SvcPlans />
+  <SvcRollout />
+  <SvcTimeline />
+  <SvcAddons />
+  <SvcOwnership />
+  <SvcCompare />
+  <SvcFaq />
+</Layout>

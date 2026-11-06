@@ -26,12 +26,12 @@ interface Props {
 const {
   eyebrow = "Let's build something",
   title = "Let's build something your business is proud of.",
-  body = "If you are ready to stop losing customers to competitors with better websites, this is where it starts. Reach out and we will have a straightforward conversation about your business and what your new site could look like.",
+  body = "If you are ready to stop losing customers to competitors with better websites, this is where it starts. Reach out and we will have a straightforward conversation about your business and what your new site could look like. Nothing is due upfront, and everything we build stays in your name.",
   textMeHeading = "Or honestly, just text me.",
   reassurance = "No forms, no back and forth, no pressure. Just shoot me a text and we'll go from here. I'm a real person and I actually respond.",
   freeQuestion = "Not ready to commit yet?",
   freeBody = "I will design your homepage completely free so you can see exactly what your site could look like first.",
-  formEyebrow = "// Start a project",
+  formEyebrow = "Start a project",
   submitText = "Get started today",
   formName = "contact",
 } = Astro.props;
@@ -49,14 +49,16 @@ const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
           {title}
         </Heading>
         <p class="cbody">{body}</p>
-        {freeQuestion && (
-          <div class="cta-free">
-            <hr class="cta-free__rule" />
-            <p class="cta-free__text">
-              <strong>{freeQuestion}</strong>{" "}{freeBody}
-            </p>
-          </div>
-        )}
+        {
+          freeQuestion && (
+            <div class="cta-free">
+              <hr class="cta-free__rule" />
+              <p class="cta-free__text">
+                <strong>{freeQuestion}</strong> {freeBody}
+              </p>
+            </div>
+          )
+        }
         <div class="text-me">
           <Heading tag="h3" size="s" fontFamily="primary" marginBottom="none" weight="fw700">
             {textMeHeading}
@@ -68,7 +70,12 @@ const telHref = `tel:${baseData.phone.replace(/[^\d+]/g, "")}`;
 
       <div class="cta-right" data-reveal>
         <div class="form-card">
-          <span class="eyebrow fc-eyebrow">{formEyebrow}</span>
+          <span class="eyebrow fc-eyebrow"
+            ><span class="cmt" aria-hidden="true">/*</span>{formEyebrow}<span
+              class="cmt"
+              aria-hidden="true">*/</span
+            ></span
+          >
           <ContactForm name={formName} submitText={submitText} />
         </div>
       </div>

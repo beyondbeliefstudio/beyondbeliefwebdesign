@@ -20,9 +20,9 @@ const { field = true, map = true } = Astro.props;
 ---
 
 <div class="field-wrap" aria-hidden="true">
-  {field && <canvas id="field-canvas"></canvas>}
+  {field && <canvas id="field-canvas" />}
 </div>
-{map && <div class="hero-map" aria-hidden="true"></div>}
+{map && <div class="hero-map" aria-hidden="true" />}
 <div class="field-fade" aria-hidden="true"></div>
 
 <style lang="scss">
@@ -35,8 +35,7 @@ const { field = true, map = true } = Astro.props;
     background:
       radial-gradient(60% 50% at 20% 18%, rgba(204, 255, 0, 0.1), transparent 60%),
       radial-gradient(55% 45% at 82% 28%, rgba(183, 189, 175, 0.18), transparent 62%),
-      radial-gradient(70% 60% at 50% 102%, rgba(166, 204, 0, 0.08), transparent 60%),
-      var(--paper);
+      radial-gradient(70% 60% at 50% 102%, rgba(166, 204, 0, 0.08), transparent 60%), var(--paper);
   }
 
   #field-canvas {
