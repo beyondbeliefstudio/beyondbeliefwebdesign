@@ -74,6 +74,9 @@ const fid = (s: string) => `${name}-${s}`;
   </label>
 
   <div class="form-recaptcha" data-netlify-recaptcha="true"></div>
+  <p class="form-error" role="alert" hidden>
+    Please check the “I’m not a robot” box so I know you’re a real person.
+  </p>
 
   <Buttons variant="primary" classes="form-submit">
     {submitText}
@@ -92,9 +95,26 @@ const fid = (s: string) => `${name}-${s}`;
   form .form-recaptcha {
     min-height: 78px;
   }
+  /* Tangerine text fails contrast on the cream card, so the error is ink text on
+     a tangerine wash with a tangerine edge (same idea as lime chips on cream). */
+  form .form-error {
+    margin: 8px 0 0;
+    padding: 10px 14px;
+    font: 500 0.8125rem/1.45 var(--font-body);
+    color: var(--fg1);
+    background: var(--tangerine-wash);
+    border-left: 3px solid var(--tangerine-deep);
+    border-radius: var(--radius-sm);
+  }
+  form .form-error[hidden] {
+    display: none;
+  }
+  /* A transform doesn't shrink layout, so the scaled widget gets a fixed height
+     to avoid leaving the unscaled 78px of space behind it. */
   @media (max-width: 420px) {
     form .form-recaptcha {
-      min-height: 66px;
+      height: 66px;
+      min-height: 0;
     }
     form .form-recaptcha > div {
       transform: scale(0.85);
@@ -103,10 +123,44 @@ const fid = (s: string) => `${name}-${s}`;
   }
   @media (max-width: 350px) {
     form .form-recaptcha {
-      min-height: 56px;
+      height: 56px;
     }
     form .form-recaptcha > div {
       transform: scale(0.72);
     }
   }
 </style>
+
+<script>
+  // Without this, an un-ticked reCAPTCHA still submits and Netlify rejects it with
+  // a bare error page. Stop the submit here and explain instead. Only blocks when
+  // the widget actually rendered (its response field exists); if Google's script
+  // failed to load, the form submits as before and Netlify decides.
+  document.querySelectorAll<HTMLFormElement>("form[data-netlify-recaptcha]").forEach(form => {
+    const error = form.querySelector<HTMLElement>(".form-error");
+    if (!error) return;
+    const token = () =>
+      form.querySelector<HTMLTextAreaElement>('[name="g-recaptcha-response"]');
+
+    // reCAPTCHA fills its field programmatically (no input event), so watch for it
+    // while the error is showing and clear the error once the box is ticked.
+    let watch = 0;
+    const clear = () => {
+      error.hidden = true;
+      window.clearInterval(watch);
+      watch = 0;
+    };
+
+    form.addEventListener("submit", e => {
+      const field = token();
+      if (!field || field.value) return;
+      e.preventDefault();
+      error.hidden = false;
+      if (!watch) {
+        watch = window.setInterval(() => {
+          if (token()?.value) clear();
+        }, 400);
+      }
+    });
+  });
+</script>
