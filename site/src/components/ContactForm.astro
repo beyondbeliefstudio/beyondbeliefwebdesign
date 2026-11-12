@@ -2,6 +2,9 @@
 // BB contact form. Netlify-wired with a honeypot. Fields follow the handoff:
 // name / business / email / (optional phone) / "what does your business do?".
 // Each .field is a <label> wrapping its input for implicit association.
+// Spam: Netlify's honeypot plus Netlify-managed reCAPTCHA v2. Netlify swaps the
+// data-netlify-recaptcha div for the Google widget at deploy time and verifies the
+// token server-side, so no keys live here and the widget does not appear in local dev.
 import Buttons from "@/components/Buttons.astro";
 
 interface Props {
@@ -25,6 +28,7 @@ const fid = (s: string) => `${name}-${s}`;
 <form
   data-netlify="true"
   netlify-honeypot="bot-field"
+  data-netlify-recaptcha="true"
   name={name}
   method="POST"
   action="/submit-contact"
@@ -69,6 +73,8 @@ const fid = (s: string) => `${name}-${s}`;
       placeholder={messagePlaceholder}></textarea>
   </label>
 
+  <div class="form-recaptcha" data-netlify-recaptcha="true"></div>
+
   <Buttons variant="primary" classes="form-submit">
     {submitText}
     <span class="arr" aria-hidden="true">→</span>
@@ -79,5 +85,28 @@ const fid = (s: string) => `${name}-${s}`;
   form .form-submit {
     align-self: flex-start;
     margin-top: 8px;
+  }
+  /* Google's widget is a fixed 304×78 iframe. Reserve its height so the button
+     doesn't jump when it loads. Below ~420px the form card is narrower than the
+     widget (262px at a 360px viewport), so scale it down rather than crop it. */
+  form .form-recaptcha {
+    min-height: 78px;
+  }
+  @media (max-width: 420px) {
+    form .form-recaptcha {
+      min-height: 66px;
+    }
+    form .form-recaptcha > div {
+      transform: scale(0.85);
+      transform-origin: 0 0;
+    }
+  }
+  @media (max-width: 350px) {
+    form .form-recaptcha {
+      min-height: 56px;
+    }
+    form .form-recaptcha > div {
+      transform: scale(0.72);
+    }
   }
 </style>
